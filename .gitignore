@@ -1,0 +1,4 @@
+# Generated datasets (run data/download_datasets.py)
+data/out/
+data/downloads/
+__pycache__/

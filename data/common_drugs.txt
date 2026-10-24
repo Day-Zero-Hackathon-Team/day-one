@@ -1,0 +1,221 @@
+# Common discharge medicines (generic names), one per line.
+# download_datasets.py looks each one up in openFDA. Add or remove freely.
+# Cardiac / blood pressure
+furosemide
+torsemide
+bumetanide
+hydrochlorothiazide
+chlorthalidone
+spironolactone
+eplerenone
+lisinopril
+enalapril
+ramipril
+benazepril
+losartan
+valsartan
+irbesartan
+olmesartan
+candesartan
+sacubitril and valsartan
+amlodipine
+nifedipine
+diltiazem
+verapamil
+metoprolol tartrate
+metoprolol succinate
+carvedilol
+atenolol
+bisoprolol
+propranolol
+labetalol
+nebivolol
+hydralazine
+isosorbide mononitrate
+isosorbide dinitrate
+nitroglycerin
+clonidine
+digoxin
+amiodarone
+sotalol
+dofetilide
+flecainide
+ranolazine
+# Cholesterol
+atorvastatin
+rosuvastatin
+simvastatin
+pravastatin
+lovastatin
+ezetimibe
+fenofibrate
+# Blood thinners / antiplatelets
+warfarin
+apixaban
+rivaroxaban
+dabigatran
+edoxaban
+enoxaparin
+heparin
+aspirin
+clopidogrel
+ticagrelor
+prasugrel
+# Diabetes
+metformin
+glipizide
+glimepiride
+glyburide
+pioglitazone
+sitagliptin
+linagliptin
+empagliflozin
+dapagliflozin
+canagliflozin
+liraglutide
+semaglutide
+dulaglutide
+insulin glargine
+insulin lispro
+insulin aspart
+insulin detemir
+# Lungs
+albuterol
+ipratropium
+tiotropium
+fluticasone
+budesonide
+budesonide and formoterol
+fluticasone and salmeterol
+montelukast
+prednisone
+methylprednisolone
+dexamethasone
+benzonatate
+guaifenesin
+# Antibiotics / antivirals
+amoxicillin
+amoxicillin and clavulanate
+cephalexin
+cefdinir
+cefuroxime
+cefpodoxime
+ceftriaxone
+azithromycin
+clarithromycin
+doxycycline
+ciprofloxacin
+levofloxacin
+moxifloxacin
+sulfamethoxazole and trimethoprim
+nitrofurantoin
+metronidazole
+clindamycin
+linezolid
+vancomycin
+fluconazole
+acyclovir
+valacyclovir
+oseltamivir
+# Pain
+acetaminophen
+ibuprofen
+naproxen
+celecoxib
+meloxicam
+ketorolac
+oxycodone
+oxycodone and acetaminophen
+hydrocodone and acetaminophen
+morphine
+hydromorphone
+tramadol
+tapentadol
+gabapentin
+pregabalin
+lidocaine
+cyclobenzaprine
+methocarbamol
+tizanidine
+baclofen
+naloxone
+# Stomach / bowels
+omeprazole
+pantoprazole
+esomeprazole
+lansoprazole
+famotidine
+sucralfate
+ondansetron
+metoclopramide
+prochlorperazine
+promethazine
+docusate
+senna
+polyethylene glycol 3350
+bisacodyl
+lactulose
+loperamide
+simethicone
+# Mental health / sleep / neuro
+sertraline
+escitalopram
+citalopram
+fluoxetine
+paroxetine
+venlafaxine
+duloxetine
+bupropion
+mirtazapine
+trazodone
+quetiapine
+olanzapine
+risperidone
+aripiprazole
+haloperidol
+lorazepam
+alprazolam
+clonazepam
+diazepam
+zolpidem
+melatonin
+levetiracetam
+phenytoin
+lamotrigine
+valproic acid
+carbamazepine
+topiramate
+donepezil
+memantine
+carbidopa and levodopa
+# Thyroid / hormones
+levothyroxine
+methimazole
+estradiol
+medroxyprogesterone
+# Kidney / urinary / prostate
+tamsulosin
+finasteride
+oxybutynin
+sevelamer
+calcium acetate
+sodium bicarbonate
+potassium chloride
+# Gout / bones / supplements
+allopurinol
+colchicine
+alendronate
+calcium carbonate
+cholecalciferol
+ferrous sulfate
+folic acid
+cyanocobalamin
+thiamine
+magnesium oxide
+multivitamin
+# Allergy
+cetirizine
+loratadine
+diphenhydramine
+hydroxyzine
+epinephrine

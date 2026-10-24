@@ -188,7 +188,7 @@ docker compose up -d    # start Zetaris
 
 ### 2. Load the datasets
 
-Load `drug_reference`, `medical_terms`, and `hospital_records` into Zetaris (see [Where Zetaris fits](#where-zetaris-fits)).
+Download `drug_reference`, `medical_terms`, and `hospital_records` with `python3 data/download_datasets.py`, then load them into Zetaris. The full walkthrough is in [`data/README.md`](data/README.md).
 
 ### 3. Run the pipeline
 
