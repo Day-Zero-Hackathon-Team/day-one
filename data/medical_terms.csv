@@ -1,0 +1,199 @@
+term,category,meaning,plain_language
+QD,dosing,once daily,once a day
+daily,dosing,once daily,once a day
+BID,dosing,twice daily,two times a day
+TID,dosing,three times daily,three times a day
+QID,dosing,four times daily,four times a day
+QHS,dosing,every night at bedtime,every night at bedtime
+HS,dosing,at bedtime,at bedtime
+QAM,dosing,every morning,every morning
+QPM,dosing,every evening,every evening
+QOD,dosing,every other day,every other day
+q4h,dosing,every 4 hours,every 4 hours
+q6h,dosing,every 6 hours,every 6 hours
+q8h,dosing,every 8 hours,every 8 hours
+q12h,dosing,every 12 hours,every 12 hours
+PRN,dosing,as needed,only when you need it
+AC,dosing,before meals,before you eat
+PC,dosing,after meals,after you eat
+STAT,dosing,immediately,right away
+x7d,dosing,for 7 days,for 7 days
+PO,route,by mouth,swallow it
+SL,route,sublingual,let it melt under your tongue
+IV,route,intravenous,through a needle into a vein
+IM,route,intramuscular,a shot into a muscle
+SC,route,subcutaneous,a shot just under the skin
+SQ,route,subcutaneous,a shot just under the skin
+subQ,route,subcutaneous,a shot just under the skin
+TOP,route,topical,put it on your skin
+INH,route,inhaled,breathe it in
+neb,route,nebulizer,a machine that turns medicine into a mist you breathe in
+PR,route,per rectum,put it in your bottom
+gtt,route,drops,drops
+OD,route,right eye,right eye
+OS,route,left eye,left eye
+OU,route,both eyes,both eyes
+mg,unit,milligram,milligrams (a small amount by weight)
+mcg,unit,microgram,micrograms (a very small amount by weight)
+g,unit,gram,grams
+mL,unit,milliliter,milliliters (a small amount of liquid)
+tab,unit,tablet,pill
+cap,unit,capsule,capsule
+puff,unit,one spray from an inhaler,one spray from your inhaler
+units,unit,units (insulin or heparin dose),units
+mEq,unit,milliequivalent,a dose amount used for things like potassium
+lb,unit,pound,pounds
+kg,unit,kilogram,kilograms
+NPO,instruction,nothing by mouth,do not eat or drink anything
+DC,instruction,discontinue or discharge,stop (or leave the hospital)
+d/c,instruction,discontinue or discharge,stop (or leave the hospital)
+WBAT,instruction,weight bearing as tolerated,you can put weight on it if it feels okay
+NWB,instruction,non-weight bearing,do not put any weight on it
+TTWB,instruction,toe-touch weight bearing,only touch your toes to the ground
+ADLs,instruction,activities of daily living,everyday tasks like bathing and dressing
+I&O,instruction,intake and output,keep track of what you drink and how much you pee
+f/u,instruction,follow-up,next check-up visit
+FU,instruction,follow-up,next check-up visit
+RTC,instruction,return to clinic,go back to the clinic
+PCP,instruction,primary care provider,your family doctor
+ED,instruction,emergency department,the emergency room
+ER,instruction,emergency room,the emergency room
+AMA,instruction,against medical advice,leaving even though the doctor advised you to stay
+SNF,instruction,skilled nursing facility,a nursing home for rehab or care
+HH,instruction,home health,a nurse or therapist who visits your home
+PT,instruction,physical therapy,exercises to help you move better
+OT,instruction,occupational therapy,help with everyday tasks like dressing
+SLP,instruction,speech-language pathology,help with speaking or swallowing
+CHF,diagnosis,congestive heart failure,your heart does not pump as strongly as it should
+HF,diagnosis,heart failure,your heart does not pump as strongly as it should
+HFrEF,diagnosis,heart failure with reduced ejection fraction,a weak heart pump
+HFpEF,diagnosis,heart failure with preserved ejection fraction,a stiff heart that does not fill well
+CAD,diagnosis,coronary artery disease,narrowed blood vessels in the heart
+MI,diagnosis,myocardial infarction,a heart attack
+NSTEMI,diagnosis,non-ST-elevation myocardial infarction,a type of heart attack
+STEMI,diagnosis,ST-elevation myocardial infarction,a serious type of heart attack
+ACS,diagnosis,acute coronary syndrome,a sudden blockage of blood flow to the heart
+AFib,diagnosis,atrial fibrillation,an irregular heartbeat
+AF,diagnosis,atrial fibrillation,an irregular heartbeat
+HTN,diagnosis,hypertension,high blood pressure
+HLD,diagnosis,hyperlipidemia,high cholesterol
+DVT,diagnosis,deep vein thrombosis,a blood clot in a leg vein
+PE,diagnosis,pulmonary embolism,a blood clot in the lungs
+CVA,diagnosis,cerebrovascular accident,a stroke
+TIA,diagnosis,transient ischemic attack,a mini-stroke
+PVD,diagnosis,peripheral vascular disease,poor blood flow to the legs or arms
+PAD,diagnosis,peripheral artery disease,poor blood flow to the legs or arms
+COPD,diagnosis,chronic obstructive pulmonary disease,a long-term lung disease that makes it hard to breathe
+CAP,diagnosis,community-acquired pneumonia,a lung infection you caught outside the hospital
+PNA,diagnosis,pneumonia,a lung infection
+URI,diagnosis,upper respiratory infection,a cold or infection in the nose and throat
+OSA,diagnosis,obstructive sleep apnea,breathing stops and starts during sleep
+DM,diagnosis,diabetes mellitus,diabetes (high blood sugar)
+T1DM,diagnosis,type 1 diabetes mellitus,type 1 diabetes
+T2DM,diagnosis,type 2 diabetes mellitus,type 2 diabetes
+DKA,diagnosis,diabetic ketoacidosis,a dangerous problem from very high blood sugar
+CKD,diagnosis,chronic kidney disease,long-term kidney damage
+AKI,diagnosis,acute kidney injury,your kidneys suddenly stopped working well
+ESRD,diagnosis,end-stage renal disease,kidney failure
+UTI,diagnosis,urinary tract infection,an infection in the bladder or kidneys
+BPH,diagnosis,benign prostatic hyperplasia,an enlarged prostate
+GERD,diagnosis,gastroesophageal reflux disease,acid reflux or heartburn
+GI bleed,diagnosis,gastrointestinal bleed,bleeding in the stomach or bowels
+SBO,diagnosis,small bowel obstruction,a blockage in the small intestine
+IBD,diagnosis,inflammatory bowel disease,long-term swelling in the bowels
+C. diff,diagnosis,Clostridioides difficile infection,a bowel infection that causes bad diarrhea
+cellulitis,diagnosis,skin infection,a skin infection
+sepsis,diagnosis,sepsis,a serious body-wide reaction to an infection
+UGIB,diagnosis,upper gastrointestinal bleed,bleeding in the stomach or upper bowels
+CA,diagnosis,cancer,cancer
+Fx,diagnosis,fracture,a broken bone
+s/p,diagnosis,status post,after (a surgery or event)
+Hx,diagnosis,history,history
+PMH,diagnosis,past medical history,health problems you have had before
+Dx,diagnosis,diagnosis,what the doctors found
+Tx,diagnosis,treatment,treatment
+Rx,diagnosis,prescription,prescription
+Sx,diagnosis,symptoms,symptoms
+exacerbation,diagnosis,flare-up of a disease,a flare-up (when a health problem gets worse)
+acute,diagnosis,sudden or short-term,sudden
+chronic,diagnosis,long-lasting,long-term
+benign,diagnosis,not cancer,not cancer
+edema,symptom,swelling from fluid,swelling
+dyspnea,symptom,shortness of breath,trouble breathing
+SOB,symptom,shortness of breath,trouble breathing
+DOE,symptom,dyspnea on exertion,out of breath when you are active
+orthopnea,symptom,shortness of breath when lying flat,trouble breathing when lying down
+CP,symptom,chest pain,chest pain
+syncope,symptom,fainting,fainting
+palpitations,symptom,feeling the heart racing or pounding,a racing or pounding heartbeat
+N/V,symptom,nausea and vomiting,feeling sick and throwing up
+hematuria,symptom,blood in urine,blood in your pee
+melena,symptom,black tarry stool,black sticky poop
+hematochezia,symptom,bright red blood in stool,red blood in your poop
+hemoptysis,symptom,coughing up blood,coughing up blood
+dysuria,symptom,painful urination,pain when you pee
+pruritus,symptom,itching,itching
+erythema,symptom,redness of the skin,red skin
+diaphoresis,symptom,heavy sweating,heavy sweating
+lethargy,symptom,extreme tiredness,very tired or hard to wake up
+AMS,symptom,altered mental status,confusion or acting differently
+febrile,symptom,having a fever,having a fever
+afebrile,symptom,no fever,no fever
+BP,vital,blood pressure,blood pressure
+HR,vital,heart rate,heart rate (pulse)
+RR,vital,respiratory rate,breathing rate
+SpO2,vital,oxygen saturation,oxygen level in your blood
+O2 sat,vital,oxygen saturation,oxygen level in your blood
+T,vital,temperature,temperature
+BMI,vital,body mass index,a measure of weight compared to height
+BG,lab,blood glucose,blood sugar
+FSBG,lab,fingerstick blood glucose,a blood sugar check from a finger prick
+A1c,lab,hemoglobin A1c,your average blood sugar over the last 3 months
+INR,lab,international normalized ratio,a blood test that shows how fast your blood clots
+CBC,lab,complete blood count,a basic blood test
+BMP,lab,basic metabolic panel,a blood test for salts and kidneys
+CMP,lab,comprehensive metabolic panel,a blood test for salts kidneys and liver
+Cr,lab,creatinine,a blood test that shows how well your kidneys work
+BUN,lab,blood urea nitrogen,a blood test that shows how well your kidneys work
+K,lab,potassium,potassium (a mineral in your blood)
+Na,lab,sodium,sodium (salt in your blood)
+Hgb,lab,hemoglobin,a measure of red blood cells
+WBC,lab,white blood cell count,a measure of infection-fighting cells
+BNP,lab,B-type natriuretic peptide,a blood test that checks for heart failure
+TSH,lab,thyroid stimulating hormone,a blood test for your thyroid
+LFTs,lab,liver function tests,blood tests for your liver
+UA,lab,urinalysis,a pee test
+EF,lab,ejection fraction,how well your heart pumps
+ECG,test,electrocardiogram,a test of your heart's electrical activity
+EKG,test,electrocardiogram,a test of your heart's electrical activity
+echo,test,echocardiogram,an ultrasound of your heart
+CXR,test,chest x-ray,a chest x-ray
+CT,test,computed tomography scan,a detailed x-ray scan
+MRI,test,magnetic resonance imaging,a detailed scan using magnets
+US,test,ultrasound,an ultrasound scan
+cath,test,cardiac catheterization,a test that looks at your heart's blood vessels with a thin tube
+PCI,procedure,percutaneous coronary intervention,opening a blocked heart artery with a thin tube
+CABG,procedure,coronary artery bypass graft,heart bypass surgery
+stent,procedure,small mesh tube,a small tube that holds a blood vessel open
+PICC,procedure,peripherally inserted central catheter,a thin tube in your arm for medicine
+Foley,procedure,urinary catheter,a tube that drains pee from your bladder
+lap chole,procedure,laparoscopic cholecystectomy,surgery to remove the gallbladder through small cuts
+TKA,procedure,total knee arthroplasty,knee replacement surgery
+THA,procedure,total hip arthroplasty,hip replacement surgery
+ORIF,procedure,open reduction internal fixation,surgery to fix a broken bone with metal pieces
+I&D,procedure,incision and drainage,cutting open and draining an infection
+ACE inhibitor,drug class,angiotensin-converting enzyme inhibitor,a blood pressure medicine
+ARB,drug class,angiotensin receptor blocker,a blood pressure medicine
+beta blocker,drug class,beta-adrenergic blocker,a medicine that slows the heart and lowers blood pressure
+diuretic,drug class,diuretic,a water pill
+statin,drug class,HMG-CoA reductase inhibitor,a cholesterol medicine
+anticoagulant,drug class,anticoagulant,a blood thinner
+antiplatelet,drug class,antiplatelet,a medicine that stops blood cells from sticking together
+PPI,drug class,proton pump inhibitor,a stomach acid medicine
+NSAID,drug class,nonsteroidal anti-inflammatory drug,a pain medicine like ibuprofen
+SSRI,drug class,selective serotonin reuptake inhibitor,a medicine for depression or anxiety
+abx,drug class,antibiotics,antibiotics
+OTC,drug class,over the counter,you can buy it without a prescription
+DNR,other,do not resuscitate,no CPR if your heart stops
+DNI,other,do not intubate,no breathing tube
+POA,other,power of attorney,a person allowed to make decisions for you
