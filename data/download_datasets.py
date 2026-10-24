@@ -66,12 +66,35 @@ def section(label, *keys):
     return ""
 
 
-def label_score(label):
-    """Prefer labels that have the sections the Simplify agent needs."""
-    return sum(bool(label.get(k)) for k in (
+def label_score(name, label):
+    """Rank candidate labels for one drug; the highest tuple wins.
+
+    openFDA's generic_name search also returns combination products and kits (searching
+    "furosemide" finds "FUROSEMIDE, BENZALKONIUM CHLORIDE", a medicated kit with no route),
+    so section count alone picks the wrong product. In order of priority, prefer:
+      1. the drug on its own: an exact generic-name match first, then a single-ingredient
+         salt form ("verapamil hydrochloride"), then anything else (combinations),
+      2. a label that states a route (kits and devices often don't),
+      3. not a kit (brand name containing "kit"),
+      4. an oral product -- the usual form for a patient's take-home medications,
+      5. then the label with more of the sections the Simplify agent needs.
+    """
+    ofda = label.get("openfda", {})
+    want = name.strip().lower()
+    generics = [g.strip().lower() for g in ofda.get("generic_name", [])]
+    if want in generics:
+        match = 2
+    elif any(g.startswith(want + " ") and "," not in g and " and " not in g for g in generics):
+        match = 1
+    else:
+        match = 0
+    routes = {r.strip().upper() for r in ofda.get("route", [])}
+    is_kit = any("kit" in b.lower().split() for b in ofda.get("brand_name", []))
+    sections = sum(bool(label.get(k)) for k in (
         "indications_and_usage", "purpose", "adverse_reactions",
         "warnings", "warnings_and_cautions", "boxed_warning",
     ))
+    return (match, bool(routes), not is_kit, "ORAL" in routes, sections)
 
 
 def label_to_row(name, label):
@@ -101,20 +124,29 @@ def download_drugs():
     rows, missing = [], []
     print(f"[drugs] looking up {len(names)} drugs in openFDA ...")
     for i, name in enumerate(names, 1):
-        params = {"search": f'openfda.generic_name:"{name}"', "limit": "10"}
+        # 25 candidates, not 10: a phrase search matches combination products too, and a
+        # wider pool makes it likelier a single-ingredient label is among them.
+        params = {"search": f'openfda.generic_name:"{name}"', "limit": "25"}
         if api_key:
             params["api_key"] = api_key
         url = OPENFDA_LABEL_URL + "?" + urllib.parse.urlencode(params)
-        try:
-            results = json.loads(fetch(url)).get("results", [])
-        except urllib.error.HTTPError as e:
-            results = []
-            if e.code != 404:  # 404 just means no match
-                print(f"  ! {name}: HTTP {e.code}")
-        except urllib.error.URLError as e:
-            sys.exit(f"[drugs] cannot reach openFDA: {e.reason}")
+        results = []
+        for attempt in range(3):
+            try:
+                results = json.loads(fetch(url)).get("results", [])
+                break
+            except urllib.error.HTTPError as e:
+                # openFDA returns the odd 500 or 429; retry those instead of dropping the drug.
+                if (e.code >= 500 or e.code == 429) and attempt < 2:
+                    time.sleep(2 * (attempt + 1))
+                    continue
+                if e.code != 404:  # 404 just means no match
+                    print(f"  ! {name}: HTTP {e.code}")
+                break
+            except urllib.error.URLError as e:
+                sys.exit(f"[drugs] cannot reach openFDA: {e.reason}")
         if results:
-            rows.append(label_to_row(name, max(results, key=label_score)))
+            rows.append(label_to_row(name, max(results, key=lambda lb: label_score(name, lb))))
         else:
             missing.append(name)
         if i % 25 == 0:
