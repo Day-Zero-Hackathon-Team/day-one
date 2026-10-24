@@ -18,7 +18,7 @@ cd day-one
 git pull
 ```
 
-## Step 2 · Download the datasets (≈ 2 min)
+## Step 2 · Download the datasets (≈ 6 min)
 
 You only need **Python 3** (no `pip install`).
 
@@ -27,6 +27,8 @@ python3 data/download_datasets.py
 ```
 
 On Windows, use `py data\download_datasets.py`.
+
+> **Mac: `CERTIFICATE_VERIFY_FAILED`?** Python from python.org ships without security certificates, so every download fails. Fix it once by double-clicking **Install Certificates.command** in `/Applications/Python 3.x/` (the folder for your version), then run the script again.
 
 When it finishes you should have:
 
@@ -52,42 +54,47 @@ Download the CSV sample zip by hand from the [Synthea sample data page](https://
 
 ## Step 3 · Make sure Zetaris is running
 
+From your Zetaris folder (the unzipped `zetaris-platform`, not `day-one`):
+
 ```bash
 ./preflight.sh
 docker compose up -d
-./verify.sh        # should confirm port 10000 is reachable
+./verify.sh        # all checks should PASS
 ```
 
-## Step 4 · Ask Claude to load the data into Zetaris
+On a Mac with 8 GB of RAM, `preflight.sh` fails until Docker has at least 6 GB: Docker Desktop → Settings → Resources → Memory → 7 GB, and turn on Rosetta under Settings → General.
 
-Open **Claude Code (or the Claude desktop app with Claude Code) in the `day-one` folder on your laptop**, so it can reach your local Zetaris. Then paste this prompt:
+## Step 4 · Load the data into Zetaris
 
-```text
-Load our hackathon datasets into my local Zetaris instance.
+Back in `day-one`:
 
-- Zetaris is running locally (docker compose) and accepts JDBC on localhost:10000.
-  The JDBC driver jar is in jdbc/. Check verify.sh / docker-compose.yml for the
-  connection details and credentials.
-- The data is in data/out/ (produced by data/download_datasets.py):
-    data/out/drug_reference.csv               -> table drug_reference
-    data/out/medical_terms.csv                -> table medical_terms
-    data/out/hospital_records/patients.csv    -> table hospital_records_patients
-    data/out/hospital_records/encounters.csv  -> table hospital_records_encounters
-    data/out/hospital_records/medications.csv -> table hospital_records_medications
-- All CSVs have a header row. Keep the column names as they are.
-- Use whatever load method Zetaris supports best (e.g. registering the CSVs as a
-  file data source, or CREATE TABLE + INSERT over JDBC). Write any helper script
-  you create into scripts/ so teammates can reuse it.
-
-When done, run a SELECT COUNT(*) on each table and compare it with the CSV row
-counts, then run these spot checks and show me the results:
-  SELECT * FROM drug_reference WHERE generic_name = 'furosemide';
-  SELECT * FROM medical_terms WHERE term IN ('BID', 'PRN', 'CHF');
-  SELECT * FROM hospital_records_medications LIMIT 5;
+```bash
+scripts/load_to_zetaris.sh
 ```
 
-Claude will ask before running commands. Approve the ones that read files or talk to `localhost:10000`.
+It needs Java 11+ (`java -version`). It finds your Zetaris folder (next to `day-one`, in your home folder, or in `~/Downloads`; otherwise set `ZETARIS_DIR=/path/to/zetaris-platform`) and reads the login from that folder's `.env`. If you changed the admin password in the web interface, set `ZETARIS_PASSWORD` first.
+
+It registers each CSV the same way Zetaris registers its own sample data: as a Lightning filestore table that reads the file directly. It finishes by comparing every table's row count with its CSV. It is safe to re-run after downloading new data.
+
+**Tables live in the Lightning database `DAY_ONE`, so always write `DAY_ONE.<table>`.** Zetaris does not resolve bare names, even after `USE DAY_ONE`.
+
+| CSV | Table |
+| --- | --- |
+| `drug_reference.csv` | `DAY_ONE.drug_reference` |
+| `medical_terms.csv` | `DAY_ONE.medical_terms` |
+| `hospital_records/patients.csv` | `DAY_ONE.hospital_records_patients` |
+| `hospital_records/encounters.csv` | `DAY_ONE.hospital_records_encounters` |
+| `hospital_records/medications.csv` | `DAY_ONE.hospital_records_medications` |
+
+Spot checks (any SQL works the same way):
+
+```bash
+scripts/load_to_zetaris.sh sql \
+  "SELECT * FROM DAY_ONE.drug_reference WHERE generic_name = 'furosemide'" \
+  "SELECT * FROM DAY_ONE.medical_terms WHERE term IN ('BID', 'PRN', 'CHF')" \
+  "SELECT * FROM DAY_ONE.hospital_records_medications LIMIT 5"
+```
 
 ## Step 5 · Check off your laptop
 
-When the spot checks return rows, post ✅ in the team chat. If the load script Claude wrote works, commit it (`scripts/`) so the next person can just run it.
+When every row count says `OK` and the spot checks return rows, post ✅ in the team chat.
