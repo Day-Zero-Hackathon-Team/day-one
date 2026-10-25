@@ -1,0 +1,65 @@
+{
+ "sql": "SELECT term, category, meaning, plain_language FROM DAY_ONE.medical_terms WHERE upper(term) IN ('PRN', 'PO', 'Q4H', 'Q8H', 'SUBQ', 'BID', 'WBAT', 'PT', 'ED', 'TKA')",
+ "rows": [
+  {
+   "term": "BID",
+   "category": "dosing",
+   "meaning": "twice daily",
+   "plain_language": "two times a day"
+  },
+  {
+   "term": "q4h",
+   "category": "dosing",
+   "meaning": "every 4 hours",
+   "plain_language": "every 4 hours"
+  },
+  {
+   "term": "q8h",
+   "category": "dosing",
+   "meaning": "every 8 hours",
+   "plain_language": "every 8 hours"
+  },
+  {
+   "term": "PRN",
+   "category": "dosing",
+   "meaning": "as needed",
+   "plain_language": "only when you need it"
+  },
+  {
+   "term": "PO",
+   "category": "route",
+   "meaning": "by mouth",
+   "plain_language": "swallow it"
+  },
+  {
+   "term": "subQ",
+   "category": "route",
+   "meaning": "subcutaneous",
+   "plain_language": "a shot just under the skin"
+  },
+  {
+   "term": "WBAT",
+   "category": "instruction",
+   "meaning": "weight bearing as tolerated",
+   "plain_language": "you can put weight on it if it feels okay"
+  },
+  {
+   "term": "ED",
+   "category": "instruction",
+   "meaning": "emergency department",
+   "plain_language": "the emergency room"
+  },
+  {
+   "term": "PT",
+   "category": "instruction",
+   "meaning": "physical therapy",
+   "plain_language": "exercises to help you move better"
+  },
+  {
+   "term": "TKA",
+   "category": "procedure",
+   "meaning": "total knee arthroplasty",
+   "plain_language": "knee replacement surgery"
+  }
+ ]
+}

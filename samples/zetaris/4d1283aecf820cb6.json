@@ -1,0 +1,83 @@
+{
+ "sql": "SELECT term, category, meaning, plain_language FROM DAY_ONE.medical_terms WHERE upper(term) IN ('CHF', 'CAD', 'PCI', 'HTN', 'SOB', 'LE', 'BID', 'PO', 'QHS', 'SL', 'PRN', 'BMP', 'PCP', 'ED')",
+ "rows": [
+  {
+   "term": "BID",
+   "category": "dosing",
+   "meaning": "twice daily",
+   "plain_language": "two times a day"
+  },
+  {
+   "term": "QHS",
+   "category": "dosing",
+   "meaning": "every night at bedtime",
+   "plain_language": "every night at bedtime"
+  },
+  {
+   "term": "PRN",
+   "category": "dosing",
+   "meaning": "as needed",
+   "plain_language": "only when you need it"
+  },
+  {
+   "term": "PO",
+   "category": "route",
+   "meaning": "by mouth",
+   "plain_language": "swallow it"
+  },
+  {
+   "term": "SL",
+   "category": "route",
+   "meaning": "sublingual",
+   "plain_language": "let it melt under your tongue"
+  },
+  {
+   "term": "PCP",
+   "category": "instruction",
+   "meaning": "primary care provider",
+   "plain_language": "your family doctor"
+  },
+  {
+   "term": "ED",
+   "category": "instruction",
+   "meaning": "emergency department",
+   "plain_language": "the emergency room"
+  },
+  {
+   "term": "CHF",
+   "category": "diagnosis",
+   "meaning": "congestive heart failure",
+   "plain_language": "your heart does not pump as strongly as it should"
+  },
+  {
+   "term": "CAD",
+   "category": "diagnosis",
+   "meaning": "coronary artery disease",
+   "plain_language": "narrowed blood vessels in the heart"
+  },
+  {
+   "term": "HTN",
+   "category": "diagnosis",
+   "meaning": "hypertension",
+   "plain_language": "high blood pressure"
+  },
+  {
+   "term": "SOB",
+   "category": "symptom",
+   "meaning": "shortness of breath",
+   "plain_language": "trouble breathing"
+  },
+  {
+   "term": "BMP",
+   "category": "lab",
+   "meaning": "basic metabolic panel",
+   "plain_language": "a blood test for salts and kidneys"
+  },
+  {
+   "term": "PCI",
+   "category": "procedure",
+   "meaning": "percutaneous coronary intervention",
+   "plain_language": "opening a blocked heart artery with a thin tube"
+  }
+ ]
+}

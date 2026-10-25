@@ -2,3 +2,9 @@
 data/out/
 data/downloads/
 __pycache__/
+
+# Local secrets and run output
+.env
+runs/
+node_modules/
+data/memory/

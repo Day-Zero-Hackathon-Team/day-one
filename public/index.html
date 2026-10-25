@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Day One</title>
+  <meta name="description" content="Turn your hospital discharge summary into plain words you can read or listen to.">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-row">
+      <div class="brand">
+        <span class="logo" aria-hidden="true">D1</span>
+        <div>
+          <h1>Day One</h1>
+          <p class="tagline">Your discharge papers, in plain words</p>
+        </div>
+      </div>
+      <ul class="status" id="status" aria-label="Service status"></ul>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- Step 1: input -->
+    <section id="input-view" class="card">
+      <h2>Add your discharge summary</h2>
+      <div class="tabs" role="tablist">
+        <button role="tab" id="tab-photo" aria-selected="true" aria-controls="panel-photo">Photo</button>
+        <button role="tab" id="tab-text" aria-selected="false" aria-controls="panel-text">Text</button>
+      </div>
+
+      <div id="panel-photo" role="tabpanel" aria-labelledby="tab-photo">
+        <label class="drop" id="drop">
+          <input type="file" id="files" accept="image/*" capture="environment" multiple>
+          <span class="drop-title">Take or choose a photo of each page</span>
+          <span class="muted">Flat on a table, good light, the whole page in the frame.</span>
+        </label>
+        <div class="thumbs" id="thumbs"></div>
+        <p class="note" id="vision-note" hidden>Reading photos needs a vision model in Nightshift. Until one is set up, use the Text tab.</p>
+      </div>
+
+      <div id="panel-text" role="tabpanel" aria-labelledby="tab-text" hidden>
+        <label for="text" class="label">Paste or type the text of your summary</label>
+        <textarea id="text" rows="12" placeholder="DISCHARGE SUMMARY&#10;Patient: ...&#10;Discharge medications: ..."></textarea>
+        <div class="row">
+          <label for="sample" class="muted">Or try a sample:</label>
+          <select id="sample"><option value="">Choose a sample…</option></select>
+        </div>
+      </div>
+
+      <div class="row end">
+        <button class="primary" id="go">Make it plain</button>
+      </div>
+      <p class="error" id="input-error" role="alert" hidden></p>
+    </section>
+
+    <!-- Step 2: progress -->
+    <section id="progress-view" class="card" hidden>
+      <h2>Working on it</h2>
+      <p class="muted">Six agents read, check and rewrite your summary. This takes a few minutes.</p>
+      <ol class="steps" id="steps"></ol>
+      <details class="board" open>
+        <summary>What the agents are saying to each other</summary>
+        <ol class="messages" id="messages"></ol>
+      </details>
+    </section>
+
+    <!-- Step 3: result -->
+    <section id="result-view" hidden>
+      <div class="banner" id="banner"></div>
+
+      <div class="toolbar">
+        <button class="primary" id="speak">▶ Read aloud</button>
+        <button id="stop" hidden>■ Stop</button>
+        <button id="again">Start over</button>
+      </div>
+
+      <div id="summary"></div>
+
+      <section class="card danger" id="call911"></section>
+      <section class="card" id="schedule"></section>
+      <section class="card" id="questions"></section>
+
+      <section class="card" id="qa">
+        <h2>Ask about your papers</h2>
+        <p class="muted">Answers come only from your own papers. Anything they don't cover goes to your care team.</p>
+        <form class="row" id="qa-form">
+          <label for="qa-input" class="sr-only">Your question</label>
+          <input id="qa-input" type="text" placeholder="e.g. Can I shower? When is my next appointment?" autocomplete="off">
+          <button class="primary" id="qa-ask" type="submit">Ask</button>
+        </form>
+        <ol class="qa-list" id="qa-list"></ol>
+      </section>
+
+      <details class="card evidence">
+        <summary>How we made this (for the curious)</summary>
+        <div id="evidence"></div>
+      </details>
+
+      <details class="card board">
+        <summary>What the agents said to each other</summary>
+        <ol class="messages" id="final-messages"></ol>
+      </details>
+    </section>
+
+    <p class="disclaimer">Day One is a hackathon prototype. It helps you understand your own paperwork and is not medical advice. If anything here differs from what your care team told you, follow your care team.</p>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

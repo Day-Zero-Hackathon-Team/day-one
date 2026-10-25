@@ -1,0 +1,221 @@
+{
+ "sql": "SELECT START, STOP, DESCRIPTION, CODE FROM DAY_ONE.hospital_records_medications WHERE PATIENT = '88deb12c-4d82-d1bc-6298-7cee4e3c3d0d' ORDER BY START",
+ "rows": [
+  {
+   "START": "2000-09-01 03:19:35.0",
+   "STOP": null,
+   "DESCRIPTION": "Naproxen 500 MG Oral Tablet",
+   "CODE": "198014"
+  },
+  {
+   "START": "2009-11-22 03:19:35.0",
+   "STOP": null,
+   "DESCRIPTION": "Clopidogrel 75 MG Oral Tablet",
+   "CODE": "309362"
+  },
+  {
+   "START": "2009-11-22 03:19:35.0",
+   "STOP": null,
+   "DESCRIPTION": "Simvastatin 20 MG Oral Tablet",
+   "CODE": "312961"
+  },
+  {
+   "START": "2009-11-22 03:19:35.0",
+   "STOP": null,
+   "DESCRIPTION": "24 HR metoprolol succinate 100 MG Extended Release Oral Tablet",
+   "CODE": "866412"
+  },
+  {
+   "START": "2009-11-22 03:19:35.0",
+   "STOP": null,
+   "DESCRIPTION": "Nitroglycerin 0.4 MG/ACTUAT Mucosal Spray",
+   "CODE": "705129"
+  },
+  {
+   "START": "2015-12-20 03:19:35.0",
+   "STOP": "2016-12-25 03:19:35.0",
+   "DESCRIPTION": "Alendronic acid 10 MG Oral Tablet",
+   "CODE": "904419"
+  },
+  {
+   "START": "2016-12-25 03:19:35.0",
+   "STOP": "2017-12-31 03:19:35.0",
+   "DESCRIPTION": "Alendronic acid 10 MG Oral Tablet",
+   "CODE": "904419"
+  },
+  {
+   "START": "2017-01-08 09:23:28.0",
+   "STOP": "2017-01-08 09:23:28.0",
+   "DESCRIPTION": "sodium fluoride 0.0272 MG/MG Oral Gel",
+   "CODE": "1535362"
+  },
+  {
+   "START": "2017-11-11 03:19:35.0",
+   "STOP": null,
+   "DESCRIPTION": "Naproxen sodium 220 MG Oral Tablet",
+   "CODE": "849574"
+  },
+  {
+   "START": "2017-12-31 03:19:35.0",
+   "STOP": "2018-10-14 03:19:35.0",
+   "DESCRIPTION": "Alendronic acid 10 MG Oral Tablet",
+   "CODE": "904419"
+  },
+  {
+   "START": "2018-01-14 09:07:30.0",
+   "STOP": "2018-01-14 09:07:30.0",
+   "DESCRIPTION": "sodium fluoride 0.0272 MG/MG Oral Gel",
+   "CODE": "1535362"
+  },
+  {
+   "START": "2018-04-26 03:19:35.0",
+   "STOP": "2018-05-26 03:19:35.0",
+   "DESCRIPTION": "pregabalin 100 MG Oral Capsule",
+   "CODE": "483438"
+  },
+  {
+   "START": "2018-07-24 04:01:48.0",
+   "STOP": "2018-08-28 04:01:48.0",
+   "DESCRIPTION": "Acetaminophen 325 MG Oral Tablet",
+   "CODE": "313782"
+  },
+  {
+   "START": "2018-10-14 03:19:35.0",
+   "STOP": "2018-10-21 03:19:35.0",
+   "DESCRIPTION": "Alendronic acid 10 MG Oral Tablet",
+   "CODE": "904419"
+  },
+  {
+   "START": "2018-10-21 03:19:35.0",
+   "STOP": "2019-01-06 03:19:35.0",
+   "DESCRIPTION": "Alendronic acid 10 MG Oral Tablet",
+   "CODE": "904419"
+  },
+  {
+   "START": "2019-01-06 03:19:35.0",
+   "STOP": "2020-01-12 03:19:35.0",
+   "DESCRIPTION": "Alendronic acid 10 MG Oral Tablet",
+   "CODE": "904419"
+  },
+  {
+   "START": "2020-01-12 03:19:35.0",
+   "STOP": "2021-01-17 03:19:35.0",
+   "DESCRIPTION": "Alendronic acid 10 MG Oral Tablet",
+   "CODE": "904419"
+  },
+  {
+   "START": "2020-01-26 06:25:07.0",
+   "STOP": "2020-01-26 06:25:07.0",
+   "DESCRIPTION": "sodium fluoride 0.0272 MG/MG Oral Gel",
+   "CODE": "1535362"
+  },
+  {
+   "START": "2021-01-17 03:19:35.0",
+   "STOP": "2022-01-23 03:19:35.0",
+   "DESCRIPTION": "Alendronic acid 10 MG Oral Tablet",
+   "CODE": "904419"
+  },
+  {
+   "START": "2021-01-31 06:21:39.0",
+   "STOP": "2021-01-31 06:21:39.0",
+   "DESCRIPTION": "sodium fluoride 0.0272 MG/MG Oral Gel",
+   "CODE": "1535362"
+  },
+  {
+   "START": "2021-11-24 03:19:35.0",
+   "STOP": "2021-12-24 03:19:35.0",
+   "DESCRIPTION": "Milnacipran hydrochloride 100 MG Oral Tablet",
+   "CODE": "833135"
+  },
+  {
+   "START": "2022-01-23 03:19:35.0",
+   "STOP": "2022-08-14 03:19:35.0",
+   "DESCRIPTION": "Alendronic acid 10 MG Oral Tablet",
+   "CODE": "904419"
+  },
+  {
+   "START": "2022-08-14 03:19:35.0",
+   "STOP": "2023-01-29 03:19:35.0",
+   "DESCRIPTION": "Alendronic acid 10 MG Oral Tablet",
+   "CODE": "904419"
+  },
+  {
+   "START": "2023-01-29 03:19:35.0",
+   "STOP": "2024-02-04 03:19:35.0",
+   "DESCRIPTION": "Alendronic acid 10 MG Oral Tablet",
+   "CODE": "904419"
+  },
+  {
+   "START": "2024-02-04 03:19:35.0",
+   "STOP": "2025-02-09 03:19:35.0",
+   "DESCRIPTION": "Alendronic acid 10 MG Oral Tablet",
+   "CODE": "904419"
+  },
+  {
+   "START": "2024-10-07 03:19:35.0",
+   "STOP": "2024-11-06 03:19:35.0",
+   "DESCRIPTION": "pregabalin 100 MG Oral Capsule",
+   "CODE": "483438"
+  },
+  {
+   "START": "2025-02-09 03:19:35.0",
+   "STOP": "2026-02-15 03:19:35.0",
+   "DESCRIPTION": "Alendronic acid 10 MG Oral Tablet",
+   "CODE": "904419"
+  },
+  {
+   "START": "2025-02-14 03:28:37.0",
+   "STOP": "2025-02-14 03:28:37.0",
+   "DESCRIPTION": "aspirin 325 MG Oral Tablet",
+   "CODE": "212033"
+  },
+  {
+   "START": "2025-02-14 03:28:37.0",
+   "STOP": "2025-02-14 03:28:37.0",
+   "DESCRIPTION": "nitroglycerin 0.4 MG Sublingual Tablet",
+   "CODE": "198039"
+  },
+  {
+   "START": "2025-02-14 03:44:13.0",
+   "STOP": "2025-02-14 03:44:13.0",
+   "DESCRIPTION": "heparin sodium  porcine 100 UNT/ML Injectable Solution",
+   "CODE": "1361048"
+  },
+  {
+   "START": "2025-02-14 04:51:23.0",
+   "STOP": "2025-02-14 05:21:23.0",
+   "DESCRIPTION": "clopidogrel 300 MG Oral Tablet",
+   "CODE": "749196"
+  },
+  {
+   "START": "2025-02-14 05:21:23.0",
+   "STOP": null,
+   "DESCRIPTION": "carvedilol 25 MG Oral Tablet",
+   "CODE": "200033"
+  },
+  {
+   "START": "2025-02-14 05:21:23.0",
+   "STOP": null,
+   "DESCRIPTION": "rosuvastatin calcium 40 MG Oral Tablet",
+   "CODE": "859419"
+  },
+  {
+   "START": "2025-02-14 05:21:23.0",
+   "STOP": null,
+   "DESCRIPTION": "lisinopril 40 MG Oral Tablet",
+   "CODE": "197884"
+  },
+  {
+   "START": "2025-02-14 05:21:23.0",
+   "STOP": null,
+   "DESCRIPTION": "prasugrel 10 MG Oral Tablet",
+   "CODE": "855812"
+  },
+  {
+   "START": "2026-02-15 03:19:35.0",
+   "STOP": null,
+   "DESCRIPTION": "Alendronic acid 10 MG Oral Tablet",
+   "CODE": "904419"
+  }
+ ]
+}
