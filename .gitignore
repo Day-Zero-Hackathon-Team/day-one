@@ -2,3 +2,13 @@
 data/out/
 data/downloads/
 __pycache__/
+
+# Local secrets and run output
+.env
+runs/
+node_modules/
+data/memory/
+
+# Zetaris platform folder and inventory output (scripts/zetaris_inventory.py)
+zetaris-platform/
+zetaris_inventory.json
