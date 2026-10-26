@@ -184,6 +184,8 @@ body:not(.on-landing) .topnav { visibility: hidden; }
 .card h3 { font-size: 1.2rem; }
 .card-danger { background: var(--red-tint); border: 1.5px solid var(--red-border); color: var(--red-strong); }
 .card-danger h2, .card-danger h3 { color: var(--red-text); }
+.card-amber { background: var(--amber-tint); border: 1.5px solid var(--amber-border); }
+.card-amber h2, .card-amber h3 { color: var(--amber-text); }
 .card-head { display: flex; align-items: center; gap: 12px; }
 .card-head svg { flex: none; }
 .card-sub { font-size: 0.92rem; color: var(--muted); margin-top: 2px; }

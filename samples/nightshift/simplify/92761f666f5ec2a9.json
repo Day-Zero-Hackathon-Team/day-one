@@ -1,0 +1,34 @@
+{
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"sections\": [\n    {\n      \"title\": \"Your medicines\",\n      \"bullets\": [\n        {\n          \"id\": \"b1\",\n          \"text\": \"Keep taking Nitroglycerin 0.4 mg under the tongue only when you need it for chest pain, up to 3 doses.\",\n          \"sources\": [\"p1:L16\", \"term:SL\", \"term:PRN\"]\n        },\n        {\n          \"id\": \"b2\",\n          \"text\": \"Stop taking Naproxen because NSAIDs can make heart failure worse.\",\n          \"sources\": [\"p1:L17\"]\n        }\n      ]\n    }\n  ],\n  \"med_schedule\": [\n    {\n      \"drug\": \"Nitroglycerin\",\n      \"dose\": \"0.4 mg\",\n      \"morning\": false,\n      \"midday\": false,\n      \"evening\": false,\n      \"night\": false,\n      \"as_needed\": true,\n      \"note\": \"for chest pain, max 3 doses\",\n      \"sources\": [\"p1:L16\"]\n    }\n  ],\n  \"questions_for_your_doctor\": []\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 1263,
+    "completion_tokens": 251,
+    "total_tokens": 1514
+  },
+  "meterless": {
+    "routed_model": "nvidia/nemotron-3-ultra-550b-a55b",
+    "receipt_id": "rcpt_req_mie89c7c",
+    "phases": [
+      {
+        "phase": "final_synthesis",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "ms": 5543,
+        "tokensIn": 1263,
+        "tokensOut": 251,
+        "outputTps": 45.28233808407,
+        "coherence": null,
+        "tier": "B",
+        "reflex_decided_in_ms": 0.5
+      }
+    ]
+  }
+}

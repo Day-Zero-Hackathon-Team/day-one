@@ -4,27 +4,27 @@
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "{ \"drugs\": [ { \"generic\": \"azithromycin\", \"plain_purpose\": \"an antibiotic that treats mild to moderate bacterial infections such as bronchitis, sinusitis, and skin infections\", \"common_side_effects\": [\"diarrhea\", \"nausea\", \"abdominal pain\", \"vomiting\"], \"key_warning\": \"can cause severe allergic reactions, liver damage, and abnormal heart rhythms\" }, { \"generic\": \"acetaminophen\", \"plain_purpose\": \"a medicine that relieves minor aches, pains, and reduces fever\", \"common_side_effects\": [], \"key_warning\": \"taking more than 4,000 mg in 24 hours or drinking alcohol can cause severe liver damage\" }, { \"generic\": \"metformin\", \"plain_purpose\": \"a diabetes medicine that helps control blood sugar when used with diet and exercise\", \"common_side_effects\": [\"diarrhea\", \"nausea or vomiting\", \"gas\", \"stomach discomfort\"], \"key_warning\": \"rare but serious risk of lactic acidosis, a buildup of acid in the blood that can be fatal\" }, { \"generic\": \"atorvastatin\", \"plain_purpose\": \"a cholesterol-lowering medicine that reduces the risk of heart attack and stroke\", \"common_side_effects\": [\"cold symptoms\", \"joint pain\", \"diarrhea\", \"muscle pain\"], \"key_warning\": \"can cause serious muscle damage, especially in older adults or those with kidney problems\" }, { \"generic\": \"aspirin\", \"plain_purpose\": \"a medicine that relieves minor aches and pains\", \"common_side_effects\": [], \"key_warning\": \"children and teenagers with flu or chickenpox should not take it because of Reye's syndrome risk\" } ] }"
+        "content": "{ \"drugs\": [ { \"generic\": \"azithromycin\", \"plain_purpose\": \"an antibiotic used to treat certain bacterial infections such as bronchitis, sinusitis, and skin infections\", \"common_side_effects\": [\"diarrhea\", \"nausea\", \"abdominal pain\", \"vomiting\"], \"key_warning\": \"can cause serious allergic reactions, liver damage, and heart rhythm changes; stop and seek help if these occur\" }, { \"generic\": \"acetaminophen\", \"plain_purpose\": \"a pain reliever and fever reducer for minor aches, pains, and fever\", \"common_side_effects\": [], \"key_warning\": \"taking more than 4,000 mg in 24 hours or with alcohol can cause severe liver damage\" }, { \"generic\": \"metformin\", \"plain_purpose\": \"a diabetes medicine that helps control blood sugar along with diet and exercise\", \"common_side_effects\": [\"diarrhea\", \"nausea or vomiting\", \"gas\", \"stomach discomfort\"], \"key_warning\": \"rare but serious lactic acidosis can occur; get medical help for unusual tiredness, trouble breathing, or stomach pain\" }, { \"generic\": \"atorvastatin\", \"plain_purpose\": \"a cholesterol-lowering medicine that helps reduce the risk of heart attack and stroke\", \"common_side_effects\": [\"cold-like symptoms\", \"joint pain\", \"diarrhea\", \"muscle pain\"], \"key_warning\": \"can cause serious muscle problems (myopathy or rhabdomyolysis); tell your doctor about unexplained muscle pain or weakness\" }, { \"generic\": \"aspirin\", \"plain_purpose\": \"a pain reliever for minor aches and pains; also used in low dose for heart protection\", \"common_side_effects\": [], \"key_warning\": \"children and teens with flu or chickenpox should not take aspirin due to risk of Reye's syndrome; can cause stomach bleeding\" } ] }"
       },
       "finish_reason": "stop"
     }
   ],
   "usage": {
     "prompt_tokens": 2053,
-    "completion_tokens": 386,
-    "total_tokens": 2439
+    "completion_tokens": 423,
+    "total_tokens": 2476
   },
   "meterless": {
     "routed_model": "nvidia/nemotron-3-ultra-550b-a55b",
-    "receipt_id": "rcpt_req_okxrqx0a",
+    "receipt_id": "rcpt_req_z2yyzbw0",
     "phases": [
       {
         "phase": "final_synthesis",
         "model": "nvidia/nemotron-3-ultra-550b-a55b",
-        "ms": 24706,
+        "ms": 40536,
         "tokensIn": 2053,
-        "tokensOut": 386,
-        "outputTps": 15.623735125070834,
+        "tokensOut": 423,
+        "outputTps": 10.435168738898756,
         "coherence": null,
         "tier": "B",
         "reflex_decided_in_ms": 0.5

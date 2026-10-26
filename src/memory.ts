@@ -97,7 +97,7 @@ export class PatientMemory {
   /** H-MEM retrieval (hybrid ranking + reinjection block) over this patient's memories. */
   recall(question: string, topN = 6): { context: string; sources: string[]; strategy: string } {
     const r = this.hmem.query(question, { topN, threshold: 0.05 });
-    return { context: r.context, sources: r.memories.map((m) => m.memory.source), strategy: r.trace.strategy };
+    return { context: stableOrder(r.context), sources: r.memories.map((m) => m.memory.source), strategy: r.trace.strategy };
   }
 
   /** Open medicine conflicts that involve this job's memories (same drug only, never auto-resolved). */
@@ -132,4 +132,22 @@ export class PatientMemory {
   get size(): number {
     return this.hmem.store.all().length;
   }
+}
+
+/**
+ * Recall ranks by relevance and recency, so two near-equal memories can swap places from one run
+ * to the next. The prompt lists the recalled memories in id order instead: the same set always
+ * gives the same text (recorded sample answers replay), and which memories were picked is unchanged.
+ */
+export function stableOrder(context: string): string {
+  const id = (l: string) => Number(l.match(/<mem-(\d+)>/)?.[1] ?? Infinity);
+  const lines = context.split("\n");
+  const out: string[] = [];
+  for (let i = 0; i < lines.length; ) {
+    if (!lines[i].startsWith("- ")) { out.push(lines[i++]); continue; }
+    const block: string[] = [];
+    while (i < lines.length && lines[i].startsWith("- ")) block.push(lines[i++]);
+    out.push(...block.sort((a, b) => id(a) - id(b) || 0)); // two lines without an id: Infinity - Infinity is NaN
+  }
+  return out.join("\n");
 }

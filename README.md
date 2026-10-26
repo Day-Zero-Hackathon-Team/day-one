@@ -73,8 +73,8 @@ flowchart TD
 | 01 | **Scan** | AI · reads images | Turns the photos into text and splits it into sections: diagnosis, medicines, instructions, follow-up, warning signs. If a photo is too blurry to read, it asks the patient to scan that page again. | `ScanResult` |
 | 02 | **Extract** | AI | Turns the text into structured fields. Every field keeps the exact line of the original it came from, so anything later can be traced back. | `DischargeRecord` |
 | 03 | **Lookup** | AI · calls Zetaris | Looks up each medicine and unknown term, and compares the medicine list with the hospital record. Calls fixed lookups such as `lookup_drug(name)` and `get_patient_meds(id)` instead of writing its own SQL. | `GroundedRecord` |
-| 04 | **Simplify** | AI | Rewrites everything at a grade-6 reading level. Builds a daily medicine schedule, a "call 911 if" list, and questions to ask the doctor. Every bullet points back to its sources. | `PlainSummary` |
-| 05 | **Safety checker** | AI · separate call | Checks every bullet against its source. Fails the summary for a dropped or changed dose, advice that isn't in the original, a missing warning sign, or a reading level that's too high. The reading level comes from a formula in code, not from the AI. A fail goes back to Simplify, at most twice. | `CheckReport` |
+| 04 | **Simplify** | AI | Rewrites everything at a grade-6 reading level. Builds a daily medicine schedule, a "call 911 if" list, and questions to ask the doctor. Every bullet points back to its sources. Writes in small parts side by side (stay and follow-up, warning signs, five medicines at a time) so each call fits Nightshift's answer window; a part that can't be written shows the papers' own lines. | `PlainSummary` |
+| 05 | **Safety checker** | AI · separate call | Checks every bullet against its source. Fails the summary for a dropped or changed dose, advice that isn't in the original, a missing warning sign, or a reading level that's too high. The reading level comes from a formula in code, not from the AI. A problem the AI flags gets a second, focused look at just that bullet before it counts. A fail goes back to Simplify, at most twice. | `CheckReport` |
 | 06 | **Read-aloud** | Plain code · TTS | Makes audio for each section, plus word timings so the text highlights as it's read. | audio files + timings |
 | + | **Q&A** | AI · H-MEM recall | Answers follow-up questions like *"Can I shower?"* using only that patient's data, recalled through H-MEM, with sources. For anything else it says to ask the care team. | answer + sources |
 
@@ -208,7 +208,7 @@ npm start
 
 Open <http://localhost:3100>, pick a sample (or paste your own text, or upload photos or a PDF), and press **Make it plain**. A run takes 3 to 6 minutes. Every agent's input and output, the agent conversation, and a trace of every model call (with the model that answered and Nightshift's signed receipt) are saved in `runs/<job>/`.
 
-**No Nightshift or Zetaris?** `npm run sample` replays recorded responses for the three sample cases (`SAMPLE_MODE=true`); H-MEM still runs for real. Recorded Q&A questions: *"Can I drink alcohol?"* (sample 1), *"When should I see my doctor again?"* (sample 2), *"Can I take a bath?"* (sample 3). Any other question in sample mode gets "ask your care team". To re-record after changing a prompt, set `NIGHTSHIFT_RECORD=true` and `ZETARIS_RECORD=true`, delete `samples/nightshift/` and `samples/zetaris/`, and run the three samples live.
+**No Nightshift or Zetaris?** `npm run sample` replays recorded responses for the three sample cases (`SAMPLE_MODE=true`); H-MEM still runs for real. Recorded Q&A questions: *"Can I drink alcohol?"* (sample 1), *"When should I see my doctor again?"* (sample 2), *"Can I take a bath?"* (sample 3). Any other question in sample mode gets "ask your care team". To re-record after changing a prompt, run `npm run samples:record` with Nightshift and Zetaris up: it clears `samples/nightshift/` and `samples/zetaris/`, runs the three samples and their Q&A questions live with recording on, and fails if a sample doesn't pass the safety check.
 
 ### Known gaps (prototype)
 
@@ -249,7 +249,7 @@ The orchestrator is plain code; the agents send work back to each other instead 
 - **Extract → Scan:** lines Extract can't read with confidence in a photo are re-read.
 - **Lookup → Extract:** a medicine Zetaris doesn't know is sent back to be re-checked (often a misread name).
 - **H-MEM → Safety checker:** when the papers and the hospital record disagree on a dose and the papers don't say it changed, the conflict is escalated and the summary must tell the patient to check with their care team.
-- **Safety checker → Simplify:** problems found in the summary are sent back for revision (at most 2 retries).
+- **Safety checker → Simplify:** problems found in the summary are sent back for revision (at most 2 retries). Only the parts the problems point at are rewritten.
 - **Safety checker → Extract:** a dose that isn't on its own source line means Extract misread it; Extract re-reads, the record is re-grounded, and Simplify rewrites.
 - **Fallback:** a section that still fails shows the original text with "Ask your care team".
 

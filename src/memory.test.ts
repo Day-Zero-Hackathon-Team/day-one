@@ -41,3 +41,11 @@ test("every memory keeps its source, and the ledger records it", () => {
   assert.equal(trail[0].action, "create");
   assert.throws(() => m.hmem.add({ content: "no source", source: "" }), /source/);
 });
+
+test("recalled memories are listed in a stable order, whatever their scores", async () => {
+  const { stableOrder } = await import("./memory.ts");
+  const a = "[MEMORY CONTEXT]\n## general\n- fever <mem-13>\n- redness <mem-14>\n- dressing <mem-6>\n[/MEMORY CONTEXT]";
+  const b = "[MEMORY CONTEXT]\n## general\n- redness <mem-14>\n- dressing <mem-6>\n- fever <mem-13>\n[/MEMORY CONTEXT]";
+  assert.equal(stableOrder(a), stableOrder(b));
+  assert.ok(stableOrder(a).indexOf("mem-6") < stableOrder(a).indexOf("mem-13"));
+});

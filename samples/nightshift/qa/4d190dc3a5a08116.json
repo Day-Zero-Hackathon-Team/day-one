@@ -4,27 +4,27 @@
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "{ \"issues\": [] }"
+        "content": "{\n  \"answered\": true,\n  \"answer\": \"See your primary care doctor in 7 to 10 days. Also get a repeat chest x-ray in 6 weeks.\",\n  \"sources\": [\"p1:L15\"]\n}"
       },
       "finish_reason": "stop"
     }
   ],
   "usage": {
-    "prompt_tokens": 1902,
-    "completion_tokens": 7,
-    "total_tokens": 1909
+    "prompt_tokens": 1706,
+    "completion_tokens": 53,
+    "total_tokens": 1759
   },
   "meterless": {
     "routed_model": "nvidia/nemotron-3-ultra-550b-a55b",
-    "receipt_id": "rcpt_req_sszbf1dk",
+    "receipt_id": "rcpt_req_ahb3abom",
     "phases": [
       {
         "phase": "final_synthesis",
         "model": "nvidia/nemotron-3-ultra-550b-a55b",
-        "ms": 734,
-        "tokensIn": 1902,
-        "tokensOut": 7,
-        "outputTps": 9.536784741144414,
+        "ms": 14850,
+        "tokensIn": 1706,
+        "tokensOut": 53,
+        "outputTps": 3.569023569023569,
         "coherence": null,
         "tier": "B",
         "reflex_decided_in_ms": 0.5

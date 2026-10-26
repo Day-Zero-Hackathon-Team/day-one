@@ -4,27 +4,27 @@
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "{\n  \"issues\": []\n}"
+        "content": "{\"answered\": false, \"answer\": \"\", \"sources\": []}"
       },
       "finish_reason": "stop"
     }
   ],
   "usage": {
-    "prompt_tokens": 2880,
-    "completion_tokens": 8,
-    "total_tokens": 2888
+    "prompt_tokens": 2104,
+    "completion_tokens": 16,
+    "total_tokens": 2120
   },
   "meterless": {
     "routed_model": "nvidia/nemotron-3-ultra-550b-a55b",
-    "receipt_id": "rcpt_req_kh0ls5l3",
+    "receipt_id": "rcpt_req_pfpiaoa3",
     "phases": [
       {
         "phase": "final_synthesis",
         "model": "nvidia/nemotron-3-ultra-550b-a55b",
-        "ms": 29770,
-        "tokensIn": 2880,
-        "tokensOut": 8,
-        "outputTps": 0.26872690628149143,
+        "ms": 18230,
+        "tokensIn": 2104,
+        "tokensOut": 16,
+        "outputTps": 0.8776741634668129,
         "coherence": null,
         "tier": "B",
         "reflex_decided_in_ms": 0.5

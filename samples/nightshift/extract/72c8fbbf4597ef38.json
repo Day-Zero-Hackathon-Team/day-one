@@ -4,27 +4,27 @@
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "{\n  \"patient\": {\n    \"name\": \"Maria Delgado\",\n    \"birthdate\": \"1958-03-14\",\n    \"source\": \"p1:L3\"\n  },\n  \"diagnoses\": [\n    {\n      \"text\": \"Total knee arthroplasty (right knee)\",\n      \"source\": \"p1:L4\"\n    }\n  ],\n  \"medications\": [\n    {\n      \"name\": \"Oxycodone\",\n      \"dose\": \"5 mg\",\n      \"freq\": \"q4h PRN\",\n      \"status\": \"continued\",\n      \"instructions\": \"Do not drive while taking. For moderate to severe pain.\",\n      \"source\": \"p1:L6\"\n    },\n    {\n      \"name\": \"Tylenol\",\n      \"dose\": \"1,000 mg\",\n      \"freq\": \"q8h scheduled\",\n      \"status\": \"new\",\n      \"instructions\": \"Take scheduled for 2 weeks\",\n      \"source\": \"p1:L7\"\n    },\n    {\n      \"name\": \"Enoxaparin\",\n      \"dose\": \"40 mg\",\n      \"freq\": \"once daily\",\n      \"status\": \"new\",\n      \"instructions\": \"SubQ x 14 days for blood clot prevention\",\n      \"source\": \"p1:L8\"\n    },\n    {\n      \"name\": \"Docusate\",\n      \"dose\": \"100 mg\",\n      \"freq\": \"BID\",\n      \"status\": \"continued\",\n      \"instructions\": \"While taking oxycodone\",\n      \"source\": \"p1:L9\"\n    },\n    {\n      \"name\": \"Ondansetron\",\n      \"dose\": \"4 mg\",\n      \"freq\": \"q8h PRN\",\n      \"status\": \"continued\",\n      \"instructions\": \"For nausea\",\n      \"source\": \"p1:L10\"\n    }\n  ],\n  \"follow_ups\": [\n    {\n      \"who\": \"Orthopedics\",\n      \"when\": \"2 weeks for staple removal\",\n      \"source\": \"p1:L13\"\n    }\n  ],\n  \"warning_signs\": [\n    {\n      \"text\": \"Chest pain or sudden shortness of breath - call 911 or go to ED\",\n      \"source\": \"p1:L14\"\n    },\n    {\n      \"text\": \"Calf pain or swelling in either leg - call the surgeon\",\n      \"source\": \"p1:L16\"\n    },\n    {\n      \"text\": \"Fever over 101.5 F - call the surgeon\",\n      \"source\": \"p1:L17\"\n    },\n    {\n      \"text\": \"Redness, warmth or drainage from the incision - call the surgeon\",\n      \"source\": \"p1:L18\"\n    }\n  ],\n  \"restrictions\": [\n    {\n      \"text\": \"Do not drive while taking oxycodone\",\n      \"source\": \"p1:L6\"\n    },\n    {\n      \"text\": \"Keep dressing dry. No tub baths or swimming until staples are removed\",\n      \"source\": \"p1:L12\"\n    },\n    {\n      \"text\": \"Weight bearing as tolerated with walker. Physical therapy 3 times per week. Ice 20 minutes every 2 hours. Keep leg elevated\",\n      \"source\": \"p1:L11\"\n    }\n  ],\n  \"unknown_terms\": [\n    \"PRN\",\n    \"PO\",\n    \"q4h\",\n    \"q8h\",\n    \"subQ\",\n    \"BID\",\n    \"WBAT\",\n    \"PT\",\n    \"ED\",\n    \"TKA\"\n  ],\n  \"uncertain\": []\n}"
+        "content": "{ \"patient\": {\"name\": \"Maria Delgado\", \"birthdate\": \"1958-03-14\", \"source\": \"p1:L3\"}, \"diagnoses\": [{\"text\": \"Total knee arthroplasty (right)\", \"source\": \"p1:L2\"}], \"medications\": [{\"name\": \"Oxycodone\", \"dose\": \"5 mg\", \"freq\": \"PO q4h PRN\", \"status\": \"continued\", \"instructions\": \"Do not drive while taking.\", \"source\": \"p1:L6\"}, {\"name\": \"Tylenol\", \"dose\": \"1,000 mg\", \"freq\": \"PO q8h\", \"status\": \"continued\", \"instructions\": \"scheduled for 2 weeks\", \"source\": \"p1:L7\"}, {\"name\": \"Enoxaparin\", \"dose\": \"40 mg\", \"freq\": \"subQ once daily\", \"status\": \"new\", \"instructions\": \"blood clot prevention\", \"source\": \"p1:L8\"}, {\"name\": \"Docusate\", \"dose\": \"100 mg\", \"freq\": \"PO BID\", \"status\": \"continued\", \"instructions\": \"while taking oxycodone\", \"source\": \"p1:L9\"}, {\"name\": \"Ondansetron\", \"dose\": \"4 mg\", \"freq\": \"PO q8h PRN\", \"status\": \"continued\", \"instructions\": \"nausea\", \"source\": \"p1:L10\"}], \"follow_ups\": [{\"who\": \"Orthopedics\", \"when\": \"2 weeks for staple removal\", \"source\": \"p1:L13\"}], \"warning_signs\": [{\"text\": \"chest pain or sudden shortness of breath\", \"source\": \"p1:L14\"}, {\"text\": \"Calf pain or swelling in either leg\", \"source\": \"p1:L16\"}, {\"text\": \"Fever over 101.5 F\", \"source\": \"p1:L17\"}, {\"text\": \"Redness, warmth or drainage from the incision\", \"source\": \"p1:L18\"}], \"restrictions\": [{\"text\": \"WBAT with walker\", \"source\": \"p1:L11\"}, {\"text\": \"Keep dressing dry. No tub baths or swimming until staples are removed.\", \"source\": \"p1:L12\"}], \"unknown_terms\": [\"PRN\", \"PO\", \"subQ\", \"BID\", \"q4h\", \"q8h\", \"WBAT\", \"PT\", \"ED\", \"TKA\"], \"uncertain\": [] }"
       },
       "finish_reason": "stop"
     }
   ],
   "usage": {
     "prompt_tokens": 965,
-    "completion_tokens": 819,
-    "total_tokens": 1784
+    "completion_tokens": 603,
+    "total_tokens": 1568
   },
   "meterless": {
     "routed_model": "nvidia/nemotron-3-ultra-550b-a55b",
-    "receipt_id": "rcpt_req_0j1ekr3d",
+    "receipt_id": "rcpt_req_wkaqz6m2",
     "phases": [
       {
         "phase": "final_synthesis",
         "model": "nvidia/nemotron-3-ultra-550b-a55b",
-        "ms": 5928,
+        "ms": 6851,
         "tokensIn": 965,
-        "tokensOut": 819,
-        "outputTps": 138.1578947368421,
+        "tokensOut": 603,
+        "outputTps": 88.01634797839732,
         "coherence": null,
         "tier": "B",
         "reflex_decided_in_ms": 0.5

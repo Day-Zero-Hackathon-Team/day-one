@@ -259,6 +259,7 @@ Worth knowing in case they come back.
 | --- | --- | --- |
 | Runs took 10+ minutes; calls failed after ~136 s with *"Function … Not found for account"* | Nightshift routes to NVIDIA models the free key can't use | Switch them off in Compute sources (step 4). The client also retries this error. |
 | Simplify returned `{"steps": [...]}` instead of a summary | Nightshift split the call into tiers and returned only its planning step | Every call sends `meterless-tier-split: off` |
+| Long summaries fell back to the original papers; Simplify calls stopped at ~45 s with the prompt echoed back or an empty skeleton | Nightshift ends an answer at about 45 s, too short for a whole summary of a long discharge (14 medicines) | Simplify writes in small parts side by side (`MEDS_PER_PART` in `src/agents/simplify.ts`) |
 | Answers started with the model's reasoning | Nemotron writes its thinking before `</think>` | The client keeps only the text after the last `</think>` |
 | `meterless/judge` returned 404 | With only the NVIDIA provider, that route points at an endpoint the key can't use | The checker uses `meterless/text` with its own scope (`SAFETY_ROUTE`) |
 | Nightshift's own memory leaked earlier answers into new calls | Nightshift remembers and caches by scope | Every call gets its own `meterless-scope` (`day-one.<job>.<agent>.<random>`) |
@@ -315,7 +316,7 @@ In rough priority order:
    The text box stays as the fallback either way.
 5. **Q&A safety:** answers must cite a line but skip the full safety checker, and two answers added small details the papers don't state. Running answers through the checker's code rules would close that.
 6. **Read-aloud through Nightshift** (`meterless/speech`, not tried yet) instead of the browser voice.
-7. **Re-record samples** if any prompt changes: set `NIGHTSHIFT_RECORD=true` and `ZETARIS_RECORD=true`, delete `samples/nightshift/` and `samples/zetaris/`, run the three samples and the three Q&A questions live.
+7. **Re-record samples** if any prompt changes: `npm run samples:record` (Nightshift and Zetaris running). It clears the old recordings, runs the three samples and their Q&A questions live, and fails if one doesn't pass.
 
 ---
 

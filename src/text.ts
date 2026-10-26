@@ -41,6 +41,21 @@ export function baseDrugName(name: string): string {
     .trim();
 }
 
+/**
+ * Ways a summary may name a medicine written on the paper, strictest first:
+ * "tiotropium (Spiriva HandiHaler) 18 mcg cap" → strict ["tiotropium (spiriva handihaler) 18 mcg cap", "tiotropium"],
+ * loose ["tiotropium"]. "doxycycline hyclate 100 mg cap" → loose ["doxycycline"] (salt left off).
+ */
+export function drugNameVariants(name: string, generic?: string | null): { strict: string[]; loose: string[] } {
+  const base = baseDrugName(name.replace(/\([^)]*\)/g, " "));
+  const head = base.split(/\s+/)[0] ?? "";
+  // A brand in brackets is a name too: "tiotropium-olodaterol (Stiolto Respimat)" is often written just "Stiolto Respimat".
+  // Not "(home, via NC)": a bracket with a comma is a note, not a name.
+  const brands = [...name.matchAll(/\(([^),]+)\)/g)].map((m) => baseDrugName(m[1])).filter((b) => b.length >= 4);
+  const strict = [...new Set([name, generic, base, ...brands].filter((n): n is string => !!n?.trim()).map((n) => n.toLowerCase().trim()))];
+  return { strict, loose: head.length >= 4 && !strict.includes(head) ? [head] : [] };
+}
+
 /** Synthea appends digits to names ("Franklin857"); compare names without them. */
 export function plainName(s: string): string {
   return s.replace(/[0-9]/g, "").replace(/[^A-Za-z' -]/g, "").trim().toLowerCase();

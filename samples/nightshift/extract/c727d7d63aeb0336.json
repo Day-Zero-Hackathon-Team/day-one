@@ -4,27 +4,27 @@
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "{\n  \"patient\": {\"name\": \"Franklin Kris\", \"birthdate\": \"1952-10-05\", \"source\": \"p1:L2\"},\n  \"diagnoses\": [\n    {\"text\": \"Acute on chronic systolic CHF exacerbation (EF 30%)\", \"source\": \"p1:L6\"},\n    {\"text\": \"CAD s/p PCI, HTN\", \"source\": \"p1:L7\"}\n  ],\n  \"medications\": [\n    {\"name\": \"Furosemide\", \"dose\": \"40 mg\", \"freq\": \"PO BID\", \"status\": \"new\", \"instructions\": \"\", \"source\": \"p1:L11\"},\n    {\"name\": \"Lisinopril\", \"dose\": \"20 mg\", \"freq\": \"PO daily\", \"status\": \"changed\", \"instructions\": \"\", \"source\": \"p1:L12\"},\n    {\"name\": \"Carvedilol\", \"dose\": \"12.5 mg\", \"freq\": \"PO BID\", \"status\": \"continued\", \"instructions\": \"with food\", \"source\": \"p1:L13\"},\n    {\"name\": \"Clopidogrel\", \"dose\": \"75 mg\", \"freq\": \"PO daily\", \"status\": \"continued\", \"instructions\": \"\", \"source\": \"p1:L14\"},\n    {\"name\": \"Rosuvastatin\", \"dose\": \"40 mg\", \"freq\": \"PO qHS\", \"status\": \"continued\", \"instructions\": \"\", \"source\": \"p1:L15\"},\n    {\"name\": \"Nitroglycerin\", \"dose\": \"0.4 mg\", \"freq\": \"SL q5min PRN\", \"status\": \"continued\", \"instructions\": \"max 3 doses for chest pain\", \"source\": \"p1:L16\"},\n    {\"name\": \"Naproxen\", \"dose\": \"\", \"freq\": \"\", \"status\": \"stopped\", \"instructions\": \"NSAIDs worsen heart failure\", \"source\": \"p1:L17\"}\n  ],\n  \"follow_ups\": [\n    {\"who\": \"Cardiology clinic (Dr. Okafor)\", \"when\": \"in 1 week\", \"source\": \"p1:L23\"},\n    {\"who\": \"BMP lab draw\", \"when\": \"in 3 days\", \"source\": \"p1:L24\"},\n    {\"who\": \"PCP\", \"when\": \"in 2 weeks\", \"source\": \"p1:L25\"}\n  ],\n  \"warning_signs\": [\n    {\"text\": \"Weight gain of more than 2 lb in a day or 5 lb in a week\", \"source\": \"p1:L27\"},\n    {\"text\": \"SOB at rest or when lying flat\", \"source\": \"p1:L28\"},\n    {\"text\": \"Chest pain not relieved by 3 nitroglycerin doses\", \"source\": \"p1:L29\"},\n    {\"text\": \"Fainting or a very slow heartbeat\", \"source\": \"p1:L30\"}\n  ],\n  \"restrictions\": [\n    {\"text\": \"Low sodium diet, 2 g Na per day\", \"source\": \"p1:L19\"},\n    {\"text\": \"Fluid restriction 1.5 L/day\", \"source\": \"p1:L19\"},\n    {\"text\": \"Weigh yourself every morning before breakfast and write it down\", \"source\": \"p1:L20\"},\n    {\"text\": \"No lifting over 10 lb for 1 week\", \"source\": \"p1:L21\"}\n  ],\n  \"unknown_terms\": [\"CHF\", \"CAD\", \"PCI\", \"HTN\", \"SOB\", \"LE\", \"BID\", \"PO\", \"qHS\", \"SL\", \"PRN\", \"BMP\", \"PCP\", \"ED\"],\n  \"uncertain\": []\n}"
+        "content": "{\n  \"patient\": {\n    \"name\": \"Franklin Kris\",\n    \"birthdate\": \"1952-10-05\",\n    \"source\": \"p1:L2\"\n  },\n  \"diagnoses\": [\n    {\"text\": \"Acute on chronic systolic CHF exacerbation (EF 30%)\", \"source\": \"p1:L6\"},\n    {\"text\": \"CAD s/p PCI, HTN\", \"source\": \"p1:L7\"}\n  ],\n  \"medications\": [\n    {\"name\": \"Furosemide\", \"dose\": \"40 mg\", \"freq\": \"PO BID\", \"status\": \"new\", \"instructions\": \"\", \"source\": \"p1:L11\"},\n    {\"name\": \"Lisinopril\", \"dose\": \"20 mg\", \"freq\": \"PO daily\", \"status\": \"changed\", \"instructions\": \"was 40 mg\", \"source\": \"p1:L12\"},\n    {\"name\": \"Carvedilol\", \"dose\": \"12.5 mg\", \"freq\": \"PO BID\", \"status\": \"continued\", \"instructions\": \"with food\", \"source\": \"p1:L13\"},\n    {\"name\": \"Clopidogrel\", \"dose\": \"75 mg\", \"freq\": \"PO daily\", \"status\": \"continued\", \"instructions\": \"\", \"source\": \"p1:L14\"},\n    {\"name\": \"Rosuvastatin\", \"dose\": \"40 mg\", \"freq\": \"PO qHS\", \"status\": \"continued\", \"instructions\": \"\", \"source\": \"p1:L15\"},\n    {\"name\": \"Nitroglycerin\", \"dose\": \"0.4 mg\", \"freq\": \"SL q5min PRN\", \"status\": \"continued\", \"instructions\": \"max 3 doses for chest pain\", \"source\": \"p1:L16\"},\n    {\"name\": \"Naproxen\", \"dose\": \"\", \"freq\": \"\", \"status\": \"stopped\", \"instructions\": \"NSAIDs worsen heart failure\", \"source\": \"p1:L17\"}\n  ],\n  \"follow_ups\": [\n    {\"who\": \"Cardiology clinic (Dr. Okafor)\", \"when\": \"in 1 week\", \"source\": \"p1:L23\"},\n    {\"who\": \"BMP lab draw\", \"when\": \"in 3 days\", \"source\": \"p1:L24\"},\n    {\"who\": \"PCP\", \"when\": \"in 2 weeks\", \"source\": \"p1:L25\"}\n  ],\n  \"warning_signs\": [\n    {\"text\": \"Weight gain of more than 2 lb in a day or 5 lb in a week\", \"source\": \"p1:L27\"},\n    {\"text\": \"SOB at rest or when lying flat\", \"source\": \"p1:L28\"},\n    {\"text\": \"Chest pain not relieved by 3 nitroglycerin doses\", \"source\": \"p1:L29\"},\n    {\"text\": \"Fainting or a very slow heartbeat\", \"source\": \"p1:L30\"}\n  ],\n  \"restrictions\": [\n    {\"text\": \"Low sodium diet, 2 g Na per day\", \"source\": \"p1:L19\"},\n    {\"text\": \"Fluid restriction 1.5 L/day\", \"source\": \"p1:L19\"},\n    {\"text\": \"Weigh yourself every morning before breakfast and write it down\", \"source\": \"p1:L20\"},\n    {\"text\": \"No lifting over 10 lb for 1 week\", \"source\": \"p1:L21\"}\n  ],\n  \"unknown_terms\": [\"CHF\", \"CAD\", \"PCI\", \"HTN\", \"SOB\", \"LE\", \"PO\", \"BID\", \"qHS\", \"SL\", \"PRN\", \"BMP\", \"PCP\", \"ED\", \"EF\"],\n  \"uncertain\": []\n}"
       },
       "finish_reason": "stop"
     }
   ],
   "usage": {
     "prompt_tokens": 1369,
-    "completion_tokens": 883,
-    "total_tokens": 2252
+    "completion_tokens": 898,
+    "total_tokens": 2267
   },
   "meterless": {
     "routed_model": "nvidia/nemotron-3-ultra-550b-a55b",
-    "receipt_id": "rcpt_req_3rt47jw6",
+    "receipt_id": "rcpt_req_7xvtibsh",
     "phases": [
       {
         "phase": "final_synthesis",
         "model": "nvidia/nemotron-3-ultra-550b-a55b",
-        "ms": 29821,
+        "ms": 39252,
         "tokensIn": 1369,
-        "tokensOut": 883,
-        "outputTps": 29.610006371349048,
+        "tokensOut": 898,
+        "outputTps": 22.877815143177415,
         "coherence": null,
         "tier": "B",
         "reflex_decided_in_ms": 0.5

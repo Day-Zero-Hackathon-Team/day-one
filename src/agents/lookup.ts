@@ -34,7 +34,7 @@ export async function lookup(ctx: AgentContext, record: DischargeRecord, unresol
     medications: record.medications.map((m) => m.name),
     unknown_terms: record.unknown_terms,
   };
-  const planRes = await ctx.llm({
+  const ask = (retry: boolean) => ctx.llm({
     agent: "lookup",
     route: "meterless/text",
     json: true,
@@ -53,9 +53,21 @@ Last time these names were not found in the drug reference, and the discharge pa
         }`,
       },
       { role: "user", content: JSON.stringify({ ...planInput, frequencies: record.medications.map((m) => m.freq) }) },
+      ...(retry ? [{ role: "user" as const, content: 'Reply with only the JSON object {"drugs": [...], "terms": [...]}. Keep it short: one entry per medicine, terms as written.' }] : []),
     ],
   });
-  const plan = parseJsonObject<{ drugs: { as_written: string; generic: string }[]; terms: string[] }>(planRes.content);
+  // A cut-off plan is asked once more; if that fails too, every medicine is looked up by its own
+  // name and only Extract's terms are used, rather than failing the whole job.
+  type Plan = { drugs: { as_written: string; generic: string }[]; terms: string[] };
+  let plan: Plan = { drugs: [], terms: [] };
+  for (let i = 1; i <= 2; i++) {
+    try {
+      plan = parseJsonObject<Plan>((await ask(i > 1)).content);
+      break;
+    } catch (err) {
+      ctx.say("lookup", "lookup", "info", i < 2 ? `My lookup plan was unusable (${(err as Error).message.slice(0, 60)}); planning again.` : "Planning failed twice; looking medicines up by the names on the paper.");
+    }
+  }
   const generics: Record<string, string> = {};
   for (const d of plan.drugs ?? []) if (d?.as_written && d?.generic) generics[d.as_written.toLowerCase()] = baseDrugName(d.generic) || d.generic.toLowerCase().trim();
   for (const m of record.medications) generics[m.name.toLowerCase()] ??= generics[baseDrugName(m.name)] ?? baseDrugName(m.name);
@@ -110,34 +122,45 @@ Last time these names were not found in the drug reference, and the discharge pa
       warnings: (r.warnings ?? "").slice(0, 500),
       boxed_warning: (r.boxed_warning ?? "").slice(0, 300),
     }));
-    const res = await ctx.llm({
-      agent: "lookup",
-      route: "meterless/text",
-      json: true,
-      maxTokens: 3000,
-      messages: [
+    // An empty or short answer (the model sometimes returns {"drugs": []}) is asked again once,
+    // naming the drugs it left out; the better of the two answers is kept.
+    for (let i = 1; i <= 2 && drugs.length < rows.length; i++) {
+      const missing = rows.filter((r) => !drugs.some((d) => d.generic === r.generic_name)).map((r) => r.generic_name);
+      const messages = [
         {
-          role: "system",
+          role: "system" as const,
           content: `You turn FDA drug label text into plain words for a patient (grade 5 reading level).
 Use only what the label text says. For each drug give: plain_purpose (one short sentence, e.g. "a water pill that helps your body get rid of extra fluid"),
 common_side_effects (up to 4, a few words each), key_warning (the single most important warning in one short sentence, or null).
 Return JSON only: {"drugs": [{"generic": "...", "plain_purpose": "...", "common_side_effects": ["..."], "key_warning": "..."}]}`,
         },
-        { role: "user", content: JSON.stringify(labels) },
-      ],
-    });
-    const out = parseJsonObject<{ drugs: Omit<DrugLookup, "id" | "table" | "name">[] }>(res.content);
-    drugs = (out.drugs ?? [])
-      .filter((d) => rows.some((r) => r.generic_name === d.generic))
-      .map((d) => ({
-        id: `drug:${d.generic.replace(/\s+/g, "_")}`,
-        table: "drug_reference" as const,
-        name: found.find((f) => f.row?.generic_name === d.generic)?.med.name ?? d.generic,
-        generic: d.generic,
-        plain_purpose: d.plain_purpose,
-        common_side_effects: (d.common_side_effects ?? []).slice(0, 4),
-        key_warning: d.key_warning ?? null,
-      }));
+        { role: "user" as const, content: JSON.stringify(labels) },
+        ...(i > 1 ? [{ role: "user" as const, content: `Your last answer left out: ${missing.join(", ")}. Return one entry for every one of the ${rows.length} drugs above, with "generic" exactly as given.` }] : []),
+      ];
+      let got: DrugLookup[] = [];
+      try {
+        const res = await ctx.llm({ agent: "lookup", route: "meterless/text", json: true, maxTokens: 3000, messages });
+        const out = parseJsonObject<{ drugs: Omit<DrugLookup, "id" | "table" | "name">[] }>(res.content);
+        got = (out.drugs ?? [])
+          .filter((d) => d?.generic && d.plain_purpose && rows.some((r) => r.generic_name === d.generic))
+          // One per drug: a repeated entry would count as a drug that came back.
+          .filter((d, i, all) => all.findIndex((x) => x.generic === d.generic) === i)
+          .map((d) => ({
+            id: `drug:${d.generic.replace(/\s+/g, "_")}`,
+            table: "drug_reference" as const,
+            name: found.find((f) => f.row?.generic_name === d.generic)?.med.name ?? d.generic,
+            generic: d.generic,
+            plain_purpose: d.plain_purpose,
+            common_side_effects: (d.common_side_effects ?? []).slice(0, 4),
+            key_warning: d.key_warning ?? null,
+          }));
+      } catch (err) {
+        ctx.say("lookup", "lookup", "info", `Plain-word drug labels failed (${(err as Error).message.slice(0, 100)}).`);
+      }
+      if (got.length > drugs.length) drugs = got;
+      if (drugs.length < rows.length && i < 2) ctx.say("lookup", "lookup", "info", `Plain-word drug labels came back for ${drugs.length} of ${rows.length} drugs; asking again.`);
+    }
+    if (drugs.length < rows.length) ctx.say("lookup", "simplify", "info", `No plain-word label for ${rows.length - drugs.length} drug(s); Simplify will explain them from the papers only.`);
   }
   const termRows: TermLookup[] = z.terms.map((t) => ({ id: `term:${t.term}`, table: "medical_terms", term: t.term!, plain: t.plain_language ?? t.meaning ?? "" }));
   const result = { drugs, terms: termRows, generics, notFound, patient, recordMeds };
@@ -188,7 +211,9 @@ export function ground(ctx: AgentContext, record: DischargeRecord, look: LookupR
 
     let change: RecordDiff["change"];
     if (med.status === "stopped") change = "stopped";
-    else if (!rec) change = med.status === "new" ? "new" : "not_on_record";
+    // No matched patient means no record to compare with: keep what the paper says rather than
+    // calling every medicine "not on your record" (Simplify turns that into doctor questions).
+    else if (!rec) change = med.status === "new" ? "new" : !look.patient ? (med.status === "changed" ? "changed" : "continued") : "not_on_record";
     else if (recordDose && recordDose === paperDose) change = "continued";
     else change = "changed";
     diff.push({ drug: g, change, paper: med.status === "stopped" ? null : paperDose, record: recordDose, source: med.source, conflict: null });

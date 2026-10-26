@@ -10,7 +10,7 @@
 
 import type { AgentContext } from "./context.ts";
 import { lineIds, lineText } from "./scan.ts";
-import { mentions, numbersIn, parseJsonObject, readingGrade } from "../text.ts";
+import { drugNameVariants, mentions, numbersIn, parseJsonObject, readingGrade } from "../text.ts";
 import type { Bullet, CheckReport, GroundedRecord, Issue, PlainSummary, ScanResult } from "../types.ts";
 
 // Simplify aims for grade 6; a section fails above this. Medicine sections run a little higher
@@ -78,7 +78,7 @@ export function codeChecks(summary: PlainSummary, record: GroundedRecord, scan: 
   const medBullets = medSection?.bullets ?? [];
   for (const med of record.medications) {
     const generic = record.lookups.drugs.find((d) => d.name.toLowerCase() === med.name.toLowerCase())?.generic;
-    const names = [med.name, generic].filter(Boolean) as string[];
+    const names = drugNameVariants(med.name, generic);
     const original = lineText(scan, med.source) ?? "";
     const want = numbersIn(med.dose);
 
@@ -87,7 +87,12 @@ export function codeChecks(summary: PlainSummary, record: GroundedRecord, scan: 
       issues.push({ bullet: null, section: med.source, type: "extract_mismatch", fix: `Extracted ${med.name} dose "${med.dose}" is not on line ${med.source}: "${original}". Re-read the line.`, by: "code" });
       continue;
     }
-    const about = medBullets.filter((b) => names.some((n) => mentions(b.text, n)));
+    // The main drug word ("doxycycline" for "doxycycline hyclate 100 mg cap") only when no fuller name matches,
+    // and never when another medicine on the paper shares it (stopped metoprolol tartrate, new metoprolol succinate).
+    const by = (list: string[]) => medBullets.filter((b) => list.some((n) => mentions(b.text, n)));
+    const strict = by(names.strict);
+    const loose = names.loose.filter((h) => !record.medications.some((o) => o !== med && mentions(o.name, h)));
+    const about = strict.length ? strict : by(loose);
     if (!about.length) {
       issues.push({ bullet: null, section: medSection?.title ?? "Your medicines", type: "missing_medication", fix: `Add a bullet for ${med.name} ${med.dose} ${med.freq} (${med.status}), citing ${med.source}.`, by: "code" });
       continue;
@@ -112,6 +117,19 @@ export function codeChecks(summary: PlainSummary, record: GroundedRecord, scan: 
     }
   }
   return issues;
+}
+
+/**
+ * The checker model sometimes files an issue and then concludes it's fine ("…Source says exactly that. Good.").
+ * Those are dropped; anything that still asks for a change, or hedges with "but"/"however", is kept.
+ */
+export function selfCleared(fix: string): boolean {
+  const t = fix.trim();
+  // A verdict at the end wins over any hedge before it: "…but the label warns…; no dose change detected."
+  if (/\bno (dose |meaning )?(change|issue|problem|error)s? (detected|found|needed)[.!]?\s*$/i.test(t)) return true;
+  // Any negation keeps it too: "Not accurate." ends like a verdict but isn't one.
+  if (/\b(however|but|although|change|remove|add|replace|should|must|missing|instead|wrong|incorrect|not|never|omits?|drops?|differs?|lacks?)\b|n't\b/i.test(t)) return false;
+  return /(\b(consistent|correct|fine|good|ok|okay|accurate|faithful|matches|match)|no (issue|problem|change)s? (needed|here)?)[.!]?\s*$/i.test(t);
 }
 
 export function readingLevels(summary: PlainSummary, record: GroundedRecord): Record<string, number> {
@@ -149,15 +167,55 @@ Flag a bullet only when:
   FDA drug-label warnings (drug: sources) are optional background: never require them.
 Plain-language rewording, explaining jargon, and the purpose of a drug from its drug lookup are fine.
 A bullet citing a conflict id MUST tell the patient to check that dose with their care team: that is required, not added advice.
+The "Warning signs" section lists EVERY warning sign in the papers, each with who to contact as its source says. A bullet there that says
+"Call your doctor same day if…" (or nurse, surgeon, clinic) because its source says so is correct: never flag it for not saying 911.
+Flag it only if it changes who to contact or how soon compared with its source.
 Suggesting a question for the doctor is fine.
 Return JSON only: {"issues": [{"bullet": "b3", "type": "dose_changed|added_advice|missing_warning", "fix": "one sentence"}]} (empty list if all bullets are faithful).`,
       },
-      { role: "user", content: JSON.stringify(items) },
+      // Shown as "Warning signs": under a "Call 911 if" label the checker kept flagging the papers' own "call your doctor same day" signs.
+      { role: "user", content: JSON.stringify(items.map((b) => (b.section === "Call 911 if" ? { ...b, section: "Warning signs" } : b))) },
     ],
   });
   const out = parseJsonObject<{ issues: { bullet: string; type: string; fix: string }[] }>(res.content);
   const allowed = new Set(["dose_changed", "added_advice", "missing_warning"]);
-  return (out.issues ?? [])
-    .filter((i) => allowed.has(i.type) && items.some((b) => b.id === i.bullet))
+  const flagged = (out.issues ?? [])
+    .filter((i) => allowed.has(i.type) && items.some((b) => b.id === i.bullet) && !selfCleared(String(i.fix ?? "")))
     .map((i) => ({ bullet: i.bullet, section: items.find((b) => b.id === i.bullet)!.section, type: i.type as Issue["type"], fix: i.fix, by: "model" as const }));
+  return flagged.length ? confirm(ctx, flagged, items, attempt) : [];
+}
+
+/**
+ * Second opinion. The whole-summary check above is noisy on a long summary (one run flagged 1
+ * bullet, the next 12, with the summary unchanged), and every flag costs a rewrite. Each flagged
+ * bullet is looked at again on its own, next to its sources; only flags this confirms are kept.
+ * If the second look can't run or is unclear, the flag stands.
+ */
+async function confirm(ctx: AgentContext, flagged: Issue[], items: { id: string; section: string; text: string; sources: Record<string, string> }[], attempt: number): Promise<Issue[]> {
+  const cases = flagged.map((i, n) => ({ case: n + 1, problem: `${i.type}: ${i.fix}`, ...items.find((b) => b.id === i.bullet)!, section: undefined }));
+  try {
+    const res = await ctx.llm({
+      agent: "safety_checker",
+      route: SAFETY_ROUTE,
+      json: true,
+      maxTokens: 1500,
+      attempt,
+      messages: [
+        {
+          role: "system",
+          content: `Another checker says each bullet below has a problem. Look at each bullet next to the source text it cites, and decide if the problem is real.
+Real: the bullet changes a dose, number or timing; tells the patient to do something the sources don't say; or weakens or drops part of a warning sign.
+Not real: plain rewording, explaining a term, a drug's purpose from its drug lookup, or keeping who to contact as the source says.
+Return JSON only: {"verdicts": [{"case": 1, "real": true|false}]}`,
+        },
+        { role: "user", content: JSON.stringify(cases) },
+      ],
+    });
+    const verdicts = parseJsonObject<{ verdicts: { case: number; real: boolean }[] }>(res.content).verdicts ?? [];
+    const kept = flagged.filter((_, n) => verdicts.find((v) => v.case === n + 1)?.real !== false);
+    if (kept.length < flagged.length) ctx.say("safety_checker", "safety_checker", "info", `Second look: ${flagged.length - kept.length} of ${flagged.length} flag(s) weren't real problems.`);
+    return kept;
+  } catch {
+    return flagged;
+  }
 }

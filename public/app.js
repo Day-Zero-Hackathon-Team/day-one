@@ -235,7 +235,8 @@ async function addPdf(file) {
     const c = document.createElement("canvas");
     c.width = Math.round(viewport.width);
     c.height = Math.round(viewport.height);
-    await page.render({ canvasContext: c.getContext("2d"), viewport }).promise;
+    // intent "print": the default display render waits on requestAnimationFrame, which never fires in a background tab.
+    await page.render({ canvasContext: c.getContext("2d"), viewport, intent: "print" }).promise;
     const text = pdfPageText(await page.getTextContent());
     pages.push({ url: c.toDataURL("image/jpeg", 0.85), text: text.replace(/\s/g, "").length >= 40 ? text : null });
   }
@@ -293,7 +294,7 @@ $("go").onclick = async () => {
   // A PDF with a text layer is sent as its exact text: no photo reading needed. Any photo or scanned page means photos.
   const allText = pages.length && pages.every((p) => p.text);
   const body = !usePhoto ? { text: $("text").value }
-    : allText ? { text: pages.map((p) => p.text).join("\n\n") }
+    : allText ? { text: pages.map((p) => p.text).join("\f") } // a form feed starts a new page for the scanner
     : { images: pages.map((p) => p.url) };
   hideError();
   if (usePhoto ? !pages.length : !body.text.trim()) return showError(usePhoto ? "Add a photo or PDF of at least one page." : "Paste the text of your papers, or pick an example.");
@@ -395,11 +396,13 @@ function renderResult(job) {
   // Header
   const name = o.record.patient?.name || (o.record.matched_patient ? titleCase(o.record.matched_patient.label.replace(/\s*\(.*\)$/, "")) : null);
   $("patient-name").textContent = name || "Your summary";
-  $("badges").replaceChildren(
+  // replaceChildren would print a null as "null", so leave out what doesn't apply. No graded sections, no reading level.
+  const graded = Object.keys(o.check.reading_level_by_section ?? {}).length > 0;
+  $("badges").replaceChildren(...[
     el("span", { class: `badge ${o.check.pass ? "badge-ok" : "badge-warn"}`, text: o.check.pass ? "Safety check passed" : "Partly checked" }),
-    el("span", { class: "badge", text: `Reading level: grade ${o.check.reading_level}` }),
-    status?.sampleMode ? el("span", { class: "badge", text: "Example" }) : null,
-  );
+    graded && el("span", { class: "badge", text: `Reading level: grade ${o.check.reading_level}` }),
+    status?.sampleMode && el("span", { class: "badge", text: "Example" }),
+  ].filter(Boolean));
 
   // Alerts: dose conflicts first, then the safety result.
   const alerts = [];
@@ -414,7 +417,7 @@ function renderResult(job) {
 
   // Main column
   const main = [];
-  main.push(emergencyCard(o, ctx));
+  main.push(...emergencyCards(o, ctx));
   const reminder = reminderCard(job, o);
   if (reminder) main.push(reminder);
   for (const s of o.summary.sections) {
@@ -440,14 +443,47 @@ function cardHead(title, sub, id) {
   return el("div", {}, el("h2", { class: "h3", id, text: title }), sub ? el("p", { class: "card-sub", text: sub }) : null);
 }
 
-function emergencyCard(o, ctx) {
+function emergencyCards(o, ctx) {
   const fb = o.fallback_sections.find((f) => f.title === "Call 911 if");
+  // Never an empty box: without rewritten items, list the warning signs from the papers as written.
+  // The source lines, not Extract's text, so a heading like "Call your doctor same day for:" stays with its signs.
+  const asWritten = (src) => sourceLines(src, ctx).filter(Boolean).join(" ");
+  const items = o.summary.call_911_if.length ? o.summary.call_911_if : (o.record.warning_signs ?? []).map((w, i) => ({ id: `w${i + 1}`, text: asWritten(w.source) || w.text, sources: [w.source] }));
+  // Signs the papers send to a doctor or nurse ("Call your doctor same day if…") get their own card,
+  // not a "Call 911" heading. Anything unclear stays in the 911 box.
+  const urgent = fb ? items : items.filter((b) => !callsSomeoneElse(b, ctx));
+  const doctor = fb ? [] : items.filter((b) => callsSomeoneElse(b, ctx));
   const list = fb
     ? el("div", { class: "orig mono", text: fb.original.map((l) => l.text).join("\n") })
-    : bulletList(o.summary.call_911_if, ctx, { plainDots: true });
-  return el("section", { class: "card card-danger emergency", "aria-labelledby": "h-911" },
-    el("div", { class: "stack", style: "gap: 10px" }, el("h2", { class: "h3", id: "h-911", text: "Call 911 or go to the ER if you have:" }), list),
-    el("a", { class: "call-911", href: "tel:911" }, svg(ICONS.phone), "Call 911"));
+    : bulletList(urgent, ctx, { plainDots: true });
+  const cards = [];
+  if (fb || urgent.length || !doctor.length) {
+    cards.push(el("section", { class: "card card-danger emergency", "aria-labelledby": "h-911" },
+      el("div", { class: "stack", style: "gap: 10px" }, el("h2", { class: "h3", id: "h-911", text: "Call 911 or go to the ER if you have:" }), list),
+      el("a", { class: "call-911", href: "tel:911" }, svg(ICONS.phone), "Call 911")));
+  }
+  if (doctor.length) cards.push(el("section", { class: "card card-amber" }, cardHead("Call your doctor if you have:", "Not an emergency, but don't wait. Each line says who to call and how soon."), bulletList(doctor, ctx, { plainDots: true })));
+  return cards;
+}
+
+/**
+ * Does this warning sign send the patient to someone other than 911 or the ER ("Call PCP same day for: …")?
+ * Read from the bullet and the lines it cites, since the rewritten bullet may leave out who to call.
+ * Any mention of 911, the ER or an emergency keeps it in the 911 box, and so does anything unclear.
+ */
+function callsSomeoneElse(b, ctx) {
+  const texts = [b.text, ...b.sources.flatMap((s) => sourceLines(s, ctx))];
+  if (texts.some((t) => /\b(911|ER|ED|emergency|ambulance)\b/i.test(t))) return false;
+  return texts.some((t) => /\b(call|contact|phone|tell|see)\b[^.]*\b(doctor|pcp|surgeon|nurse|clinic|provider|care team|office)\b/i.test(t));
+}
+
+/** The text of each line a source cites: "p2:L14", "p2:L14-16" or "p2:L14-L16". Anything else (drug:…, term:…) has none. */
+function sourceLines(src, ctx) {
+  const m = String(src).match(/^(p\d+):L(\d+)(?:-L?(\d+))?$/);
+  if (!m) return [];
+  const out = [];
+  for (let n = Number(m[2]); n <= Number(m[3] ?? m[2]); n++) out.push(ctx.lineMap.get(`${m[1]}:L${n}`) ?? "");
+  return out;
 }
 
 function reminderCard(job, o) {
