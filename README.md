@@ -2,7 +2,7 @@
 
 > **Open Agent Hackathon 2026 · Oct 22–27**
 
-A phone app where a patient **scans their hospital discharge summary** and gets a **plain-language version** they can read or listen to.
+A web app (it works on a phone too) where a patient **uploads a photo or the text of their hospital discharge summary** and gets a **plain-language version** they can read or listen to.
 
 Discharge papers are dense with jargon, abbreviations, and dosing instructions that are easy to misread at exactly the moment a patient is tired, stressed, and going home. This project turns those papers into a short, sourced, grade-6 summary with a daily medicine schedule, a clear "call 911 if" list, and read-aloud audio, and it checks itself for safety before anything reaches the patient.
 
@@ -76,7 +76,7 @@ flowchart TD
 | 04 | **Simplify** | AI | Rewrites everything at a grade-6 reading level. Builds a daily medicine schedule, a "call 911 if" list, and questions to ask the doctor. Every bullet points back to its sources. | `PlainSummary` |
 | 05 | **Safety checker** | AI · separate call | Checks every bullet against its source. Fails the summary for a dropped or changed dose, advice that isn't in the original, a missing warning sign, or a reading level that's too high. The reading level comes from a formula in code, not from the AI. A fail goes back to Simplify, at most twice. | `CheckReport` |
 | 06 | **Read-aloud** | Plain code · TTS | Makes audio for each section, plus word timings so the text highlights as it's read. | audio files + timings |
-| + | **Q&A** *(stretch goal)* | AI | Answers follow-up questions like *"Can I shower?"* using only that patient's data. For anything else it says to ask the care team. | — |
+| + | **Q&A** | AI · H-MEM recall | Answers follow-up questions like *"Can I shower?"* using only that patient's data, recalled through H-MEM, with sources. For anything else it says to ask the care team. | answer + sources |
 
 ---
 
@@ -172,29 +172,84 @@ These two rules are non-negotiable and are central to the pitch.
 
 ## Getting started
 
+Day One is a local web app. It runs on **macOS and Windows** with Node 24 and has no npm dependencies.
+
+> **New to the project?** [`docs/HANDOFF.md`](docs/HANDOFF.md) walks through the whole setup (Zetaris, Nightshift, the NVIDIA key), what's built, what's left, and how to continue the design in Figma.
+
 ### Prerequisites
 
-- Docker + Docker Compose
-- Java runtime (for the Zetaris JDBC driver in `jdbc/`)
-- An API key for the AI model you choose (check the hackathon rules on partner tools first)
+| Need | Why | Check |
+| --- | --- | --- |
+| [Node.js 24+](https://nodejs.org/) | Runs the server and agents (TypeScript, no build step) | `node --version` |
+| Java 11+ | The Zetaris JDBC driver | `java -version` |
+| Docker + the Zetaris platform | Data layer: drug labels, terms, hospital records | `./verify.sh` in your `zetaris-platform` folder |
+| [Meterless Nightshift](https://meterless.ai/Nightshift/WIN/) (Windows) or the Mac edition | The app's AI provider. Add your NVIDIA API key in Nightshift's **Providers** tab, and switch off any NVIDIA model your key can't use in **Compute sources** (see `docs/meterless-integration.md`). | `npm run nightshift:check` |
 
-### 1. Start Zetaris
+### 1. Load the data into Zetaris (once)
 
 ```bash
-./preflight.sh          # check the machine is ready
-docker compose up -d    # start Zetaris
-./verify.sh             # confirm it's reachable on port 10000
+python3 data/download_datasets.py      # Windows: py data\download_datasets.py
+scripts/load_to_zetaris.sh             # needs Zetaris running; see data/README.md
 ```
 
-### 2. Load the datasets
+### 2. Configure
 
-Download `drug_reference`, `medical_terms`, and `hospital_records` with `python3 data/download_datasets.py`, then load them into Zetaris. The full walkthrough is in [`data/README.md`](data/README.md).
+```bash
+cp .env.example .env
+```
 
-### 3. Run the pipeline
+On the machine running Nightshift, the token is read from Nightshift's own folder automatically. Set `ZETARIS_DIR` if your `zetaris-platform` folder isn't next to this repo, in your home folder or in Downloads.
 
-> 🚧 Coming soon: the orchestrator and agents are being built during the hackathon (see the [build plan](#build-plan)).
+### 3. Run
 
-**Tip:** Scan, Extract, and Simplify can be developed before Zetaris is up by faking the Lookup responses with the `GroundedRecord` shape above.
+```bash
+npm start
+```
+
+Open <http://localhost:3100>, pick a sample (or paste your own text, or upload photos), and press **Make it plain**. A run takes 3 to 6 minutes. Every agent's input and output, the agent conversation, and a trace of every model call (with the model that answered and Nightshift's signed receipt) are saved in `runs/<job>/`.
+
+**No Nightshift or Zetaris?** `npm run sample` replays recorded responses for the three sample cases (`SAMPLE_MODE=true`); H-MEM still runs for real. Recorded Q&A questions: *"Can I drink alcohol?"* (sample 1), *"When should I see my doctor again?"* (sample 2), *"Can I take a bath?"* (sample 3). Any other question in sample mode gets "ask your care team". To re-record after changing a prompt, set `NIGHTSHIFT_RECORD=true` and `ZETARIS_RECORD=true`, delete `samples/nightshift/` and `samples/zetaris/`, and run the three samples live.
+
+### Known gaps (prototype)
+
+- **Photos** need a vision model in Nightshift; until one is set up, photo uploads ask the patient to paste the text.
+- **Q&A answers** must cite a line of the papers, but they don't go through the full safety checker, so an answer can add a little context the papers don't state.
+- **Nightshift routing:** NVIDIA models your key can't use cost about 2 minutes each before the client retries; switch them off in Nightshift's Compute sources.
+- **Read-aloud** uses the browser's voice, not Nightshift's `meterless/speech`.
+
+### Tests
+
+```bash
+npm test                  # Nightshift client unit tests (offline)
+npm run test:hmem         # Meterless H-MEM engine conformance suite (13 checks)
+npm run nightshift:check  # live check against a running Nightshift
+```
+
+### How the code is laid out
+
+| Path | What |
+| --- | --- |
+| `src/server.ts` | Web server and job API |
+| `src/pipeline.ts` | Orchestrator: routes work between agents, including the feedback loops |
+| `src/agents/` | Scan, Extract, Lookup, Simplify, Safety checker |
+| `src/memory.ts` | Patient medicine memory on the Meterless **H-MEM** engine (`engines/hmem/`, Apache 2.0) |
+| `src/zetaris.ts`, `scripts/ZetarisJson.java` | Fixed Zetaris lookups over JDBC |
+| `src/nightshift.ts` | Meterless Nightshift client (the only AI provider) |
+| `public/` | The web page (unstyled skeleton; design brief in `docs/features.md`) |
+| `samples/inputs/` | Three sample discharge summaries for real synthetic patients |
+| `docs/meterless-integration.md` | How Meterless, Nightshift and NVIDIA are used |
+| `docs/HANDOFF.md` | Setup from scratch, status, what's left, Figma workflow |
+
+### How the agents work together
+
+The orchestrator is plain code; the agents send work back to each other instead of running once in a line:
+
+- **Extract → Scan:** lines Extract can't read with confidence in a photo are re-read.
+- **Lookup → Extract:** a medicine Zetaris doesn't know is sent back to be re-checked (often a misread name).
+- **H-MEM → Safety checker:** when the papers and the hospital record disagree on a dose and the papers don't say it changed, the conflict is escalated and the summary must tell the patient to check with their care team.
+- **Safety checker → Simplify:** problems found in the summary are sent back for revision (at most 2 retries).
+- **Safety checker → Extract:** a dose that isn't on its own source line means Extract misread it; Extract re-reads, the record is re-grounded, and Simplify rewrites.
+- **Fallback:** a section that still fails shows the original text with "Ask your care team".
 
 ---
 

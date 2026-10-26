@@ -1,0 +1,8 @@
+{
+ "sql": "SELECT COUNT(*) AS n FROM DAY_ONE.drug_reference",
+ "rows": [
+  {
+   "n": "204"
+  }
+ ]
+}

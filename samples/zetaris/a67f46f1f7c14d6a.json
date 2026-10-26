@@ -1,0 +1,19 @@
+{
+ "sql": "SELECT Id, FIRST, LAST, BIRTHDATE, GENDER FROM DAY_ONE.hospital_records_patients WHERE BIRTHDATE = '1952-10-05'",
+ "rows": [
+  {
+   "Id": "2f3c8454-b3b8-bab6-0b8a-7c2da8723a62",
+   "FIRST": "Lindsey52",
+   "LAST": "Cartwright189",
+   "BIRTHDATE": "1952-10-05",
+   "GENDER": "M"
+  },
+  {
+   "Id": "88deb12c-4d82-d1bc-6298-7cee4e3c3d0d",
+   "FIRST": "Franklin857",
+   "LAST": "Kris249",
+   "BIRTHDATE": "1952-10-05",
+   "GENDER": "M"
+  }
+ ]
+}

@@ -1,0 +1,34 @@
+{
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{ \"answered\": true, \"answer\": \"No, you need to follow a low‑sodium diet of 2 grams per day. The discharge instructions say to avoid salty food. Eating too much salt can make your heart failure worse.\", \"sources\": [\"p1:L19\"] }"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 2289,
+    "completion_tokens": 65,
+    "total_tokens": 2354
+  },
+  "meterless": {
+    "routed_model": "nvidia/nemotron-3-ultra-550b-a55b",
+    "receipt_id": "rcpt_req_7qqfarxw",
+    "phases": [
+      {
+        "phase": "final_synthesis",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "ms": 12306,
+        "tokensIn": 2289,
+        "tokensOut": 65,
+        "outputTps": 5.281976271737364,
+        "coherence": null,
+        "tier": "B",
+        "reflex_decided_in_ms": 0.5
+      }
+    ]
+  }
+}
