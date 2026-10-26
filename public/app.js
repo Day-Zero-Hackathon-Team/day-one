@@ -175,11 +175,12 @@ function selectTab(which) {
     $(`tab-${t}`).setAttribute("aria-selected", String(t === which));
     $(`panel-${t}`).hidden = t !== which;
   }
-  document.querySelector(".segmented").classList.toggle("right", which === "photo");
+  document.querySelector(".segmented").classList.toggle("right", which === "text");
   hideError();
 }
 $("tab-text").onclick = () => selectTab("text");
 $("tab-photo").onclick = () => selectTab("photo");
+$("use-text").onclick = () => { selectTab("text"); $("text").focus(); };
 
 const drop = $("drop");
 ["dragenter", "dragover"].forEach((t) => drop.addEventListener(t, (e) => { e.preventDefault(); drop.classList.add("drag"); }));
