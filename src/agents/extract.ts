@@ -33,10 +33,30 @@ Rules:
 - Leave out anything the paper does not say. Return JSON only, in this shape:
 ${SCHEMA}`;
 
+const MAX_TERMS = 60;
+
 export async function extract(ctx: AgentContext, scan: ScanResult): Promise<DischargeRecord> {
   const input = numberedLines(scan);
-  const res = await ctx.llm({ agent: "extract", route: "meterless/text", json: true, maxTokens: 4000, messages: [{ role: "system", content: SYSTEM }, { role: "user", content: input }] });
-  const record = normalise(parseJsonObject(res.content));
+  // A cut-off answer (Nightshift stops at ~45 s) parses to nothing or to an empty record. A discharge
+  // summary always has something in it, so that is asked again, with a reminder.
+  let record: DischargeRecord | null = null;
+  for (let i = 1; i <= 3; i++) {
+    const nudge = i > 1 ? [{ role: "user" as const, content: "Your last answer was empty or not JSON. Read every line above and reply with only the JSON object, filling every list the lines support." }] : [];
+    const res = await ctx.llm({ agent: "extract", route: "meterless/text", json: true, maxTokens: 4000, messages: [{ role: "system", content: SYSTEM }, { role: "user", content: input }, ...nudge] });
+    let error = "";
+    try {
+      record = normalise(parseJsonObject(res.content));
+      if (record.medications.length || record.diagnoses.length || record.follow_ups.length || record.warning_signs.length) break;
+      error = "nothing extracted";
+    } catch (err) {
+      error = (err as Error).message;
+    }
+    ctx.save("extract", `unusable${i}`, { output: { error, finish: res.finishReason, raw: res.content } });
+    if (i < 3) ctx.say("extract", "extract", "info", `My reading came back unusable (${error.slice(0, 80)}); reading the lines again.`);
+  }
+  record ??= normalise({});
+  // A cut-off answer can run away listing terms (323 once). Keep only terms that are on the paper, and a sane number.
+  record.unknown_terms = record.unknown_terms.filter((t) => t.length <= 30 && input.includes(t)).slice(0, MAX_TERMS);
   ctx.save("extract", "record", { input, output: record });
   return record;
 }

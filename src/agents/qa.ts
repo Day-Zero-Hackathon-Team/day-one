@@ -28,7 +28,7 @@ export async function answer(ctx: AgentContext, out: FinalOutput, memory: Patien
     `Original lines:\n${numberedLines(out.scan)}`,
     `Checked plain-language summary:\n${JSON.stringify(bullets)}`,
   ].join("\n\n");
-  const ask = () =>
+  const ask = (retry: boolean) =>
     ctx.llm({
       agent: "qa",
       route: "meterless/text",
@@ -43,21 +43,24 @@ If they don't answer the question, set answered to false and do not guess. Never
 Return JSON only: {"answered": true, "answer": "...", "sources": ["p1:L20"]}`,
         },
         { role: "user", content: input },
+        ...(retry ? [{ role: "user" as const, content: 'Reply with only this JSON object and nothing else: {"answered": true|false, "answer": "...", "sources": ["p1:L4"]}' }] : []),
       ],
     });
   type Raw = { answered?: boolean; answer?: string; sources?: string[] };
-  // An unusable answer (cut off, not JSON) is asked once more, then becomes "ask your care team".
+  // Models sometimes wrap the answer, e.g. {"analysis": ..., "final": {...}}.
+  const unwrap = (p: Record<string, unknown>): Raw => ("answer" in p ? p : ((Object.values(p).find((v) => v && typeof v === "object" && "answer" in (v as object)) as Raw) ?? p));
+  // An unusable answer (cut off, not JSON, or its notes with no "answer" in them) is asked once more,
+  // then becomes "ask your care team".
   let parsed: Raw & Record<string, unknown> = {};
   for (let i = 1; i <= 2; i++) {
     try {
-      parsed = parseJsonObject((await ask()).content);
-      break;
+      parsed = parseJsonObject((await ask(i > 1)).content);
+      if (typeof unwrap(parsed).answer === "string") break;
     } catch {
       parsed = {};
     }
   }
-  // Models sometimes wrap the answer, e.g. {"analysis": ..., "final": {...}}.
-  const raw: Raw = "answer" in parsed ? parsed : ((Object.values(parsed).find((v) => v && typeof v === "object" && "answer" in (v as object)) as Raw) ?? parsed);
+  const raw = unwrap(parsed);
   const ids = lineIds(out.scan);
   const sources = (raw.sources ?? []).filter((s) => ids.has(String(s).split("-")[0]));
   // No real source, no answer: nothing reaches the patient without one.

@@ -69,3 +69,57 @@ test("drug names match without release forms or doses", async () => {
   assert.equal(baseDrugName("Metoprolol succinate XL 50 mg"), "metoprolol succinate");
   assert.equal(baseDrugName("Furosemide"), "furosemide");
 });
+
+test("a medicine counts as covered under its plain name, not just its full printed name", () => {
+  const lines = scanText(["Doxycycline hyclate 100 mg cap PO BID", "Tiotropium (Spiriva HandiHaler) 18 mcg cap STOP", "Oxygen (home, via NC) 2 L/min", "Chest pain"].join("\n"));
+  const r = record({
+    medications: [
+      { name: "doxycycline hyclate 100 mg cap", dose: "100 mg", freq: "BID", status: "new", source: "p1:L1" },
+      { name: "tiotropium (Spiriva HandiHaler) 18 mcg cap", dose: "--", freq: "--", status: "stopped", source: "p1:L2" },
+      { name: "Oxygen (home, via NC)", dose: "2 L/min", freq: "with exertion", status: "new", source: "p1:L3" },
+    ],
+    warning_signs: [{ text: "Chest pain", source: "p1:L4" }],
+    lookups: { drugs: [], terms: [] },
+  });
+  const s = (bullets: string[]) =>
+    summary("", { sections: [{ title: "Your medicines", bullets: bullets.map((text, i) => ({ id: `b${i}`, text, sources: [`p1:L${i + 1}`] })) }], call_911_if: [{ id: "w1", text: "You have chest pain.", sources: ["p1:L4"] }] });
+  assert.deepEqual(codeChecks(s(["Take doxycycline 100 mg two times a day.", "Stop tiotropium (Spiriva). Do not use it.", "Use oxygen at 2 L/min when active."]), r, lines), []);
+  // A medicine that really is left out is still caught, and so is a wrong dose under the plain name.
+  assert.deepEqual(types(codeChecks(s(["Take doxycycline 50 mg two times a day.", "Use oxygen at 2 L/min when active."]), r, lines)), ["dose_changed", "missing_medication"]);
+});
+
+test("a combination inhaler written only by its brand still counts, and its dose is checked on that bullet", () => {
+  const lines = scanText(["Tiotropium-olodaterol (Stiolto Respimat) 2.5-2.5 mcg 2 inhalations daily", "Tiotropium (Spiriva HandiHaler) 18 mcg STOP", "Chest pain"].join("\n"));
+  const r = record({
+    medications: [
+      { name: "tiotropium-olodaterol (Stiolto Respimat) 2.5-2.5 mcg/actuation", dose: "2 inhalations", freq: "daily", status: "new", source: "p1:L1" },
+      { name: "tiotropium (Spiriva HandiHaler) 18 mcg cap", dose: "--", freq: "--", status: "stopped", source: "p1:L2" },
+    ],
+    warning_signs: [{ text: "Chest pain", source: "p1:L3" }],
+    // Zetaris maps the combination to plain tiotropium, the same generic as the stopped inhaler.
+    lookups: { drugs: [{ id: "drug:tiotropium", table: "drug_reference", name: "tiotropium-olodaterol (Stiolto Respimat) 2.5-2.5 mcg/actuation", generic: "tiotropium", plain_purpose: "an inhaler", common_side_effects: [], key_warning: null }], terms: [] },
+  });
+  const s = summary("", {
+    sections: [{ title: "Your medicines", bullets: [
+      { id: "b1", text: "Stiolto Respimat 2 inhalations once a day.", sources: ["p1:L1"] },
+      { id: "b2", text: "Spiriva HandiHaler (tiotropium) is stopped.", sources: ["p1:L2"] },
+    ] }],
+    call_911_if: [{ id: "w1", text: "You have chest pain.", sources: ["p1:L3"] }],
+  });
+  assert.deepEqual(codeChecks(s, r, lines), []);
+});
+
+test("checker notes that clear themselves are dropped; real ones are kept", async () => {
+  const { selfCleared } = await import("./agents/safety.ts");
+  assert.ok(selfCleared('Bullet says "First dose given 10/23." Source says "First dose given 10/23 09:00." That\'s consistent.'));
+  assert.ok(selfCleared("Bullet says Last dose was 10/24 at 9:00 AM. Source says exactly that. Good."));
+  assert.ok(!selfCleared("The bullet says 2 more days which matches. However, the source also says the last dose is 10/26 PM."));
+  assert.ok(!selfCleared("Remove the instruction to avoid OTC PM sleep aids; the source doesn't say it."));
+  assert.ok(!selfCleared('Change to "Call your doctor the same day if you cannot urinate."'));
+});
+
+test("a verdict at the end of a checker note clears it, even after a hedge", async () => {
+  const { selfCleared } = await import("./agents/safety.ts");
+  assert.ok(selfCleared("The source says NEW: Furosemide 40 mg PO BID, which matches the bullet, but the drug reference warns about careful dose adjustment; no dose change detected."));
+  assert.ok(!selfCleared("No dose change detected, but the bullet adds advice to avoid salt that the source doesn't give."));
+});

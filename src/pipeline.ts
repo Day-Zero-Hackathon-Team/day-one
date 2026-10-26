@@ -28,7 +28,7 @@ import { ground, lookup } from "./agents/lookup.ts";
 import { answer, type QaAnswer } from "./agents/qa.ts";
 import { check } from "./agents/safety.ts";
 import { lineText, rereadLines, scanImages, scanText } from "./agents/scan.ts";
-import { revise, simplify } from "./agents/simplify.ts";
+import { revise, simplify, unwritten, verbatimWarnings, type Draft } from "./agents/simplify.ts";
 import { ROOT, sampleMode } from "./config.ts";
 import { PatientMemory } from "./memory.ts";
 import { Nightshift, NightshiftError } from "./nightshift.ts";
@@ -194,24 +194,27 @@ async function run(ns: Nightshift, job: Job, input: JobInput, keep: (ctx: AgentC
 
   // 5 · Simplify ⇄ Safety checker
   step("simplify", "running");
-  let summary: PlainSummary;
+  let draft: Draft;
   try {
-    summary = await simplify(ctx, grounded, scan);
+    draft = await simplify(ctx, grounded, scan);
   } catch (err) {
     // No usable draft at all: the patient gets their original papers, never an error page.
+    // The warning signs Extract found still go in the 911 box, in the papers' own words.
     ctx.say("simplify", "patient", "fallback", `Couldn't write a plain version (${(err as Error).message.slice(0, 100)}). Showing your original papers with "Ask your care team".`);
     step("simplify", "failed", "no usable draft");
     step("safety_checker", "skipped");
     const original = scan.pages.flatMap((p) => p.lines);
-    const empty: PlainSummary = { sections: [], med_schedule: [], call_911_if: [], questions_for_your_doctor: [] };
+    const empty: PlainSummary = { sections: [], med_schedule: [], call_911_if: verbatimWarnings(grounded, scan), questions_for_your_doctor: [] };
     const report: CheckReport = { pass: false, model_checked: false, reading_level: 0, reading_level_by_section: {}, issues: [] };
     job.output = { summary: empty, check: report, fallback_sections: [{ title: "Your discharge papers", original }], record: grounded, scan, ledger: {}, models: ctx.models };
     job.status = "done";
     keep(ctx, memory);
     return persist(job);
   }
-  step("simplify", "done", "draft written");
-  ctx.say("simplify", "safety_checker", "handoff", `PlainSummary: ${summary.sections.reduce((n, s) => n + s.bullets.length, 0)} bullets, ${summary.call_911_if.length} warning items.`);
+  let summary = draft.summary;
+  const missing = draft.parts.filter((p) => !p.output).length;
+  step("simplify", "done", `${draft.parts.length - missing} of ${draft.parts.length} parts written`);
+  ctx.say("simplify", "safety_checker", "handoff", `PlainSummary: ${summary.sections.reduce((n, s) => n + s.bullets.length, 0)} bullets, ${summary.call_911_if.length} warning items${missing ? ` (${missing} part(s) not written)` : ""}.`);
 
   let report: CheckReport;
   for (let attempt = 1; ; attempt++) {
@@ -226,7 +229,7 @@ async function run(ns: Nightshift, job: Job, input: JobInput, keep: (ctx: AgentC
       break;
     }
     const mismatches = report.issues.filter((i) => i.type === "extract_mismatch");
-    const previous = summary;
+    const previous = draft;
     try {
       if (mismatches.length) {
         // The problem is upstream: Extract misread a dose. Fix the record, then rewrite.
@@ -238,15 +241,17 @@ async function run(ns: Nightshift, job: Job, input: JobInput, keep: (ctx: AgentC
         ctx.say("extract", "memory", "reply", notes.join(" ") || "No changes.");
         grounded = ground(ctx, record, look, memory);
         step("simplify", "running", `rewrite ${attempt}`);
-        summary = await simplify(ctx, grounded, scan);
+        draft = await simplify(ctx, grounded, scan);
       } else {
         ctx.say("safety_checker", "simplify", "critique", `Check ${attempt} failed: ${describe(report.issues)}. Revise.`);
         step("simplify", "running", `revision ${attempt}`);
-        summary = await revise(ctx, grounded, scan, summary, report.issues, attempt);
+        draft = await revise(ctx, grounded, scan, draft, report.issues, attempt);
       }
+      summary = draft.summary;
     } catch (err) {
       // A failed rewrite never sinks the job: keep the last checked draft and fall back.
-      summary = previous;
+      draft = previous;
+      summary = draft.summary;
       step("simplify", "done", `revision ${attempt} failed`);
       ctx.say("simplify", "orchestrator", "fallback", `Revision ${attempt} failed (${(err as Error).message.slice(0, 120)}). Keeping the last checked draft.`);
       break;
@@ -255,9 +260,16 @@ async function run(ns: Nightshift, job: Job, input: JobInput, keep: (ctx: AgentC
   }
   step("safety_checker", report.pass ? "done" : "done", report.pass ? `passed, grade ${report.reading_level}` : `${report.issues.length} issue(s) left → fallback`);
 
-  // 6 · Fall back to the original text for any section that still fails.
+  // 6 · Fall back to the original text for any section that still fails, or was never written.
   const fallback = fallbackSections(summary, report, scan);
   for (const f of fallback) ctx.say("orchestrator", "patient", "fallback", `"${f.title}" shows the original text with "Ask your care team": it didn't pass the safety check.`);
+  for (const u of unwritten(draft)) {
+    const original = scan.pages.flatMap((p) => p.lines).filter((l) => u.lines.includes(l.id));
+    const same = fallback.find((f) => f.title === u.title);
+    if (same) same.original.push(...original.filter((l) => !same.original.some((o) => o.id === l.id)));
+    else fallback.push({ title: u.title, original });
+    ctx.say("orchestrator", "patient", "fallback", `"${u.title}" shows the original text with "Ask your care team": it couldn't be written in plain words.`);
+  }
 
   const cited = new Set([...summary.sections.flatMap((s) => s.bullets.flatMap((b) => b.sources)), ...summary.call_911_if.flatMap((b) => b.sources)]);
   const ledger: FinalOutput["ledger"] = {};
