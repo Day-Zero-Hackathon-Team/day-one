@@ -137,22 +137,15 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back
         </a>
         <h1 class="h1" tabindex="-1">Add your discharge papers</h1>
-        <p class="lead-sm">Use a photo, paste the text, or try an example.</p>
+        <p class="lead-sm">Take a photo of each page, paste the text, or try an example.</p>
 
         <div class="segmented" role="tablist" aria-label="How to add your papers">
-          <button role="tab" id="tab-text" aria-selected="true" aria-controls="panel-text">Paste text</button>
-          <button role="tab" id="tab-photo" aria-selected="false" aria-controls="panel-photo">Photo</button>
+          <button role="tab" id="tab-photo" aria-selected="true" aria-controls="panel-photo">Take a photo</button>
+          <button role="tab" id="tab-text" aria-selected="false" aria-controls="panel-text">Paste text</button>
           <span class="seg-thumb" aria-hidden="true"></span>
         </div>
 
-        <div id="panel-text" role="tabpanel" aria-labelledby="tab-text" class="panel">
-          <label for="text" class="label">The text of your papers</label>
-          <textarea id="text" rows="10" placeholder="DISCHARGE SUMMARY&#10;Patient: …&#10;Discharge medications: …"></textarea>
-          <p class="label label-space">Or try an example</p>
-          <div class="samples" id="samples"></div>
-        </div>
-
-        <div id="panel-photo" role="tabpanel" aria-labelledby="tab-photo" class="panel" hidden>
+        <div id="panel-photo" role="tabpanel" aria-labelledby="tab-photo" class="panel">
           <label class="drop" id="drop">
             <input type="file" id="files" accept="image/*" capture="environment" multiple>
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
@@ -160,7 +153,14 @@
             <span class="muted">Flat on a table, good light, the whole page in the frame.</span>
           </label>
           <ul class="thumbs" id="thumbs"></ul>
-          <p class="note" id="vision-note" hidden>Reading photos needs a vision model in Meterless Nightshift. Until one is set up, please paste the text instead.</p>
+          <p class="note" id="vision-note" hidden>Photo reading isn't switched on yet. Until it is, please paste the text of your papers. <button class="btn-inline" type="button" id="use-text">Paste text instead</button></p>
+        </div>
+
+        <div id="panel-text" role="tabpanel" aria-labelledby="tab-text" class="panel" hidden>
+          <label for="text" class="label">The text of your papers</label>
+          <textarea id="text" rows="10" placeholder="DISCHARGE SUMMARY&#10;Patient: …&#10;Discharge medications: …"></textarea>
+          <p class="label label-space">Or try an example</p>
+          <div class="samples" id="samples"></div>
         </div>
 
         <p class="alert alert-error" id="input-error" role="alert" hidden></p>
