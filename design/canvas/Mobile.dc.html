@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Day One phone hero</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&amp;family=Bricolage+Grotesque:opsz,wght@12..96,800&amp;family=Roboto+Mono:wght@400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#2563EB}
+a:focus-visible,button:focus-visible{outline:3px solid #93C5FD;outline-offset:3px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes bar{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+.in1{animation:fadeUp .6s ease both .05s}.in2{animation:fadeUp .6s ease both .2s}.in3{animation:fadeUp .6s ease both .35s}.in4{animation:fadeUp .6s ease both .55s}
+.wave{display:flex;align-items:center;gap:3px;height:22px;margin-left:auto}
+.wave i{display:block;width:4px;height:20px;border-radius:2px;background:#475569;transform:scaleY(.35)}
+.wave.on i{background:#93C5FD;animation:bar 1s ease-in-out infinite}
+.wave.on i:nth-child(2){animation-delay:.12s}.wave.on i:nth-child(3){animation-delay:.24s}.wave.on i:nth-child(4){animation-delay:.36s}.wave.on i:nth-child(5){animation-delay:.48s}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; overflow: hidden; background: #F8F9FA; color: #0F172A; font-family: 'Atkinson Hyperlegible', system-ui, sans-serif; font-size: {{baseSize}}px; line-height: 1.55; display: flex; flex-direction: column;">
+<header style="padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #E2E8F0;">
+<a href="#" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: #0F172A; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 20px;">
+<svg width="28" height="28" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="36" fill="none" stroke="#0F172A" stroke-width="20"></circle><circle cx="50" cy="14" r="12" fill="#FF4A1C"></circle></svg>
+Day One</a>
+<button type="button" aria-pressed="{{bigStr}}" onClick="{{toggleBig}}" style="min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid #CBD5E1; background: {{bigBg}}; color: #0F172A; font: 700 15px/1 'Atkinson Hyperlegible', sans-serif;">{{bigLabel}}</button>
+</header>
+<div style="padding: 28px 20px; display: flex; flex-direction: column; gap: 20px;">
+<h1 class="in1" style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 38px; line-height: 1.08; letter-spacing: -0.03em;">Understand your hospital papers.</h1>
+<p class="in2" style="margin: 0; font-size: 1.1em; color: #1E293B;">Take a photo of your discharge papers. We turn them into simple steps you can read or listen to.</p>
+<div class="in3" style="display: flex; flex-direction: column; align-items: center; gap: 14px;">
+<a href="SummaryMobile.dc.html" style="align-self: stretch; background: #2563EB; color: #FFFFFF; text-decoration: none; font-weight: 700; font-size: 20px; padding: 16px; border-radius: 999px; min-height: 60px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; gap: 10px;">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"></path><circle cx="12" cy="13" r="3.5"></circle></svg>
+Scan my papers</a>
+<a href="SummaryMobile.dc.html" style="color: #1D4ED8; font-weight: 700; font-size: 17px; min-height: 44px; display: inline-flex; align-items: center;">See an example</a>
+</div>
+<div class="in4" style="background: #FFFFFF; border: 2px solid #2563EB; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 12px;">
+<p style="margin: 0; font-size: 14px; color: #475569;">Your papers say <span style="font-family: 'Roboto Mono', monospace; color: #1E293B;">Furosemide 40 mg PO BID</span></p>
+<p style="margin: 0; font-size: 1.05em;"><span style="font-size: 14px; font-weight: 700; color: #1D4ED8;">Day One says</span><br>Take <strong>furosemide 40 mg</strong> two times a day. It's a water pill.</p>
+<div style="background: #0F172A; color: #FFFFFF; border-radius: 999px; padding: 6px 14px 6px 6px; display: flex; align-items: center; gap: 10px;">
+<button type="button" aria-label="{{playLabel}}" aria-pressed="{{playingStr}}" onClick="{{togglePlay}}" style="width: 44px; height: 44px; border-radius: 999px; border: none; background: #2563EB; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none;">
+<sc-if value="{{playing}}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"></rect><rect x="14" y="5" width="4" height="14" rx="1"></rect></svg></sc-if>
+<sc-if value="{{notPlaying}}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"></path></svg></sc-if>
+</button>
+<span style="font-size: 16px; font-weight: 700;">{{playText}}</span>
+<span class="{{waveCls}}" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+</div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+constructor(props) { super(props); this.state = { big: false, playing: false }; }
+componentWillUnmount() { clearTimeout(this.t); if (window.speechSynthesis) window.speechSynthesis.cancel(); }
+renderVals() {
+const s = this.state;
+const stop = () => { if (window.speechSynthesis) window.speechSynthesis.cancel(); clearTimeout(this.t); this.setState({ playing: false }); };
+return {
+baseSize: s.big ? 20 : 17,
+bigStr: String(s.big), bigBg: s.big ? '#DBEAFE' : '#FFFFFF', bigLabel: s.big ? 'Normal text' : 'Larger text',
+toggleBig: () => this.setState({ big: !s.big }),
+playing: s.playing, notPlaying: !s.playing, playingStr: String(s.playing),
+playLabel: s.playing ? 'Stop' : 'Listen',
+playText: s.playing ? 'Reading to you…' : 'Listen',
+waveCls: s.playing ? 'wave on' : 'wave',
+togglePlay: () => {
+if (s.playing) return stop();
+this.setState({ playing: true });
+const ss = window.speechSynthesis;
+if (ss && typeof SpeechSynthesisUtterance !== 'undefined') {
+ss.cancel();
+const u = new SpeechSynthesisUtterance("Take furosemide 40 milligrams two times a day. It's a water pill.");
+u.rate = 0.9; u.onend = () => this.setState({ playing: false }); u.onerror = () => this.setState({ playing: false });
+ss.speak(u);
+} else { this.t = setTimeout(() => this.setState({ playing: false }), 5000); }
+}
+};
+}
+}
+</script>
+</body>
+</html>

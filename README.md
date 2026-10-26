@@ -240,6 +240,7 @@ npm run nightshift:check  # live check against a running Nightshift
 | `samples/inputs/` | Three sample discharge summaries for real synthetic patients |
 | `docs/meterless-integration.md` | How Meterless, Nightshift and NVIDIA are used |
 | `docs/HANDOFF.md` | Setup from scratch, status, what's left, Figma workflow |
+| `docs/design.md`, `design/` | Design decisions, colour and type rules, links to the canvas and Figma file |
 
 ### How the agents work together
 

@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Your discharge summary</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1D4ED8}a:hover{color:#1E40AF}
+</style>
+</helmet>
+<div style="background: #F8F9FA; color: #1E293B; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 16px; line-height: 1.5;">
+
+<!-- App bar -->
+<header style="background: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+<div style="max-width: 1200px; margin: 0 auto; padding: 12px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px;">
+<a href="#" style="display: flex; align-items: center; gap: 8px; color: #0F172A; text-decoration: none; font-weight: 700; font-size: 18px;">
+<svg width="24" height="24" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="36" fill="none" stroke="#0F172A" stroke-width="20"></circle><circle cx="50" cy="14" r="12" fill="#FF4A1C"></circle></svg>
+Day One</a>
+<div style="flex: 1 1 auto;"></div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+<button type="button" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 8px; border: 1px solid #2563EB; background: #2563EB; color: #FFFFFF; font: 600 15px/1 'Inter', sans-serif; cursor: pointer;">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"></path></svg>Read aloud</button>
+<button type="button" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 8px; border: 1px solid #CBD5E1; background: #FFFFFF; color: #0F172A; font: 600 15px/1 'Inter', sans-serif; cursor: pointer;">Start over</button>
+</div>
+</div>
+</header>
+
+<main style="max-width: 1200px; margin: 0 auto; padding: 32px 24px 64px; display: flex; flex-direction: column; gap: 24px;">
+
+<!-- Patient header -->
+<section aria-labelledby="t-summary" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px;">
+<h1 id="t-summary" style="margin: 0; font-size: 28px; line-height: 36px; font-weight: 700; color: #0F172A;">Your discharge summary</h1>
+<p style="margin: 0; font-size: 14px; line-height: 20px; color: #475569;">Made from 1 page · 30 lines read</p>
+</div>
+<dl style="margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px 24px; border-top: 1px solid #F1F5F9; padding-top: 16px;">
+<div><dt style="font-size: 13px; line-height: 20px; color: #475569;">Patient</dt><dd style="margin: 0; font-weight: 500; color: #0F172A;">Franklin Kris · born Oct 5, 1952</dd></div>
+<div><dt style="font-size: 13px; line-height: 20px; color: #475569;">Hospital</dt><dd style="margin: 0; font-weight: 500; color: #0F172A;">Hampden Valley Medical Center</dd></div>
+<div><dt style="font-size: 13px; line-height: 20px; color: #475569;">Hospital stay</dt><dd style="margin: 0; font-weight: 500; color: #0F172A;">Oct 18 – Oct 23, 2026</dd></div>
+<div><dt style="font-size: 13px; line-height: 20px; color: #475569;">Doctor</dt><dd style="margin: 0; font-weight: 500; color: #0F172A;">Dr. R. Okafor, Cardiology</dd></div>
+</dl>
+</section>
+
+<!-- Status row -->
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+<section role="alert" style="background: #FEF2F2; border: 1px solid #FECACA; border-left-width: 1px; border-radius: 12px; padding: 24px; display: flex; gap: 16px; align-items: flex-start;">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 2px;"><path d="M12 3l9.5 17h-19z"></path><path d="M12 10v4M12 17.5v.5"></path></svg>
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<h2 style="margin: 0; font-size: 18px; line-height: 28px; font-weight: 700; color: #991B1B;">Check 1 medicine before your next dose</h2>
+<p style="margin: 0; color: #7F1D1D;">Carvedilol: your papers say 12.5 mg, but your hospital record says 25 mg. Call your care team to confirm.</p>
+</div>
+</section>
+<section style="background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 12px; padding: 24px; display: flex; gap: 16px; align-items: flex-start;">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 2px;"><path d="M5 12l5 5 9-10"></path></svg>
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<h2 style="margin: 0; font-size: 18px; line-height: 28px; font-weight: 700; color: #166534;">Safety check passed</h2>
+<p style="margin: 0; color: #14532D;">Every line below traces back to your papers, a drug label or your hospital record. Reading level: grade 6.3.</p>
+</div>
+</section>
+</div>
+
+<!-- Two columns -->
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start;">
+
+<!-- Main column -->
+<div style="flex: 999 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 24px;">
+
+<section aria-labelledby="t-why" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+<h2 id="t-why" style="margin: 0; font-size: 20px; line-height: 28px; font-weight: 700; color: #0F172A;">Why you were in the hospital</h2>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column;">
+<li style="padding: 16px 0; border-top: 1px solid #F1F5F9; display: flex; flex-direction: column; gap: 8px;">
+<p style="margin: 0;">Your heart was not pumping strongly enough and you had trouble breathing and swollen legs.</p>
+<button type="button" aria-expanded="false" style="align-self: flex-start; min-height: 32px; padding: 0; border: none; background: none; color: #1D4ED8; font: 500 14px/20px 'Inter', sans-serif; cursor: pointer;">Where does this come from? ▸</button>
+</li>
+<li style="padding: 16px 0; border-top: 1px solid #F1F5F9; display: flex; flex-direction: column; gap: 8px;">
+<p style="margin: 0;">You also have narrowed heart arteries and high blood pressure.</p>
+<button type="button" aria-expanded="false" style="align-self: flex-start; min-height: 32px; padding: 0; border: none; background: none; color: #1D4ED8; font: 500 14px/20px 'Inter', sans-serif; cursor: pointer;">Where does this come from? ▸</button>
+</li>
+</ul>
+</section>
+
+<section aria-labelledby="t-meds" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px;">
+<h2 id="t-meds" style="margin: 0; font-size: 20px; line-height: 28px; font-weight: 700; color: #0F172A;">Your medicines</h2>
+<p style="margin: 0; font-size: 14px; line-height: 20px; color: #475569;">7 on your papers · compared with your hospital record</p>
+</div>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column;">
+
+<li style="padding: 16px 0; border-top: 1px solid #F1F5F9; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 16px;">
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<h3 style="margin: 0; font-size: 16px; line-height: 24px; font-weight: 500; color: #0F172A;">Furosemide 40 mg</h3>
+<p style="margin: 0;">Take two times a day by mouth. This is a water pill that helps your body get rid of extra fluid.</p>
+</div>
+<span style="align-self: start; font-size: 13px; line-height: 20px; font-weight: 600; padding: 2px 10px; border-radius: 999px; background: #DBEAFE; color: #1D4ED8;">New</span>
+</li>
+
+<li style="padding: 16px 0; border-top: 1px solid #F1F5F9; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 16px;">
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<h3 style="margin: 0; font-size: 16px; line-height: 24px; font-weight: 500; color: #0F172A;">Lisinopril 20 mg <span style="font-weight: 400; color: #475569;">(was 40 mg)</span></h3>
+<p style="margin: 0;">Take one time a day by mouth. This medicine lowers blood pressure and helps the heart.</p>
+</div>
+<span style="align-self: start; font-size: 13px; line-height: 20px; font-weight: 600; padding: 2px 10px; border-radius: 999px; background: #DBEAFE; color: #1D4ED8;">Dose changed</span>
+</li>
+
+<li style="padding: 16px 0; border-top: 1px solid #F1F5F9; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 16px;">
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<h3 style="margin: 0; font-size: 16px; line-height: 24px; font-weight: 500; color: #0F172A;">Carvedilol 12.5 mg</h3>
+<p style="margin: 0;">Take two times a day by mouth with food. This medicine helps the heart work better and lowers blood pressure.</p>
+<p style="margin: 0; font-weight: 500; color: #B91C1C;">Check this dose with your care team before taking it.</p>
+</div>
+<span style="align-self: start; font-size: 13px; line-height: 20px; font-weight: 600; padding: 2px 10px; border-radius: 999px; background: #DC2626; color: #FFFFFF;">Check dose</span>
+<button type="button" aria-expanded="true" style="grid-column: 1 / -1; justify-self: start; min-height: 32px; padding: 0; border: none; background: none; color: #1D4ED8; font: 500 14px/20px 'Inter', sans-serif; cursor: pointer;">Where does this come from? ▾</button>
+<dl style="grid-column: 1 / -1; margin: 0; background: #F8F9FA; border: 1px solid #E2E8F0; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 12px; font-size: 14px; line-height: 20px;">
+<div style="display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 4px 16px;"><dt style="color: #475569;">Your papers, line 13</dt><dd style="margin: 0; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; color: #0F172A;">Continue Carvedilol 12.5 mg PO BID with food</dd></div>
+<div style="display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 4px 16px;"><dt style="color: #475569;">Hospital record</dt><dd style="margin: 0; color: #0F172A;">Carvedilol 25 mg <span style="color: #B91C1C; font-weight: 500;">· does not match</span></dd></div>
+<div style="display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 4px 16px;"><dt style="color: #475569;">FDA drug label</dt><dd style="margin: 0; color: #0F172A;">Common side effects: dizziness, tiredness, low blood pressure, slow heartbeat. Do not stop taking suddenly.</dd></div>
+<div style="display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 4px 16px;"><dt style="color: #475569;">Terms</dt><dd style="margin: 0; color: #0F172A;">PO = by mouth · BID = two times a day</dd></div>
+</dl>
+</li>
+
+<li style="padding: 16px 0; border-top: 1px solid #F1F5F9; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 16px;">
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<h3 style="margin: 0; font-size: 16px; line-height: 24px; font-weight: 500; color: #0F172A;">Clopidogrel 75 mg</h3>
+<p style="margin: 0;">Take one time a day by mouth. This is a blood thinner that helps prevent heart attacks and strokes.</p>
+</div>
+<span style="align-self: start; font-size: 13px; line-height: 20px; font-weight: 600; padding: 2px 10px; border-radius: 999px; background: #F1F5F9; color: #334155;">Same as before</span>
+</li>
+
+<li style="padding: 16px 0; border-top: 1px solid #F1F5F9; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 16px;">
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<h3 style="margin: 0; font-size: 16px; line-height: 24px; font-weight: 500; color: #0F172A;">Rosuvastatin 40 mg</h3>
+<p style="margin: 0;">Take every night at bedtime by mouth. This medicine lowers cholesterol.</p>
+</div>
+<span style="align-self: start; font-size: 13px; line-height: 20px; font-weight: 600; padding: 2px 10px; border-radius: 999px; background: #F1F5F9; color: #334155;">Same as before</span>
+</li>
+
+<li style="padding: 16px 0; border-top: 1px solid #F1F5F9; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 16px;">
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<h3 style="margin: 0; font-size: 16px; line-height: 24px; font-weight: 500; color: #0F172A;">Nitroglycerin 0.4 mg <span style="font-weight: 400; color: #475569;">· only if needed</span></h3>
+<p style="margin: 0;">Let it melt under your tongue every 5 minutes as needed for chest pain, up to 3 doses. This medicine prevents chest pain from heart disease.</p>
+</div>
+<span style="align-self: start; font-size: 13px; line-height: 20px; font-weight: 600; padding: 2px 10px; border-radius: 999px; background: #F1F5F9; color: #334155;">Same as before</span>
+</li>
+
+<li style="padding: 16px 0; border-top: 1px solid #F1F5F9; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 16px;">
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<h3 style="margin: 0; font-size: 16px; line-height: 24px; font-weight: 500; color: #0F172A;"><s style="text-decoration-thickness: 1px;">Naproxen</s></h3>
+<p style="margin: 0;">Stop taking naproxen. NSAIDs worsen heart failure.</p>
+</div>
+<span style="align-self: start; font-size: 13px; line-height: 20px; font-weight: 600; padding: 2px 10px; border-radius: 999px; background: #FEF2F2; color: #B91C1C; border: 1px solid #FECACA;">Stopped</span>
+</li>
+</ul>
+
+<div style="border: 1px solid #E2E8F0; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+<h3 style="margin: 0; font-size: 16px; line-height: 24px; font-weight: 500; color: #0F172A;">In your hospital record, but not on your papers</h3>
+<p style="margin: 0; font-size: 14px; line-height: 20px; color: #475569;">Ask your doctor whether to keep taking these.</p>
+<ul style="margin: 0; padding-left: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 4px 24px;">
+<li>Simvastatin 20 mg</li>
+<li>Metoprolol succinate 100 mg</li>
+<li>Prasugrel 10 mg</li>
+<li>Alendronic acid 10 mg</li>
+</ul>
+</div>
+</section>
+
+<section aria-labelledby="t-sched" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+<h2 id="t-sched" style="margin: 0; font-size: 20px; line-height: 28px; font-weight: 700; color: #0F172A;">Daily medicine schedule</h2>
+<div style="overflow-x: auto; border: 1px solid #E2E8F0; border-radius: 8px;">
+<table style="width: 100%; min-width: 560px; border-collapse: collapse; font-size: 15px; line-height: 24px;">
+<thead>
+<tr style="background: #F8F9FA; text-align: left;">
+<th scope="col" style="padding: 12px 16px; font-weight: 600; color: #334155; border-bottom: 1px solid #E2E8F0;">Medicine</th>
+<th scope="col" style="padding: 12px 16px; font-weight: 600; color: #334155; border-bottom: 1px solid #E2E8F0; text-align: center;">Morning</th>
+<th scope="col" style="padding: 12px 16px; font-weight: 600; color: #334155; border-bottom: 1px solid #E2E8F0; text-align: center;">Midday</th>
+<th scope="col" style="padding: 12px 16px; font-weight: 600; color: #334155; border-bottom: 1px solid #E2E8F0; text-align: center;">Evening</th>
+<th scope="col" style="padding: 12px 16px; font-weight: 600; color: #334155; border-bottom: 1px solid #E2E8F0; text-align: center;">Bedtime</th>
+<th scope="col" style="padding: 12px 16px; font-weight: 600; color: #334155; border-bottom: 1px solid #E2E8F0;">Note</th>
+</tr>
+</thead>
+<tbody>
+<tr><th scope="row" style="padding: 12px 16px; text-align: left; font-weight: 500; color: #0F172A; border-bottom: 1px solid #F1F5F9;">Furosemide 40 mg</th><td style="padding: 12px 16px; text-align: center; color: #1D4ED8; font-weight: 600; border-bottom: 1px solid #F1F5F9;">1</td><td style="padding: 12px 16px; text-align: center; color: #64748B; border-bottom: 1px solid #F1F5F9;">–</td><td style="padding: 12px 16px; text-align: center; color: #64748B; border-bottom: 1px solid #F1F5F9;">–</td><td style="padding: 12px 16px; text-align: center; color: #1D4ED8; font-weight: 600; border-bottom: 1px solid #F1F5F9;">1</td><td style="padding: 12px 16px; color: #475569; border-bottom: 1px solid #F1F5F9;"></td></tr>
+<tr><th scope="row" style="padding: 12px 16px; text-align: left; font-weight: 500; color: #0F172A; border-bottom: 1px solid #F1F5F9;">Lisinopril 20 mg</th><td style="padding: 12px 16px; text-align: center; color: #1D4ED8; font-weight: 600; border-bottom: 1px solid #F1F5F9;">1</td><td style="padding: 12px 16px; text-align: center; color: #64748B; border-bottom: 1px solid #F1F5F9;">–</td><td style="padding: 12px 16px; text-align: center; color: #64748B; border-bottom: 1px solid #F1F5F9;">–</td><td style="padding: 12px 16px; text-align: center; color: #64748B; border-bottom: 1px solid #F1F5F9;">–</td><td style="padding: 12px 16px; color: #475569; border-bottom: 1px solid #F1F5F9;"></td></tr>
+<tr style="background: #FEF2F2;"><th scope="row" style="padding: 12px 16px; text-align: left; font-weight: 500; color: #0F172A; border-bottom: 1px solid #F1F5F9;">Carvedilol 12.5 mg</th><td style="padding: 12px 16px; text-align: center; color: #1D4ED8; font-weight: 600; border-bottom: 1px solid #F1F5F9;">1</td><td style="padding: 12px 16px; text-align: center; color: #64748B; border-bottom: 1px solid #F1F5F9;">–</td><td style="padding: 12px 16px; text-align: center; color: #64748B; border-bottom: 1px solid #F1F5F9;">–</td><td style="padding: 12px 16px; text-align: center; color: #1D4ED8; font-weight: 600; border-bottom: 1px solid #F1F5F9;">1</td><td style="padding: 12px 16px; color: #475569; border-bottom: 1px solid #F1F5F9;">With food · <span style="color: #B91C1C; font-weight: 500;">check dose</span></td></tr>
+<tr><th scope="row" style="padding: 12px 16px; text-align: left; font-weight: 500; color: #0F172A; border-bottom: 1px solid #F1F5F9;">Clopidogrel 75 mg</th><td style="padding: 12px 16px; text-align: center; color: #1D4ED8; font-weight: 600; border-bottom: 1px solid #F1F5F9;">1</td><td style="padding: 12px 16px; text-align: center; color: #64748B; border-bottom: 1px solid #F1F5F9;">–</td><td style="padding: 12px 16px; text-align: center; color: #64748B; border-bottom: 1px solid #F1F5F9;">–</td><td style="padding: 12px 16px; text-align: center; color: #64748B; border-bottom: 1px solid #F1F5F9;">–</td><td style="padding: 12px 16px; color: #475569; border-bottom: 1px solid #F1F5F9;"></td></tr>
+<tr><th scope="row" style="padding: 12px 16px; text-align: left; font-weight: 500; color: #0F172A; border-bottom: 1px solid #F1F5F9;">Rosuvastatin 40 mg</th><td style="padding: 12px 16px; text-align: center; color: #64748B; border-bottom: 1px solid #F1F5F9;">–</td><td style="padding: 12px 16px; text-align: center; color: #64748B; border-bottom: 1px solid #F1F5F9;">–</td><td style="padding: 12px 16px; text-align: center; color: #64748B; border-bottom: 1px solid #F1F5F9;">–</td><td style="padding: 12px 16px; text-align: center; color: #1D4ED8; font-weight: 600; border-bottom: 1px solid #F1F5F9;">1</td><td style="padding: 12px 16px; color: #475569; border-bottom: 1px solid #F1F5F9;"></td></tr>
+<tr><th scope="row" style="padding: 12px 16px; text-align: left; font-weight: 500; color: #0F172A;">Nitroglycerin 0.4 mg</th><td style="padding: 12px 16px; text-align: center; color: #64748B;">–</td><td style="padding: 12px 16px; text-align: center; color: #64748B;">–</td><td style="padding: 12px 16px; text-align: center; color: #64748B;">–</td><td style="padding: 12px 16px; text-align: center; color: #64748B;">–</td><td style="padding: 12px 16px; color: #475569;">Only if needed for chest pain, max 3 doses</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section aria-labelledby="t-home" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+<h2 id="t-home" style="margin: 0; font-size: 20px; line-height: 28px; font-weight: 700; color: #0F172A;">What to do at home</h2>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column;">
+<li style="padding: 12px 0; border-top: 1px solid #F1F5F9;">Eat a low sodium diet, 2 grams of salt per day.</li>
+<li style="padding: 12px 0; border-top: 1px solid #F1F5F9;">Limit fluids to 1.5 liters per day.</li>
+<li style="padding: 12px 0; border-top: 1px solid #F1F5F9;">Weigh yourself every morning before breakfast and write it down.</li>
+<li style="padding: 12px 0; border-top: 1px solid #F1F5F9;">Do not lift more than 10 pounds for 1 week.</li>
+</ul>
+</section>
+
+<section aria-labelledby="t-ask" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<h2 id="t-ask" style="margin: 0; font-size: 20px; line-height: 28px; font-weight: 700; color: #0F172A;">Ask about your papers</h2>
+<p style="margin: 0; font-size: 14px; line-height: 20px; color: #475569;">Answers come only from your papers. Anything else goes to your care team.</p>
+</div>
+<form style="display: flex; flex-wrap: wrap; gap: 8px;">
+<label for="qa" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);">Your question</label>
+<input id="qa" type="text" placeholder="For example: Can I take a shower?" style="flex: 1 1 280px; min-height: 44px; padding: 0 12px; border: 1px solid #CBD5E1; border-radius: 8px; font: 400 16px/24px 'Inter', sans-serif; color: #0F172A; background: #FFFFFF;">
+<button type="button" style="min-height: 44px; padding: 0 20px; border-radius: 8px; border: 1px solid #2563EB; background: #2563EB; color: #FFFFFF; font: 600 15px/1 'Inter', sans-serif; cursor: pointer;">Ask</button>
+</form>
+<div style="border-top: 1px solid #F1F5F9; padding-top: 16px; display: flex; flex-direction: column; gap: 8px;">
+<p style="margin: 0; font-weight: 500; color: #0F172A;">Can I eat salty food?</p>
+<p style="margin: 0;">No. You need to follow a low-sodium diet of 2 grams per day. Eating too much salt can make your heart failure worse.</p>
+<p style="margin: 0; font-size: 13px; line-height: 20px; color: #475569;">Source: your papers, line 19</p>
+</div>
+</section>
+
+</div>
+
+<!-- Side column -->
+<aside style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 24px;">
+
+<section aria-labelledby="t-911" style="background: #FFFFFF; border: 1px solid #FECACA; border-top: 4px solid #DC2626; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+<h2 id="t-911" style="margin: 0; font-size: 20px; line-height: 28px; font-weight: 700; color: #991B1B;">Call 911 or go to the ER if</h2>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column;">
+<li style="padding: 12px 0; border-top: 1px solid #FEE2E2;">Weight gain of more than 2 pounds in a day or 5 pounds in a week.</li>
+<li style="padding: 12px 0; border-top: 1px solid #FEE2E2;">Trouble breathing at rest or when lying flat.</li>
+<li style="padding: 12px 0; border-top: 1px solid #FEE2E2;">Chest pain not relieved by 3 nitroglycerin doses.</li>
+<li style="padding: 12px 0; border-top: 1px solid #FEE2E2;">Fainting or a very slow heartbeat.</li>
+</ul>
+</section>
+
+<section aria-labelledby="t-visits" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+<h2 id="t-visits" style="margin: 0; font-size: 20px; line-height: 28px; font-weight: 700; color: #0F172A;">Follow-up visits</h2>
+<ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column;">
+<li style="padding: 12px 0; border-top: 1px solid #F1F5F9; display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 16px;"><span style="font-weight: 600; color: #1D4ED8;">In 3 days</span><span>Blood test for salts and kidneys</span></li>
+<li style="padding: 12px 0; border-top: 1px solid #F1F5F9; display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 16px;"><span style="font-weight: 600; color: #1D4ED8;">In 1 week</span><span>Cardiology clinic with Dr. Okafor</span></li>
+<li style="padding: 12px 0; border-top: 1px solid #F1F5F9; display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 16px;"><span style="font-weight: 600; color: #1D4ED8;">In 2 weeks</span><span>See your family doctor</span></li>
+</ol>
+</section>
+
+<section aria-labelledby="t-questions" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+<h2 id="t-questions" style="margin: 0; font-size: 20px; line-height: 28px; font-weight: 700; color: #0F172A;">Questions for your doctor</h2>
+<ol style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px;">
+<li>Should I keep taking simvastatin 20 mg?</li>
+<li>Should I keep taking metoprolol succinate 100 mg?</li>
+<li>Should I keep taking prasugrel 10 mg?</li>
+<li>Should I keep taking alendronic acid 10 mg?</li>
+</ol>
+</section>
+
+<section aria-labelledby="t-how" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+<h2 id="t-how" style="margin: 0; font-size: 20px; line-height: 28px; font-weight: 700; color: #0F172A;">How we made this</h2>
+<dl style="margin: 0; display: flex; flex-direction: column; gap: 12px; font-size: 14px; line-height: 20px;">
+<div><dt style="color: #475569;">AI model</dt><dd style="margin: 0; color: #0F172A;">NVIDIA Nemotron 3 Ultra, through Meterless Nightshift (5 calls, each with a signed receipt)</dd></div>
+<div><dt style="color: #475569;">Data checked</dt><dd style="margin: 0; color: #0F172A;">7 FDA drug labels and 14 medical terms in Zetaris. Hospital record matched by name and birth date.</dd></div>
+<div><dt style="color: #475569;">Reading level by section</dt><dd style="margin: 0; color: #0F172A;">Hospital stay 6.3 · Medicines 4.2 · Home 2.6 · Visits 3.9 · Call 911 1.6</dd></div>
+<div><dt style="color: #475569;">Job</dt><dd style="margin: 0; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; color: #0F172A;">20261026000301-ebbbba</dd></div>
+</dl>
+</section>
+
+</aside>
+</div>
+
+<p style="margin: 0; font-size: 13px; line-height: 20px; color: #475569;">Day One is a prototype and does not give medical advice. Always follow your care team. This example uses a synthetic patient.</p>
+
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3400}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

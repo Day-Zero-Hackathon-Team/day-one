@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Discharge summary, v2</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1D4ED8}a:hover{color:#1E40AF}
+</style>
+</helmet>
+<div style="background: #F8F9FA; color: #1E293B; font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 16px; line-height: 1.5;">
+
+<!-- Top bar -->
+<header style="background: #FFFFFF; border-bottom: 1px solid #E2E8F0;">
+<div style="padding: 12px 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px;">
+<a href="#" style="display: flex; align-items: center; gap: 10px; color: #0F172A; text-decoration: none; font-weight: 700; font-size: 20px; min-width: 196px;">
+<svg width="28" height="28" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="36" fill="none" stroke="#0F172A" stroke-width="20"></circle><circle cx="50" cy="14" r="12" fill="#FF4A1C"></circle></svg>
+Day One</a>
+<div style="flex: 1 1 auto;"></div>
+<button type="button" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 8px; border: 1px solid #2563EB; background: #2563EB; color: #FFFFFF; font: 600 15px/1 'Inter', sans-serif; cursor: pointer;">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"></path></svg>Read aloud</button>
+<div style="display: flex; align-items: center; gap: 10px;">
+<span aria-hidden="true" style="width: 36px; height: 36px; border-radius: 999px; background: #0F172A; color: #FFFFFF; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center;">FK</span>
+<span style="font-size: 15px; font-weight: 500; color: #0F172A;">Franklin Kris</span>
+</div>
+</div>
+</header>
+
+<div style="display: flex; flex-wrap: wrap; align-items: stretch;">
+
+<!-- Sidebar -->
+<nav aria-label="Sections" style="flex: 1 1 220px; max-width: 260px; background: #FFFFFF; border-right: 1px solid #E2E8F0; padding: 24px 16px; box-sizing: border-box;">
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; font-size: 15px;">
+<li><a href="#" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 8px; color: #334155; text-decoration: none;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"></path><path d="M5 10v10h14V10"></path></svg>Home</a></li>
+<li><a href="#" aria-current="page" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 8px; background: #EFF6FF; color: #1D4ED8; font-weight: 600; text-decoration: none;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"></path><path d="M9 12h7M9 16h7"></path></svg>Discharge summary</a></li>
+<li><a href="#meds" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 8px; color: #334155; text-decoration: none;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8.5" width="18" height="7" rx="3.5" transform="rotate(-45 12 12)"></rect><path d="M9.5 9.5l5 5"></path></svg>Medicines</a></li>
+<li><a href="#visits" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 8px; color: #334155; text-decoration: none;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="16" rx="2"></rect><path d="M4 10h16M9 3v4M15 3v4"></path></svg>Appointments</a></li>
+<li><a href="#ask" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 8px; color: #334155; text-decoration: none;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"></path></svg>Ask a question</a></li>
+<li><a href="#" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 0 12px; border-radius: 8px; color: #334155; text-decoration: none;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"></path></svg>Settings</a></li>
+</ul>
+</nav>
+
+<!-- Content -->
+<main style="flex: 999 1 640px; min-width: 0; padding: 24px 32px 48px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px;">
+
+<a href="#" style="display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; min-height: 32px; font-size: 15px; font-weight: 500; color: #1D4ED8; text-decoration: none;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>Upload different papers</a>
+
+<div style="display: flex; flex-direction: column; gap: 16px;">
+<h1 style="margin: 0; font-size: 36px; line-height: 44px; font-weight: 700; color: #0F172A; letter-spacing: -0.01em;">Discharge Summary</h1>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px;">
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<h2 style="margin: 0; font-size: 24px; line-height: 32px; font-weight: 600; color: #0F172A;">Franklin Kris</h2>
+<p style="margin: 0; font-size: 15px; color: #475569;">MRN: 4471-209 <span aria-hidden="true" style="color: #CBD5E1; padding: 0 8px;">|</span> DOB: Oct 5, 1952 (Age 74)</p>
+</div>
+<div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">
+<div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end;">
+<span style="font-size: 13px; line-height: 20px; font-weight: 600; padding: 2px 10px; border-radius: 999px; background: #F0FDF4; color: #15803D; border: 1px solid #BBF7D0;">Safety check passed</span>
+<span style="font-size: 13px; line-height: 20px; font-weight: 600; padding: 2px 10px; border-radius: 999px; background: #F1F5F9; color: #334155; border: 1px solid #E2E8F0;">Discharged</span>
+</div>
+<p style="margin: 0; font-size: 14px; line-height: 20px; color: #475569; text-align: right;">Discharge date<br><span style="font-size: 15px; font-weight: 600; color: #0F172A;">Fri, Oct 23, 2026</span></p>
+</div>
+</div>
+</div>
+
+<!-- Emergency -->
+<section aria-labelledby="t-911" style="background: #FEF2F2; border: 1px solid #FCA5A5; border-radius: 12px; padding: 24px; display: flex; flex-wrap: wrap; gap: 24px;">
+<div style="flex: 999 1 420px; display: flex; gap: 16px; align-items: flex-start;">
+<svg width="32" height="32" viewBox="0 0 24 24" aria-hidden="true" style="flex: none;"><path d="M12 2.5l10 18H2z" fill="#DC2626"></path><path d="M12 9.5v5M12 17.5v.5" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"></path></svg>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<h2 id="t-911" style="margin: 0; font-size: 20px; line-height: 28px; font-weight: 700; color: #B91C1C;">Call 911 or go to the ER if you have:</h2>
+<ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; color: #1E293B;">
+<li>Weight gain of more than 2 pounds in a day or 5 pounds in a week.</li>
+<li>Trouble breathing at rest or when lying flat.</li>
+<li>Chest pain not relieved by 3 nitroglycerin doses.</li>
+<li>Fainting or a very slow heartbeat.</li>
+</ul>
+</div>
+</div>
+<div style="flex: 1 1 220px; border-left: 1px solid #FCA5A5; padding-left: 24px; display: flex; gap: 12px; align-items: flex-start;">
+<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none;"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"></path></svg>
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<p style="margin: 0; font-size: 18px; line-height: 24px; font-weight: 600; color: #B91C1C;">In an emergency</p>
+<p style="margin: 0; font-size: 28px; line-height: 32px; font-weight: 700; color: #B91C1C;">call 911</p>
+<p style="margin: 0; font-size: 14px; line-height: 20px; color: #7F1D1D;">From your papers, lines 26–30.</p>
+</div>
+</div>
+</section>
+
+<!-- Medication reminder -->
+<section aria-labelledby="t-remind" style="background: #F5F9FF; border: 1px solid #DBEAFE; border-radius: 12px; padding: 24px; display: flex; flex-wrap: wrap; gap: 24px 40px; align-items: center;">
+<svg width="200" height="160" viewBox="0 0 200 160" aria-hidden="true" style="flex: none;"><ellipse cx="100" cy="146" rx="92" ry="8" fill="#E2ECFA"></ellipse><rect x="30" y="18" width="96" height="124" rx="10" fill="#475A7A"></rect><rect x="40" y="30" width="76" height="104" rx="4" fill="#FFFFFF"></rect><rect x="58" y="10" width="40" height="16" rx="6" fill="#475A7A"></rect><circle cx="78" cy="12" r="4" fill="#FFFFFF"></circle><path d="M74 40h8v8h8v8h-8v8h-8v-8h-8v-8h8z" fill="#2563EB"></path><g fill="none" stroke="#2563EB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M50 82l4 4 7-8"></path><path d="M50 100l4 4 7-8"></path><path d="M50 118l4 4 7-8"></path></g><g fill="#BFDBFE"><rect x="68" y="80" width="38" height="5" rx="2.5"></rect><rect x="68" y="98" width="30" height="5" rx="2.5"></rect><rect x="68" y="116" width="34" height="5" rx="2.5"></rect></g><rect x="118" y="64" width="54" height="78" rx="8" fill="#2563EB"></rect><rect x="114" y="54" width="62" height="16" rx="4" fill="#E2E8F0"></rect><rect x="124" y="84" width="42" height="34" rx="3" fill="#FFFFFF"></rect><text x="128" y="104" font-family="Inter, sans-serif" font-size="14" font-weight="700" fill="#475A7A">Rx</text><rect x="128" y="108" width="32" height="3" rx="1.5" fill="#CBD5E1"></rect></svg>
+<div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 16px;">
+<div style="display: flex; align-items: center; gap: 12px;">
+<svg width="32" height="32" viewBox="0 0 24 24" aria-hidden="true" style="flex: none;"><circle cx="12" cy="12" r="11" fill="#2563EB"></circle><path d="M12 11v6M12 7.5v.5" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"></path></svg>
+<h2 id="t-remind" style="margin: 0; font-size: 24px; line-height: 32px; font-weight: 700; color: #0F172A;">Medication reminder</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<h3 style="margin: 0; font-size: 14px; line-height: 20px; font-weight: 600; color: #475569;">Morning</h3>
+<p style="margin: 0; font-size: 15px; color: #1E293B;">Furosemide 40 mg · Lisinopril 20 mg · Carvedilol 12.5 mg <span style="color: #B91C1C; font-weight: 500;">(check dose)</span> · Clopidogrel 75 mg</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<h3 style="margin: 0; font-size: 14px; line-height: 20px; font-weight: 600; color: #475569;">Bedtime</h3>
+<p style="margin: 0; font-size: 15px; color: #1E293B;">Furosemide 40 mg · Carvedilol 12.5 mg <span style="color: #B91C1C; font-weight: 500;">(check dose)</span> · Rosuvastatin 40 mg</p>
+</div>
+</div>
+<div style="border-top: 1px solid #DBEAFE; padding-top: 16px; display: flex; align-items: center; gap: 16px;">
+<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#334155" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none;"><rect x="4" y="5" width="16" height="16" rx="2"></rect><path d="M4 10h16M9 3v4M15 3v4"></path></svg>
+<div style="display: flex; flex-direction: column;">
+<p style="margin: 0; font-size: 15px; color: #334155;">Your next follow-up is on</p>
+<p style="margin: 0; font-size: 18px; line-height: 28px; font-weight: 600; color: #1D4ED8;">Mon, Oct 26 · Blood test for salts and kidneys</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Two columns -->
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start;">
+
+<div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 24px;">
+
+<!-- Diagnosis -->
+<section aria-labelledby="t-dx" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+<div style="display: flex; align-items: center; gap: 12px;">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0F172A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"></rect><path d="M9 4V3h6v1M9 11h6M9 15h4"></path></svg>
+<h2 id="t-dx" style="margin: 0; font-size: 20px; line-height: 28px; font-weight: 700; color: #0F172A;">Why you were in the hospital</h2>
+</div>
+<div style="padding-left: 36px; display: flex; flex-direction: column; gap: 16px;">
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<h3 style="margin: 0; font-size: 16px; line-height: 24px; font-weight: 600; color: #0F172A;">Heart failure flare-up <span style="font-weight: 400; color: #475569;">(CHF, EF 30%)</span></h3>
+<p style="margin: 0; color: #334155;">Your heart was not pumping strongly enough and you had trouble breathing and swollen legs.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<h3 style="margin: 0; font-size: 16px; line-height: 24px; font-weight: 600; color: #0F172A;">Also <span style="font-weight: 400; color: #475569;">(CAD, HTN)</span></h3>
+<p style="margin: 0; color: #334155;">You also have narrowed heart arteries and high blood pressure.</p>
+</div>
+</div>
+</section>
+
+<!-- Medicines -->
+<section id="meds" aria-labelledby="t-meds" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+<div style="display: flex; align-items: flex-start; gap: 12px;">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0F172A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-top: 2px;"><rect x="3" y="8.5" width="18" height="7" rx="3.5" transform="rotate(-45 12 12)"></rect><path d="M9.5 9.5l5 5"></path></svg>
+<div style="display: flex; flex-direction: column; gap: 2px;">
+<h2 id="t-meds" style="margin: 0; font-size: 20px; line-height: 28px; font-weight: 700; color: #0F172A;">Medication Changes</h2>
+<p style="margin: 0; font-size: 14px; line-height: 20px; color: #475569;">Compared with your hospital record.</p>
+</div>
+</div>
+<div style="background: #FEF2F2; border: 1px solid #FECACA; border-radius: 8px; padding: 12px 16px; display: flex; gap: 12px; align-items: flex-start;">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 2px;"><circle cx="12" cy="12" r="9"></circle><path d="M12 7.5v5.5M12 16.5v.5"></path></svg>
+<p style="margin: 0; font-size: 15px; color: #7F1D1D;"><strong style="color: #B91C1C;">Check carvedilol before your next dose.</strong> Your papers say 12.5 mg, but your hospital record says 25 mg.</p>
+</div>
+<div style="overflow-x: auto; border: 1px solid #E2E8F0; border-radius: 8px;">
+<table style="width: 100%; min-width: 640px; border-collapse: collapse; font-size: 14px; line-height: 20px;">
+<thead>
+<tr style="background: #F8FAFC; text-align: left;">
+<th scope="col" style="padding: 12px 16px; font-size: 13px; font-weight: 600; color: #334155;">Medication</th>
+<th scope="col" style="padding: 12px 16px; font-size: 13px; font-weight: 600; color: #334155;">Dose</th>
+<th scope="col" style="padding: 12px 16px; font-size: 13px; font-weight: 600; color: #334155;">When</th>
+<th scope="col" style="padding: 12px 16px; font-size: 13px; font-weight: 600; color: #334155;">What it's for</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-top: 1px solid #F1F5F9;"><th scope="row" style="padding: 14px 16px; text-align: left; font-weight: 500; color: #0F172A;"><span style="color: #1D4ED8; font-weight: 600;">New:</span> Furosemide</th><td style="padding: 14px 16px;">40 mg</td><td style="padding: 14px 16px;">2 times a day</td><td style="padding: 14px 16px; color: #334155;">Water pill. Gets rid of extra fluid.</td></tr>
+<tr style="border-top: 1px solid #F1F5F9;"><th scope="row" style="padding: 14px 16px; text-align: left; font-weight: 500; color: #0F172A;"><span style="color: #1D4ED8; font-weight: 600;">Changed:</span> Lisinopril</th><td style="padding: 14px 16px;">20 mg<br><span style="font-size: 13px; color: #475569;">was 40 mg</span></td><td style="padding: 14px 16px;">1 time a day</td><td style="padding: 14px 16px; color: #334155;">Lowers blood pressure, helps the heart.</td></tr>
+<tr style="border-top: 1px solid #F1F5F9; background: #FEF2F2;"><th scope="row" style="padding: 14px 16px; text-align: left; font-weight: 500; color: #0F172A;"><span style="color: #B91C1C; font-weight: 600;">Check dose:</span> Carvedilol</th><td style="padding: 14px 16px;">12.5 mg<br><span style="font-size: 13px; color: #B91C1C;">record says 25 mg</span></td><td style="padding: 14px 16px;">2 times a day, with food</td><td style="padding: 14px 16px; color: #334155;">Helps the heart work better, lowers blood pressure.</td></tr>
+<tr style="border-top: 1px solid #F1F5F9;"><th scope="row" style="padding: 14px 16px; text-align: left; font-weight: 500; color: #0F172A;"><span style="color: #475569; font-weight: 600;">Continue:</span> Clopidogrel</th><td style="padding: 14px 16px;">75 mg</td><td style="padding: 14px 16px;">1 time a day</td><td style="padding: 14px 16px; color: #334155;">Blood thinner. Helps prevent heart attacks and strokes.</td></tr>
+<tr style="border-top: 1px solid #F1F5F9;"><th scope="row" style="padding: 14px 16px; text-align: left; font-weight: 500; color: #0F172A;"><span style="color: #475569; font-weight: 600;">Continue:</span> Rosuvastatin</th><td style="padding: 14px 16px;">40 mg</td><td style="padding: 14px 16px;">Every night at bedtime</td><td style="padding: 14px 16px; color: #334155;">Lowers cholesterol.</td></tr>
+<tr style="border-top: 1px solid #F1F5F9;"><th scope="row" style="padding: 14px 16px; text-align: left; font-weight: 500; color: #0F172A;"><span style="color: #475569; font-weight: 600;">Continue:</span> Nitroglycerin</th><td style="padding: 14px 16px;">0.4 mg</td><td style="padding: 14px 16px;">Only for chest pain. Under the tongue every 5 min, up to 3 doses.</td><td style="padding: 14px 16px; color: #334155;">Prevents chest pain from heart disease.</td></tr>
+<tr style="border-top: 1px solid #F1F5F9;"><th scope="row" style="padding: 14px 16px; text-align: left; font-weight: 500; color: #0F172A;"><span style="color: #B91C1C; font-weight: 600;">Stop:</span> Naproxen</th><td style="padding: 14px 16px; color: #64748B;">—</td><td style="padding: 14px 16px; color: #64748B;">—</td><td style="padding: 14px 16px; color: #334155;">NSAIDs worsen heart failure.</td></tr>
+</tbody>
+</table>
+</div>
+<div style="border: 1px solid #E2E8F0; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+<h3 style="margin: 0; font-size: 15px; line-height: 24px; font-weight: 600; color: #0F172A;">In your hospital record but not on your papers</h3>
+<p style="margin: 0; font-size: 14px; line-height: 20px; color: #475569;">Ask your doctor whether to keep taking: simvastatin 20 mg, metoprolol succinate 100 mg, prasugrel 10 mg, alendronic acid 10 mg.</p>
+</div>
+</section>
+
+<!-- Follow-ups -->
+<section id="visits" aria-labelledby="t-visits" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+<div style="display: flex; align-items: flex-start; gap: 12px;">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0F172A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-top: 2px;"><rect x="4" y="5" width="16" height="16" rx="2"></rect><path d="M4 10h16M9 3v4M15 3v4"></path></svg>
+<div style="display: flex; flex-direction: column; gap: 2px;">
+<h2 id="t-visits" style="margin: 0; font-size: 20px; line-height: 28px; font-weight: 700; color: #0F172A;">Follow-Up Appointments</h2>
+<p style="margin: 0; font-size: 14px; line-height: 20px; color: #475569;">Dates are counted from your discharge on Oct 23.</p>
+</div>
+</div>
+<div style="overflow-x: auto; border: 1px solid #E2E8F0; border-radius: 8px;">
+<table style="width: 100%; min-width: 420px; border-collapse: collapse; font-size: 14px; line-height: 20px;">
+<thead>
+<tr style="background: #F8FAFC; text-align: left;">
+<th scope="col" style="padding: 12px 16px; font-size: 13px; font-weight: 600; color: #334155;">When</th>
+<th scope="col" style="padding: 12px 16px; font-size: 13px; font-weight: 600; color: #334155;">Visit</th>
+</tr>
+</thead>
+<tbody>
+<tr style="border-top: 1px solid #F1F5F9;"><td style="padding: 14px 16px; vertical-align: top; width: 160px;"><span style="display: inline-block; background: #EFF6FF; color: #1D4ED8; border-radius: 6px; padding: 4px 10px; font-weight: 600;">In 3 days<br><span style="font-weight: 400;">Mon, Oct 26</span></span></td><th scope="row" style="padding: 14px 16px; text-align: left; vertical-align: middle; font-weight: 500; color: #0F172A;">Blood test for salts and kidneys <span style="font-weight: 400; color: #475569;">(BMP)</span></th></tr>
+<tr style="border-top: 1px solid #F1F5F9;"><td style="padding: 14px 16px; vertical-align: top; width: 160px;"><span style="display: inline-block; background: #EFF6FF; color: #1D4ED8; border-radius: 6px; padding: 4px 10px; font-weight: 600;">In 1 week<br><span style="font-weight: 400;">Fri, Oct 30</span></span></td><th scope="row" style="padding: 14px 16px; text-align: left; vertical-align: middle; font-weight: 500; color: #0F172A;">Cardiology clinic with Dr. Okafor</th></tr>
+<tr style="border-top: 1px solid #F1F5F9;"><td style="padding: 14px 16px; vertical-align: top; width: 160px;"><span style="display: inline-block; background: #EFF6FF; color: #1D4ED8; border-radius: 6px; padding: 4px 10px; font-weight: 600;">In 2 weeks<br><span style="font-weight: 400;">Fri, Nov 6</span></span></td><th scope="row" style="padding: 14px 16px; text-align: left; vertical-align: middle; font-weight: 500; color: #0F172A;">See your family doctor <span style="font-weight: 400; color: #475569;">(PCP)</span></th></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- Home instructions -->
+<section aria-labelledby="t-home" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+<div style="display: flex; align-items: center; gap: 12px;">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0F172A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"></path><path d="M9 12h7M9 16h7"></path></svg>
+<h2 id="t-home" style="margin: 0; font-size: 20px; line-height: 28px; font-weight: 700; color: #0F172A;">What to do at home</h2>
+</div>
+<ul style="margin: 0; padding-left: 56px; display: flex; flex-direction: column; gap: 8px; color: #334155;">
+<li>Eat a low sodium diet, 2 grams of salt per day.</li>
+<li>Limit fluids to 1.5 liters per day.</li>
+<li>Weigh yourself every morning before breakfast and write it down.</li>
+<li>Do not lift more than 10 pounds for 1 week.</li>
+</ul>
+</section>
+
+</div>
+
+<!-- Right column -->
+<aside style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 24px;">
+
+<section aria-labelledby="t-pt" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+<div style="display: flex; align-items: center; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid #F1F5F9;">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0F172A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>
+<h2 id="t-pt" style="margin: 0; font-size: 18px; line-height: 28px; font-weight: 700; color: #0F172A;">Patient Information</h2>
+</div>
+<dl style="margin: 0; display: flex; flex-direction: column; gap: 12px;">
+<div><dt style="font-size: 13px; line-height: 20px; color: #475569;">Name</dt><dd style="margin: 0; color: #0F172A;">Franklin Kris</dd></div>
+<div><dt style="font-size: 13px; line-height: 20px; color: #475569;">MRN</dt><dd style="margin: 0; color: #0F172A;">4471-209</dd></div>
+<div><dt style="font-size: 13px; line-height: 20px; color: #475569;">Date of birth</dt><dd style="margin: 0; color: #0F172A;">Oct 5, 1952 (Age 74)</dd></div>
+<div><dt style="font-size: 13px; line-height: 20px; color: #475569;">Hospital record</dt><dd style="margin: 0; color: #0F172A;">Found, matched by name and birth date</dd></div>
+</dl>
+</section>
+
+<section aria-labelledby="t-stay" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+<div style="display: flex; align-items: center; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid #F1F5F9;">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0F172A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="6" width="16" height="15" rx="2"></rect><path d="M9 6V4h6v2M12 10v6M9 13h6"></path></svg>
+<h2 id="t-stay" style="margin: 0; font-size: 18px; line-height: 28px; font-weight: 700; color: #0F172A;">Hospital Stay</h2>
+</div>
+<dl style="margin: 0; display: flex; flex-direction: column; gap: 12px;">
+<div><dt style="font-size: 13px; line-height: 20px; color: #475569;">Attending physician</dt><dd style="margin: 0; color: #0F172A;">Dr. R. Okafor, Cardiology</dd></div>
+<div><dt style="font-size: 13px; line-height: 20px; color: #475569;">Hospital</dt><dd style="margin: 0; color: #0F172A;">Hampden Valley Medical Center</dd></div>
+<div><dt style="font-size: 13px; line-height: 20px; color: #475569;">Length of stay</dt><dd style="margin: 0; color: #0F172A;">5 days</dd></div>
+<div><dt style="font-size: 13px; line-height: 20px; color: #475569;">Admission date</dt><dd style="margin: 0; color: #0F172A;">Oct 18, 2026</dd></div>
+<div><dt style="font-size: 13px; line-height: 20px; color: #475569;">Discharge date</dt><dd style="margin: 0; color: #0F172A;">Oct 23, 2026</dd></div>
+</dl>
+</section>
+
+<section aria-labelledby="t-check" style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+<div style="display: flex; align-items: center; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid #F1F5F9;">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"></path><path d="M8.5 12l2.5 2.5 4.5-5"></path></svg>
+<h2 id="t-check" style="margin: 0; font-size: 18px; line-height: 28px; font-weight: 700; color: #0F172A;">How we checked this</h2>
+</div>
+<p style="margin: 0; font-size: 15px; color: #334155;">Every sentence was compared with your papers by a separate safety check. Reading level: grade 6.3.</p>
+<dl style="margin: 0; display: flex; flex-direction: column; gap: 12px; font-size: 14px; line-height: 20px;">
+<div><dt style="color: #475569;">Sources used</dt><dd style="margin: 0; color: #0F172A;">Your papers (30 lines), 7 FDA drug labels, 14 medical terms, your hospital record</dd></div>
+<div><dt style="color: #475569;">AI model</dt><dd style="margin: 0; color: #0F172A;">NVIDIA Nemotron 3 Ultra via Meterless Nightshift</dd></div>
+</dl>
+</section>
+
+<section id="ask" aria-labelledby="t-q" style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 12px; padding: 24px; display: flex; gap: 12px; align-items: flex-start;">
+<svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" style="flex: none;"><circle cx="12" cy="12" r="10" fill="#2563EB"></circle><path d="M12 11v6M12 7.5v.5" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"></path></svg>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<h2 id="t-q" style="margin: 0; font-size: 18px; line-height: 28px; font-weight: 700; color: #1E3A8A;">Questions for your doctor</h2>
+<ol style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; font-size: 15px; color: #1E293B;">
+<li>Should I keep taking simvastatin 20 mg?</li>
+<li>Should I keep taking metoprolol succinate 100 mg?</li>
+<li>Should I keep taking prasugrel 10 mg?</li>
+<li>Should I keep taking alendronic acid 10 mg?</li>
+</ol>
+<a href="#" style="font-size: 15px; font-weight: 600; color: #1D4ED8; min-height: 32px; display: inline-flex; align-items: center;">Ask about your papers →</a>
+</div>
+</section>
+
+</aside>
+</div>
+
+<p style="margin: 0; font-size: 13px; line-height: 20px; color: #475569;">Day One is a prototype and does not give medical advice. Always follow your care team. This example uses a synthetic patient.</p>
+</main>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2400}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>
