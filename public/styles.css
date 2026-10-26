@@ -217,6 +217,8 @@ textarea:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 4px
 .drop:hover, .drop.drag { border-color: var(--blue); background: var(--blue-tint); color: var(--blue-text); }
 .drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
 .drop-title { font-weight: 700; color: var(--ink); font-size: 1.1rem; }
+.drop-alt { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 14px; text-align: center; font-size: 0.9rem; }
+@media (hover: none) { .drop-hint { display: none; } }
 .thumbs { list-style: none; margin: 16px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; }
 .thumbs li { position: relative; animation: pop 0.3s var(--ease) both; }
 .thumbs img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 10px; border: 1px solid var(--border); display: block; }

@@ -191,7 +191,9 @@ const drop = $("drop");
 ["dragenter", "dragover"].forEach((t) => drop.addEventListener(t, (e) => { e.preventDefault(); drop.classList.add("drag"); }));
 ["dragleave", "drop"].forEach((t) => drop.addEventListener(t, (e) => { e.preventDefault(); drop.classList.remove("drag"); }));
 drop.addEventListener("drop", (e) => addFiles([...e.dataTransfer.files]));
-$("files").onchange = (e) => addFiles([...e.target.files]);
+// The drop box opens the camera on phones (capture); PDFs and saved photos come in through the separate picker.
+for (const id of ["files", "pick"]) $(id).onchange = (e) => { addFiles([...e.target.files]); e.target.value = ""; };
+$("pick-btn").onclick = () => $("pick").click();
 
 const isPdf = (f) => f.type === "application/pdf" || /\.pdf$/i.test(f.name);
 
