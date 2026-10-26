@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Concept C hero</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&amp;family=Nunito:wght@700;800;900&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1B2559}a:hover{color:#0D1640}
+</style>
+</helmet>
+<div style="width: 1440px; height: 900px; box-sizing: border-box; overflow: hidden; background: #EAF1FB; color: #1B2559; font-family: 'Atkinson Hyperlegible', system-ui, sans-serif; display: flex; flex-direction: column;">
+<header style="padding: 28px 64px; display: flex; align-items: center; gap: 40px;">
+<a href="#" style="display: flex; align-items: center; gap: 10px; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 26px; color: #1B2559; text-decoration: none;">
+<svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="16" fill="{{accent}}"></circle><path d="M11 17a6 6 0 0 1 12 0" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round"></path><circle cx="17" cy="21" r="2.5" fill="#FFFFFF"></circle></svg>
+Day One</a>
+<nav aria-label="Main" style="display: flex; gap: 32px; font-size: 17px; flex: 1 1 auto;">
+<a href="#" style="text-decoration: none;">How it works</a>
+<a href="#" style="text-decoration: none;">For families</a>
+<a href="#" style="text-decoration: none;">Safety</a>
+</nav>
+<a href="#" style="background: #1B2559; color: #FFFFFF; text-decoration: none; font-weight: 700; padding: 12px 22px; border-radius: 999px; min-height: 44px; box-sizing: border-box; display: inline-flex; align-items: center;">Try a sample</a>
+</header>
+<div style="flex: 1 1 auto; display: flex; gap: 64px; padding: 24px 64px 64px; align-items: center;">
+<div style="flex: 0 0 560px; display: flex; flex-direction: column; gap: 26px;">
+<h1 style="margin: 0; font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 72px; line-height: 1.02; letter-spacing: -0.03em;">Going home should feel clear, not confusing.</h1>
+<p style="margin: 0; font-size: 21px; line-height: 1.55; color: #3A4775;">Day One reads your discharge papers out loud in plain words, one step at a time. Follow along as each word lights up.</p>
+<div style="display: flex; gap: 12px;">
+<a href="#" style="background: {{accent}}; color: #FFFFFF; text-decoration: none; font-weight: 700; font-size: 19px; padding: 16px 30px; border-radius: 999px; min-height: 56px; box-sizing: border-box; display: inline-flex; align-items: center;">Scan my papers</a>
+<a href="#" style="background: #FFFFFF; color: #1B2559; text-decoration: none; font-weight: 700; font-size: 19px; padding: 16px 30px; border-radius: 999px; min-height: 56px; box-sizing: border-box; display: inline-flex; align-items: center;">Hear a sample</a>
+</div>
+</div>
+<div style="flex: 1 1 auto; background: #FFFFFF; border-radius: 40px; padding: 48px; display: flex; flex-direction: column; gap: 28px; box-shadow: 0 40px 80px -40px rgba(27,37,89,0.35);">
+<p style="margin: 0; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 18px; color: {{accent}};">What to do at home · 2 of 4</p>
+<p style="margin: 0; font-size: 40px; line-height: 1.35; font-weight: 700; color: #9AA3C2;"><span style="color: #1B2559;">Weigh yourself every</span> <span style="background: #FFE2CC; color: #1B2559; border-radius: 10px; padding: 0 8px;">morning</span> before breakfast and write it down.</p>
+<div style="display: flex; align-items: center; gap: 20px;">
+<button type="button" aria-label="Pause" style="width: 80px; height: 80px; border-radius: 999px; border: none; background: {{accent}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center; flex: none;"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"></rect><rect x="14" y="5" width="4" height="14" rx="1"></rect></svg></button>
+<div style="flex: 1 1 auto; height: 10px; background: #E3E8F5; border-radius: 999px; overflow: hidden;"><div style="width: 38%; height: 10px; background: {{accent}};"></div></div>
+<button type="button" style="min-width: 64px; height: 48px; border-radius: 999px; border: 1.5px solid #C7CFE6; background: #FFFFFF; color: #1B2559; font-weight: 700; font-size: 17px;">0.75×</button>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px;">
+<span style="font-size: 15px; background: #EAF1FB; border-radius: 999px; padding: 6px 14px;">Your papers, line 20</span>
+<span style="font-size: 15px; background: #EAF1FB; border-radius: 999px; padding: 6px 14px;">Checked for safety</span>
+</div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#C2410C","options":["#C2410C","#1D4ED8","#047857"]},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+renderVals() {
+return { accent: this.props.accent ?? '#C2410C' };
+}
+}
+</script>
+</body>
+</html>

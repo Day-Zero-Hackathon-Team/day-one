@@ -1,0 +1,27 @@
+{
+  "v": 3,
+  "createdOnFiles": {"v": 1, "at": "2026-10-26T00:03:40Z"},
+  "title": "Day One Landing Page Concepts",
+  "launch": {"view": "canvas"},
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {"x": 0, "y": 0, "w": 1440, "h": 3000, "title": "A · Clear Paper, Calm & Critical palette (recommended) — full landing page", "expand": "fill", "is_interactive": true},
+    "Mobile.dc.html": {"x": 1520, "y": 0, "w": 390, "h": 844, "title": "A · Clear Paper — phone hero", "is_interactive": true},
+    "ConceptB.dc.html": {"x": 1990, "y": 0, "w": 1440, "h": 900, "title": "B · Night Shift — hero direction"},
+    "ConceptC.dc.html": {"x": 1990, "y": 1020, "w": 1440, "h": 900, "title": "C · Read Aloud — hero direction"},
+    "Logo.dc.html": {"x": 1990, "y": 2040, "w": 1440, "h": 760, "title": "Brand · Day Zero (team) → Day One (product)"},
+    "Summary.dc.html": {"x": 3590, "y": 0, "w": 1440, "h": 3400, "title": "Screen · Your discharge summary (desktop, fluid)", "expand": "fill"},
+    "SummaryMobile.dc.html": {"x": 5110, "y": 0, "w": 390, "h": 1900, "title": "Screen · Your discharge summary (phone)"},
+    "SummaryV2.dc.html": {"x": 5580, "y": 0, "w": 1440, "h": 2400, "title": "Screen v2 · Discharge summary, app shell (from reference)", "expand": "fill"}
+  },
+  "order": ["Main.dc.html", "Mobile.dc.html", "ConceptB.dc.html", "ConceptC.dc.html", "Logo.dc.html", "Summary.dc.html", "SummaryMobile.dc.html", "SummaryV2.dc.html"],
+  "notes": {
+    "title": {"x": 0, "y": -300, "text": "Day One · landing page concepts", "kind": "title1", "maxW": 3430},
+    "screens": {"x": 3590, "y": -300, "text": "Product screen · discharge summary", "kind": "title1", "maxW": 3430},
+    "research": {"x": 1520, "y": 964, "w": 390, "size": "s", "fill": "blue", "text": "What award-winning health sites do\n\n• Health By Habit (Awwwards Site of the Day, Synchronized Studio): one bold accent on black and white, big imagery, motion (GSAP).\n• Function Health: a serif display face and simple animated charts that make complex lab data easy to follow.\n• Headspace 2024 rebrand: custom typeface, a supporting palette chosen for contrast and accessibility.\n• Bevel Health (Awwwards Honorable Mention, May 2026, NOOON): health-coach app site.\n• Dribbble lab-result shots: a plain summary screen first, details second, one calm medical accent."},
+    "takeaways": {"x": 1520, "y": 1524, "w": 390, "size": "s", "fill": "green", "text": "What that means for Day One\n\n• Show the real product: paper in, plain plan out.\n• One accent, lots of white space, big type.\n• Body font: Atkinson Hyperlegible (made by the Braille Institute for low vision).\n• Write the page at a grade-6 level, the AMA target for patient materials.\n• The agent conversation is our hackathon story: put it on the page.\n• Trust before features: sources, safety check, synthetic data."},
+    "figma": {"x": 1520, "y": 2084, "w": 390, "size": "s", "fill": "orange", "text": "Figma starting points (Community, free)\n\n• Medical Landing page (CC BY 4.0, ~3.7k users)\n• Doctor Health Tech Landing Page\n• Healora – Healthcare Landing Page\n\nBorrow section order and spacing only; the look comes from Concept A."},
+    "brand": {"x": 1520, "y": 2644, "w": 390, "size": "s", "fill": "pink", "text": "Brand: Day Zero → Day One\n\n• Day Zero = the team. Day One = the product.\n• Pitch line: \"Day Zero builds Day One, the app for a patient's first day back home.\"\n• Team colours: #121212 black, #F3F1EA cream, #FF4A1C orange dot.\n• Day One keeps the ring + orange dot as its mark; the product pages use the Calm & Critical palette: white and slate, navy text, blue for medicines and new instructions, crimson only for red flags, green for done."}
+  },
+  "designSystems": []
+}

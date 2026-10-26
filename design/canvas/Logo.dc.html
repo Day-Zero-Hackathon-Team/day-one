@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Day Zero and Day One marks</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700&amp;family=Atkinson+Hyperlegible:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="width: 1440px; height: 760px; box-sizing: border-box; background: #121212; color: #F3F1EA; font-family: 'Atkinson Hyperlegible', system-ui, sans-serif; padding: 64px; display: flex; flex-direction: column; gap: 40px;">
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; flex: 1 1 auto;">
+
+<section style="border: 1px solid #2A2A2A; border-radius: 28px; padding: 40px; display: flex; flex-direction: column; gap: 24px;">
+<p style="margin: 0; font-size: 15px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #A8A49A;">The team</p>
+<div style="flex: 1 1 auto; display: flex; align-items: center; justify-content: center;">
+<img src="/_blob/8d91d7cd789f836499568101ffb6d9fd" alt="Day Zero" style="width: 100%; max-width: 520px; height: auto; display: block;">
+</div>
+<p style="margin: 0; font-size: 17px; color: #CFCBC0;">Day Zero: the people who build it.</p>
+</section>
+
+<section style="border: 1px solid #2A2A2A; border-radius: 28px; padding: 40px; display: flex; flex-direction: column; gap: 24px;">
+<p style="margin: 0; font-size: 15px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #A8A49A;">The product</p>
+<div style="flex: 1 1 auto; display: flex; align-items: center; justify-content: center; gap: 40px;">
+<p role="img" aria-label="Day One" style="margin: 0; display: flex; align-items: center; gap: 22px; font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 104px; line-height: 1; letter-spacing: -0.03em; color: #F3F1EA;">
+<span aria-hidden="true">Day</span>
+<span aria-hidden="true" style="display: flex; align-items: flex-end;">
+<svg width="86" height="86" viewBox="0 0 100 100" aria-hidden="true" style="margin-right: 4px; margin-bottom: 2px;"><circle cx="50" cy="50" r="38" fill="none" stroke="#F3F1EA" stroke-width="21"></circle><circle cx="50" cy="12" r="12" fill="{{dot}}"></circle></svg>ne</span>
+</p>
+</div>
+<div style="display: flex; align-items: center; gap: 20px;">
+<div style="width: 88px; height: 88px; border-radius: 22px; background: #2563EB; display: flex; align-items: center; justify-content: center; flex: none;">
+<svg width="56" height="56" viewBox="0 0 100 100" role="img" aria-label="Day One app icon"><circle cx="50" cy="50" r="34" fill="none" stroke="#F3F1EA" stroke-width="18"></circle><circle cx="50" cy="16" r="11" fill="{{dot}}"></circle></svg>
+</div>
+<p style="margin: 0; font-size: 17px; color: #CFCBC0;">Day One: the patient's first day back home. Same ring, same orange dot, now sitting at 12 o'clock, the start of a new day.</p>
+</div>
+</section>
+
+</div>
+<p style="margin: 0; font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 34px; letter-spacing: -0.02em; text-align: center;">Day Zero builds <span style="color: {{dot}};">Day One</span>, the app for a patient's first day back home.</p>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"dot":{"editor":"color","default":"#FF4A1C","options":["#FF4A1C","#7FC8C2","#F3F1EA"]},"$preview":{"width":1440,"height":760}}'>
+class Component extends DCLogic {
+renderVals() {
+return { dot: this.props.dot ?? '#FF4A1C' };
+}
+}
+</script>
+</body>
+</html>
