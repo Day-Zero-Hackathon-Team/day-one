@@ -8,6 +8,7 @@ Where the designs live, what we chose, and the rules they follow. The design bri
 | --- | --- | --- |
 | Design canvas (live, interactive) | <https://claude.ai/artifact/T59ApSFxqJmzNtGQSqF6Vu> | Landing page, phone hero, discharge summary screens, alternative concepts, brand board. Private until shared from its Share menu. |
 | Figma file | <https://www.figma.com/design/gRugWJ5KP4UfoRbzYAMcIP> | Pages: Design system (variables, text styles, components), Discharge summary, Landing page, Brand. |
+| Landing page you can open locally | [`design/landing-page.html`](../design/landing-page.html) | Double-click it. "Scan my papers" opens the app at <http://localhost:3100> (`npm run sample`). |
 | Canvas source | [`design/canvas/`](../design/canvas/) | The `.dc.html` artboards, for reference. They need the canvas runtime to render. |
 | Team logo | [`design/brand/day-zero-logo-dark.svg`](../design/brand/day-zero-logo-dark.svg) | Day Zero wordmark. |
 
