@@ -147,11 +147,18 @@
 
         <div id="panel-photo" role="tabpanel" aria-labelledby="tab-photo" class="panel">
           <label class="drop" id="drop">
-            <input type="file" id="files" accept="image/*,application/pdf,.pdf" capture="environment" multiple>
+            <input type="file" id="files" accept="image/*" capture="environment" multiple>
             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
-            <span class="drop-title">Take or choose a photo of each page</span>
-            <span class="muted">Flat on a table, good light, the whole page in the frame. Have a PDF? Drop it here.</span>
+            <span class="drop-title">Take a photo of each page</span>
+            <span class="muted">Flat on a table, good light, the whole page in the frame.</span>
           </label>
+          <div class="drop-alt">
+            <input type="file" id="pick" accept="image/*,application/pdf,.pdf" multiple hidden>
+            <button class="btn btn-secondary" type="button" id="pick-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4"/></svg>Choose a PDF or saved photo
+            </button>
+            <span class="muted drop-hint">On a computer, you can also drag a PDF onto the box.</span>
+          </div>
           <ul class="thumbs" id="thumbs"></ul>
           <p class="note" id="vision-note" hidden>Photo reading isn't switched on yet. Until it is, please paste the text of your papers. <button class="btn-inline" type="button" id="use-text">Paste text instead</button></p>
         </div>
