@@ -8,3 +8,7 @@ __pycache__/
 runs/
 node_modules/
 data/memory/
+
+# Zetaris platform folder and inventory output (scripts/zetaris_inventory.py)
+zetaris-platform/
+zetaris_inventory.json
