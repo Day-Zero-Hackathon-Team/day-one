@@ -186,6 +186,7 @@ function selectTab(which) {
 $("tab-text").onclick = () => selectTab("text");
 $("tab-photo").onclick = () => selectTab("photo");
 $("use-text").onclick = () => { selectTab("text"); $("text").focus(); };
+$("use-pdf").onclick = () => $("pick").click();
 
 const drop = $("drop");
 ["dragenter", "dragover"].forEach((t) => drop.addEventListener(t, (e) => { e.preventDefault(); drop.classList.add("drag"); }));
