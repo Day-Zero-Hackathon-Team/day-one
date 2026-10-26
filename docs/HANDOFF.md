@@ -2,7 +2,7 @@
 
 Everything needed to get Day One running on your own laptop, what has been built so far, what broke along the way and how it was fixed, and how to carry on with the design in Figma.
 
-**Where things stand (25 Oct):** the prototype works end to end. A patient pastes the text of a discharge summary (photos work once a vision model is switched on), six agents turn it into a checked, plain-language summary, and the patient can ask questions about it. All three sample cases pass the safety check live against Nightshift and Zetaris. The web page is an unstyled skeleton on purpose: the next job is designing it in Figma.
+**Where things stand (25 Oct):** the prototype works end to end. A patient pastes the text of a discharge summary (photos work once a vision model is switched on), six agents turn it into a checked, plain-language summary, and the patient can ask questions about it. All three sample cases pass the safety check live against Nightshift and Zetaris. The web app in `public/` now has the full Day One design: landing page, add your papers, live progress and the summary (see `docs/design.md`).
 
 **Deadline:** 27 Oct, 23:45 UTC.
 
@@ -292,11 +292,10 @@ Plus the states: Nightshift offline, Zetaris offline, photo reading off, rescan 
 
 The design only touches `public/`. The server and agents don't change.
 
-- `public/index.html` is the markup. `public/app.js` finds elements by these ids, so keep them (or update `app.js` to match): `status`, `input-view`, `tab-photo`, `tab-text`, `panel-photo`, `drop`, `files`, `thumbs`, `vision-note`, `panel-text`, `text`, `sample`, `go`, `input-error`, `progress-view`, `steps`, `messages`, `result-view`, `banner`, `speak`, `stop`, `again`, `summary`, `call911`, `schedule`, `questions`, `qa`, `qa-form`, `qa-input`, `qa-ask`, `qa-list`, `evidence`, `final-messages`.
-- `public/styles.css` is almost empty on purpose. Replace it with the design's styles.
-- `app.js` builds the result sections in code (search for `render`). Change its markup there for things like bullet cards and table rows.
+- `public/index.html` holds the four views (`view-landing`, `view-start`, `view-progress`, `view-result`); the URL hash picks one: `#/`, `#/start`, `#/job/<id>`. Old `/?job=<id>` links still work.
+- `public/app.js` builds the summary from the job data in code (search for `renderResult`): alerts, the 911 card, today's medicines (dose checklist saved on the device), sections with "Where does this come from?", schedule, hospital-record comparison, questions, Q&A, "How we made this".
+- `public/styles.css` holds the design tokens (the "Calm & Critical" colours) at the top; sizes are in `rem` so the "Larger text" switch scales everything.
 - No build step: edit, reload the browser. Keep it dependency-free (no frameworks) unless we agree otherwise; it keeps setup to "install Node".
-- If you use Claude Code with the Figma Dev Mode MCP server, point it at a frame and at `docs/features.md`, and ask it to restyle `public/` keeping the ids above.
 
 ---
 

@@ -60,5 +60,5 @@ All text meets 4.5:1 contrast. Colour only carries meaning, never decoration.
 
 ## Next
 
-- Restyle `public/` to match the Discharge summary screen (keep the element ids listed in [`HANDOFF.md`](HANDOFF.md#6--continuing-with-figma)).
-- Make the v2 summary screen on the canvas interactive (read aloud, expandable sources, dose checklist).
+- Done: `public/` is now the full app in this design. Run `npm run sample` and open <http://localhost:3100>.
+- Photos: the Photo tab works once Nightshift has a vision model; until then the page says to paste the text.
