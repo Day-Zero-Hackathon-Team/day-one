@@ -236,7 +236,7 @@ npm run nightshift:check  # live check against a running Nightshift
 | `src/zetaris.ts`, `scripts/ZetarisJson.java` | Fixed Zetaris lookups over JDBC |
 | `scripts/load_to_zetaris.sh`, `scripts/zetaris_inventory.py` | Load the datasets into Zetaris; list what a Zetaris instance holds and flag medical-looking tables |
 | `src/nightshift.ts` | Meterless Nightshift client (the only AI provider) |
-| `public/` | The web page (unstyled skeleton; design brief in `docs/features.md`) |
+| `public/` | The web app: landing page, add your papers, live progress, your summary (no framework, no build step; design in `docs/design.md`) |
 | `samples/inputs/` | Three sample discharge summaries for real synthetic patients |
 | `docs/meterless-integration.md` | How Meterless, Nightshift and NVIDIA are used |
 | `docs/HANDOFF.md` | Setup from scratch, status, what's left, Figma workflow |

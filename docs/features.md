@@ -1,6 +1,6 @@
 # Day One · feature inventory (for design)
 
-Everything the working prototype does, screen by screen, with the data behind each element. The current page in `public/` is a functional skeleton with no design applied. Use this list to design the real screens in Figma; the API and data shapes stay the same.
+Everything the working prototype does, screen by screen, with the data behind each element. The page in `public/` now implements these screens with the Day One design (`docs/design.md`); the API and data shapes are unchanged.
 
 All data comes from `GET /api/jobs/:id` (shapes in `src/types.ts`).
 

@@ -3,109 +3,244 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Day One</title>
-  <meta name="description" content="Turn your hospital discharge summary into plain words you can read or listen to.">
+  <title>Day One · Understand your hospital papers</title>
+  <meta name="description" content="Take a photo of your hospital discharge papers. Day One turns them into simple steps you can read or listen to.">
+  <meta name="theme-color" content="#F8F9FA">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='36' fill='none' stroke='%230F172A' stroke-width='20'/%3E%3Ccircle cx='50' cy='14' r='12' fill='%23FF4A1C'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <header class="top">
-    <div class="wrap top-row">
-      <div class="brand">
-        <span class="logo" aria-hidden="true">D1</span>
-        <div>
-          <h1>Day One</h1>
-          <p class="tagline">Your discharge papers, in plain words</p>
-        </div>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <div class="wrap topbar-row">
+      <a class="brand" href="#/" aria-label="Day One home">
+        <svg width="30" height="30" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="36" fill="none" stroke="currentColor" stroke-width="20"/><circle class="brand-dot" cx="50" cy="14" r="12"/></svg>
+        <span>Day One</span>
+      </a>
+      <nav class="topnav" id="topnav" aria-label="Main">
+        <a href="#/" data-scroll="how">How it works</a>
+        <a href="#/" data-scroll="safety">Is it safe?</a>
+      </nav>
+      <div class="topbar-actions">
+        <span class="pill pill-sample" id="sample-pill" hidden title="Recorded answers, no AI keys needed">Sample mode</span>
+        <button class="btn btn-ghost" id="big-text" type="button" aria-pressed="false">Larger text</button>
       </div>
-      <ul class="status" id="status" aria-label="Service status"></ul>
     </div>
   </header>
 
-  <main class="wrap">
-    <!-- Step 1: input -->
-    <section id="input-view" class="card">
-      <h2>Add your discharge summary</h2>
-      <div class="tabs" role="tablist">
-        <button role="tab" id="tab-photo" aria-selected="true" aria-controls="panel-photo">Photo</button>
-        <button role="tab" id="tab-text" aria-selected="false" aria-controls="panel-text">Text</button>
-      </div>
+  <main id="main" tabindex="-1">
 
-      <div id="panel-photo" role="tabpanel" aria-labelledby="tab-photo">
-        <label class="drop" id="drop">
-          <input type="file" id="files" accept="image/*" capture="environment" multiple>
-          <span class="drop-title">Take or choose a photo of each page</span>
-          <span class="muted">Flat on a table, good light, the whole page in the frame.</span>
-        </label>
-        <div class="thumbs" id="thumbs"></div>
-        <p class="note" id="vision-note" hidden>Reading photos needs a vision model in Nightshift. Until one is set up, use the Text tab.</p>
-      </div>
-
-      <div id="panel-text" role="tabpanel" aria-labelledby="tab-text" hidden>
-        <label for="text" class="label">Paste or type the text of your summary</label>
-        <textarea id="text" rows="12" placeholder="DISCHARGE SUMMARY&#10;Patient: ...&#10;Discharge medications: ..."></textarea>
-        <div class="row">
-          <label for="sample" class="muted">Or try a sample:</label>
-          <select id="sample"><option value="">Choose a sample…</option></select>
+    <!-- ─────────────── Landing ─────────────── -->
+    <div class="view" id="view-landing" data-view="landing">
+      <section class="wrap hero">
+        <div class="hero-copy">
+          <p class="eyebrow reveal">For your first day back home</p>
+          <h1 class="display reveal" style="--d:1">Understand your hospital papers.</h1>
+          <p class="lead reveal" style="--d:2">Take a photo of your discharge papers. We turn them into simple steps you can read or listen to.</p>
+          <div class="hero-actions reveal" style="--d:3">
+            <a class="btn btn-primary btn-lg" href="#/start">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
+              Scan my papers
+            </a>
+            <button class="btn btn-link" type="button" data-action="try-sample">See an example</button>
+          </div>
         </div>
-      </div>
 
-      <div class="row end">
-        <button class="primary" id="go">Make it plain</button>
-      </div>
-      <p class="error" id="input-error" role="alert" hidden></p>
-    </section>
-
-    <!-- Step 2: progress -->
-    <section id="progress-view" class="card" hidden>
-      <h2>Working on it</h2>
-      <p class="muted">Six agents read, check and rewrite your summary. This takes a few minutes.</p>
-      <ol class="steps" id="steps"></ol>
-      <details class="board" open>
-        <summary>What the agents are saying to each other</summary>
-        <ol class="messages" id="messages"></ol>
-      </details>
-    </section>
-
-    <!-- Step 3: result -->
-    <section id="result-view" hidden>
-      <div class="banner" id="banner"></div>
-
-      <div class="toolbar">
-        <button class="primary" id="speak">▶ Read aloud</button>
-        <button id="stop" hidden>■ Stop</button>
-        <button id="again">Start over</button>
-      </div>
-
-      <div id="summary"></div>
-
-      <section class="card danger" id="call911"></section>
-      <section class="card" id="schedule"></section>
-      <section class="card" id="questions"></section>
-
-      <section class="card" id="qa">
-        <h2>Ask about your papers</h2>
-        <p class="muted">Answers come only from your own papers. Anything they don't cover goes to your care team.</p>
-        <form class="row" id="qa-form">
-          <label for="qa-input" class="sr-only">Your question</label>
-          <input id="qa-input" type="text" placeholder="e.g. Can I shower? When is my next appointment?" autocomplete="off">
-          <button class="primary" id="qa-ask" type="submit">Ask</button>
-        </form>
-        <ol class="qa-list" id="qa-list"></ol>
+        <div class="hero-demo reveal" style="--d:4" aria-label="Example">
+          <div class="demo-card demo-paper">
+            <p class="demo-label">Your papers say</p>
+            <p class="mono">Furosemide 40 mg <mark>PO BID</mark></p>
+          </div>
+          <div class="demo-arrow" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+          </div>
+          <div class="demo-card demo-plain">
+            <p class="demo-label demo-label-blue">Day One says</p>
+            <p class="demo-text">Take <strong>furosemide 40 mg</strong> two times a day. It's a water pill that helps your body get rid of extra fluid.</p>
+            <div class="listen-bar">
+              <button class="listen-btn" type="button" id="demo-listen" aria-pressed="false" aria-label="Listen">
+                <svg class="i-play" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>
+                <svg class="i-stop" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
+              </button>
+              <span class="listen-text">Listen</span>
+              <span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+            </div>
+          </div>
+        </div>
       </section>
 
-      <details class="card evidence">
-        <summary>How we made this (for the curious)</summary>
-        <div id="evidence"></div>
-      </details>
+      <section class="band" id="how">
+        <div class="wrap">
+          <h2 class="h2 reveal">How it works</h2>
+          <ol class="steps3">
+            <li class="reveal" style="--d:1"><span class="num">1</span><h3>Take a photo</h3><p>Snap each page of your discharge papers, or paste the text.</p></li>
+            <li class="reveal" style="--d:2"><span class="num">2</span><h3>We check it</h3><p>Every medicine is checked against drug labels and your hospital record.</p></li>
+            <li class="reveal" style="--d:3"><span class="num">3</span><h3>Read or listen</h3><p>Get your medicine times, when to get help, and when to see your doctor.</p></li>
+          </ol>
+        </div>
+      </section>
 
-      <details class="card board">
-        <summary>What the agents said to each other</summary>
-        <ol class="messages" id="final-messages"></ol>
-      </details>
-    </section>
+      <section class="wrap section">
+        <h2 class="h2 reveal">What you get</h2>
+        <div class="grid3">
+          <article class="card reveal" style="--d:1">
+            <h3>When to take each medicine</h3>
+            <ul class="mini-list">
+              <li><span>Furosemide 40 mg</span><b>Morning, bedtime</b></li>
+              <li><span>Lisinopril 20 mg</span><b>Morning</b></li>
+              <li><span>Rosuvastatin 40 mg</span><b>Bedtime</b></li>
+            </ul>
+          </article>
+          <article class="card card-danger reveal" style="--d:2">
+            <h3>When to call 911</h3>
+            <ul class="dots">
+              <li>Weight gain of more than 2 pounds in a day or 5 pounds in a week.</li>
+              <li>Trouble breathing at rest or when lying flat.</li>
+              <li>Chest pain not relieved by 3 nitroglycerin doses.</li>
+              <li>Fainting or a very slow heartbeat.</li>
+            </ul>
+          </article>
+          <article class="card reveal" style="--d:3">
+            <h3>Where it came from</h3>
+            <p>Tap any line to see the exact words from your papers.</p>
+            <button class="src-toggle" type="button" aria-expanded="false" data-action="toggle-src">Where does this come from?</button>
+            <div class="collapse"><div><p class="quote mono">Line 11: NEW: Furosemide 40 mg PO BID</p></div></div>
+          </article>
+        </div>
+      </section>
 
-    <p class="disclaimer">Day One is a hackathon prototype. It helps you understand your own paperwork and is not medical advice. If anything here differs from what your care team told you, follow your care team.</p>
+      <section class="band band-muted" id="safety">
+        <div class="wrap safety">
+          <h2 class="h2 reveal">Is it safe?</h2>
+          <ul class="checks">
+            <li class="reveal" style="--d:1">Every line comes from your papers. Nothing is made up.</li>
+            <li class="reveal" style="--d:2">If a dose looks wrong, we tell you to check with your care team.</li>
+            <li class="reveal" style="--d:3">If we can't check something, we show your papers' own words.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="wrap section center">
+        <h2 class="h2 reveal">Ready when you get home.</h2>
+        <a class="btn btn-primary btn-lg reveal" style="--d:1" href="#/start">Scan my papers</a>
+      </section>
+    </div>
+
+    <!-- ─────────────── Add your papers ─────────────── -->
+    <div class="view" id="view-start" data-view="start" hidden>
+      <div class="wrap narrow page">
+        <a class="back" href="#/">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back
+        </a>
+        <h1 class="h1" tabindex="-1">Add your discharge papers</h1>
+        <p class="lead-sm">Use a photo, paste the text, or try an example.</p>
+
+        <div class="segmented" role="tablist" aria-label="How to add your papers">
+          <button role="tab" id="tab-text" aria-selected="true" aria-controls="panel-text">Paste text</button>
+          <button role="tab" id="tab-photo" aria-selected="false" aria-controls="panel-photo">Photo</button>
+          <span class="seg-thumb" aria-hidden="true"></span>
+        </div>
+
+        <div id="panel-text" role="tabpanel" aria-labelledby="tab-text" class="panel">
+          <label for="text" class="label">The text of your papers</label>
+          <textarea id="text" rows="10" placeholder="DISCHARGE SUMMARY&#10;Patient: …&#10;Discharge medications: …"></textarea>
+          <p class="label label-space">Or try an example</p>
+          <div class="samples" id="samples"></div>
+        </div>
+
+        <div id="panel-photo" role="tabpanel" aria-labelledby="tab-photo" class="panel" hidden>
+          <label class="drop" id="drop">
+            <input type="file" id="files" accept="image/*" capture="environment" multiple>
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
+            <span class="drop-title">Take or choose a photo of each page</span>
+            <span class="muted">Flat on a table, good light, the whole page in the frame.</span>
+          </label>
+          <ul class="thumbs" id="thumbs"></ul>
+          <p class="note" id="vision-note" hidden>Reading photos needs a vision model in Meterless Nightshift. Until one is set up, please paste the text instead.</p>
+        </div>
+
+        <p class="alert alert-error" id="input-error" role="alert" hidden></p>
+        <div class="actions-end">
+          <button class="btn btn-primary btn-lg" id="go" type="button">
+            Make it plain
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─────────────── Working on it ─────────────── -->
+    <div class="view" id="view-progress" data-view="progress" hidden>
+      <div class="wrap page progress-layout">
+        <div class="progress-main">
+          <h1 class="h1" tabindex="-1">Reading your papers</h1>
+          <p class="lead-sm" id="progress-sub">Six helpers read, check and rewrite your papers. You can leave this page open.</p>
+          <div class="progressbar" role="progressbar" aria-label="Progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="progress-fill"></span></div>
+          <ol class="tracker" id="steps" aria-live="polite"></ol>
+        </div>
+        <aside class="card convo">
+          <h2 class="h3">What the helpers are saying</h2>
+          <ol class="messages" id="messages" aria-live="polite"></ol>
+        </aside>
+      </div>
+    </div>
+
+    <!-- ─────────────── Your summary ─────────────── -->
+    <div class="view" id="view-result" data-view="result" hidden>
+      <div class="wrap page">
+        <div class="result-head">
+          <div>
+            <p class="eyebrow">Your discharge summary</p>
+            <h1 class="h1" id="patient-name" tabindex="-1">Your summary</h1>
+            <div class="badges" id="badges"></div>
+          </div>
+          <div class="result-actions">
+            <button class="btn btn-primary" id="speak" type="button">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>Read it to me
+            </button>
+            <button class="btn btn-secondary" id="print" type="button">Print</button>
+            <a class="btn btn-secondary" href="#/start" id="again">Start over</a>
+          </div>
+        </div>
+
+        <div id="alerts" class="stack"></div>
+
+        <div class="result-grid">
+          <div class="stack" id="result-main"></div>
+          <aside class="stack" id="result-side"></aside>
+        </div>
+
+        <p class="fineprint">Day One helps you understand your own papers and is not medical advice. If anything here is different from what your care team told you, follow your care team.</p>
+      </div>
+    </div>
   </main>
+
+  <!-- Read-aloud player -->
+  <div class="player" id="player" hidden aria-live="polite">
+    <div class="wrap player-row">
+      <span class="wave on" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+      <div class="player-text"><span class="player-count" id="player-count"></span><span id="player-line"></span></div>
+      <div class="player-controls">
+        <button class="icon-btn" id="player-prev" type="button" aria-label="Previous line"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button class="icon-btn" id="player-next" type="button" aria-label="Next line"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+        <button class="btn btn-chip" id="player-rate" type="button" aria-label="Reading speed">Normal speed</button>
+        <button class="btn btn-light" id="player-stop" type="button">Stop</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <footer class="footer">
+    <div class="wrap footer-row">
+      <p><svg width="18" height="18" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="36" fill="none" stroke="currentColor" stroke-width="20"/><circle cx="74" cy="22" r="13" fill="#FF4A1C"/></svg>Made by Day Zero</p>
+      <p>Not medical advice. Always follow your care team.</p>
+    </div>
+  </footer>
 
   <script src="/app.js"></script>
 </body>
