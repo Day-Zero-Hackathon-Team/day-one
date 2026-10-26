@@ -1,5 +1,5 @@
 {
- "sql": "SELECT term, category, meaning, plain_language FROM DAY_ONE.medical_terms WHERE upper(term) IN ('CHF', 'CAD', 'PCI', 'HTN', 'SOB', 'LE', 'BID', 'PO', 'QHS', 'SL', 'PRN', 'BMP', 'PCP', 'ED')",
+ "sql": "SELECT term, category, meaning, plain_language FROM DAY_ONE.medical_terms WHERE upper(term) IN ('CHF', 'CAD', 'PCI', 'HTN', 'SOB', 'LE', 'PO', 'BID', 'QHS', 'SL', 'PRN', 'BMP', 'PCP', 'ED', 'EF')",
  "rows": [
   {
    "term": "BID",
@@ -72,6 +72,12 @@
    "category": "lab",
    "meaning": "basic metabolic panel",
    "plain_language": "a blood test for salts and kidneys"
+  },
+  {
+   "term": "EF",
+   "category": "lab",
+   "meaning": "ejection fraction",
+   "plain_language": "how well your heart pumps"
   },
   {
    "term": "PCI",

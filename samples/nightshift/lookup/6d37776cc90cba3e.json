@@ -1,0 +1,34 @@
+{
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\"drugs\": [{\"as_written\": \"Furosemide\", \"generic\": \"furosemide\"}, {\"as_written\": \"Lisinopril\", \"generic\": \"lisinopril\"}, {\"as_written\": \"Carvedilol\", \"generic\": \"carvedilol\"}, {\"as_written\": \"Clopidogrel\", \"generic\": \"clopidogrel\"}, {\"as_written\": \"Rosuvastatin\", \"generic\": \"rosuvastatin\"}, {\"as_written\": \"Nitroglycerin\", \"generic\": \"nitroglycerin\"}, {\"as_written\": \"Naproxen\", \"generic\": \"naproxen\"}], \"terms\": [\"CHF\", \"CAD\", \"PCI\", \"HTN\", \"SOB\", \"LE\", \"PO\", \"BID\", \"qHS\", \"SL\", \"PRN\", \"BMP\", \"PCP\", \"ED\", \"EF\"]}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 274,
+    "completion_tokens": 205,
+    "total_tokens": 479
+  },
+  "meterless": {
+    "routed_model": "nvidia/nemotron-3-ultra-550b-a55b",
+    "receipt_id": "rcpt_req_njr2ebcf",
+    "phases": [
+      {
+        "phase": "final_synthesis",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "ms": 1196,
+        "tokensIn": 274,
+        "tokensOut": 205,
+        "outputTps": 171.4046822742475,
+        "coherence": null,
+        "tier": "B",
+        "reflex_decided_in_ms": 0.5
+      }
+    ]
+  }
+}

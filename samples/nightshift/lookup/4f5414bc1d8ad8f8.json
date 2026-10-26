@@ -4,27 +4,27 @@
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "{\n  \"generic\": \"oxycodone\",\n  \"purpose\": \"1 INDICATIONS AND USAGE Oxycodone hydrochloride (HCl) tablets are indicated for the management of pain severe enough to require an opioid analgesic and for which alternative treatments are inadequate. Limitations of Use Because of the risks of addiction, abuse, misuse, overdose, and death, which can occur at any dosage or duration and persist over the course of therapy [see Warnings and Precautions (5.1) ] , reserve opioid analgesics, including oxycodone HCl tablets for use in patients for whom alternative treatment options are ineffective, not tolerated, or would be otherwise inadequate to provide sufficient management of pain. Oxycodone HCl tablets are an opioid agonist indicated for the m\",\n  \"side_effects\": \"6 ADVERSE REACTIONS The following serious adverse reactions are described, or described in greater detail, in other sections: Addiction, Abuse, and Misuse [see Warnings and Precautions (5.1) ] Life-Threatening Respiratory Depression [see Warnings and Precautions (5.2) ] Interactions with Benzodiazepines or Other CNS Depressants [see Warnings and Precautions (5.3) ] Neonatal Opioid Withdrawal Syndrome [see Warnings and Precautions (5.4) ] Opioid-Induced Hyperalgesia and Allodynia [see Warnings and Precautions (5.7) ] Adrenal Insufficiency [see Warnings and Precautions (5.9) ] Severe Hypotension\",\n  \"warnings\": \"5 WARNINGS AND PRECAUTIONS Opioid-Induced Hyperalgesia and Allodynia: Opioid-Induced Hyperalgesia (OIH) occurs when opioid analgesic paradoxically causes an increase in pain, or an increase in sensitivity to pain. If OIH is suspected, carefully consider appropriately decreasing the dose of the current opioid analgesic, or opioid rotation. (5.7) Life-Threatening Respiratory Depression in Patients with Chronic Pulmonary Disease or in Elderly, Cachectic, or Debilitated Patients: Regularly evaluate \",\n  \"boxed_warning\": \"WARNING: SERIOUS AND LIFE-THREATENING RISKS FROM USE OF OXYCODONE HCl Addiction, Abuse, and Misuse Because the use of oxycodone HCl exposes patients and other users to the risks of opioid addiction, abuse, and misuse, which can lead to overdose and death, assess each patient�s risk prior to prescrib\"\n}"
+        "content": "{\n  \"drugs\": [\n    {\n      \"generic\": \"oxycodone\",\n      \"plain_purpose\": \"a strong pain medicine used when other pain treatments do not work well enough\",\n      \"common_side_effects\": [\n        \"addiction or misuse\",\n        \"slow or shallow breathing\",\n        \"low blood pressure\",\n        \"adrenal gland problems\"\n      ],\n      \"key_warning\": \"can cause addiction, abuse, overdose, and death even at normal doses\"\n    },\n    {\n      \"generic\": \"acetaminophen\",\n      \"plain_purpose\": \"a medicine that helps relieve minor aches, pains, and fever\",\n      \"common_side_effects\": [\n        \"severe skin reactions\",\n        \"liver damage if too much is taken\"\n      ],\n      \"key_warning\": \"taking more than 4,000 mg in 24 hours or with alcohol can cause serious liver damage\"\n    },\n    {\n      \"generic\": \"enoxaparin\",\n      \"plain_purpose\": \"a blood thinner used to prevent or treat blood clots\",\n      \"common_side_effects\": [\n        \"bleeding\",\n        \"low platelet count\",\n        \"injection site pain\",\n        \"nausea\"\n      ],\n      \"key_warning\": \"can cause spinal or epidural bleeding leading to paralysis if you have a spinal puncture or epidural anesthesia\"\n    },\n    {\n      \"generic\": \"docusate\",\n      \"plain_purpose\": \"a stool softener that helps relieve occasional constipation\",\n      \"common_side_effects\": [],\n      \"key_warning\": \"stop using and see a doctor if you have rectal bleeding or no bowel movement after use\"\n    },\n    {\n      \"generic\": \"ondansetron\",\n      \"plain_purpose\": \"a medicine that prevents nausea and vomiting from chemotherapy, radiation, or surgery\",\n      \"common_side_effects\": [\n        \"headache\",\n        \"tiredness\",\n        \"constipation\",\n        \"diarrhea\"\n      ],\n      \"key_warning\": \"can cause a dangerous heart rhythm problem (QT prolongation) especially with certain other drugs or conditions\"\n    }\n  ]\n}"
       },
       "finish_reason": "stop"
     }
   ],
   "usage": {
     "prompt_tokens": 2190,
-    "completion_tokens": 550,
-    "total_tokens": 2740
+    "completion_tokens": 454,
+    "total_tokens": 2644
   },
   "meterless": {
     "routed_model": "nvidia/nemotron-3-ultra-550b-a55b",
-    "receipt_id": "rcpt_req_bxnsv1z1",
+    "receipt_id": "rcpt_req_ht580ljk",
     "phases": [
       {
         "phase": "final_synthesis",
         "model": "nvidia/nemotron-3-ultra-550b-a55b",
-        "ms": 18185,
+        "ms": 31650,
         "tokensIn": 2190,
-        "tokensOut": 550,
-        "outputTps": 30.24470717624416,
+        "tokensOut": 454,
+        "outputTps": 14.34439178515008,
         "coherence": null,
         "tier": "B",
         "reflex_decided_in_ms": 0.5
