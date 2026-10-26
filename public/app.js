@@ -454,8 +454,8 @@ function emergencyCards(o, ctx) {
   const items = o.summary.call_911_if.length ? o.summary.call_911_if : (o.record.warning_signs ?? []).map((w, i) => ({ id: `w${i + 1}`, text: asWritten(w.source) || w.text, sources: [w.source] }));
   // Signs the papers send to a doctor or nurse ("Call your doctor same day if…") get their own card,
   // not a "Call 911" heading. Anything unclear stays in the 911 box.
-  const urgent = fb ? items : items.filter((b) => !callsSomeoneElse(b.text));
-  const doctor = fb ? [] : items.filter((b) => callsSomeoneElse(b.text));
+  const urgent = fb ? items : items.filter((b) => !callsSomeoneElse(b, ctx));
+  const doctor = fb ? [] : items.filter((b) => callsSomeoneElse(b, ctx));
   const list = fb
     ? el("div", { class: "orig mono", text: fb.original.map((l) => l.text).join("\n") })
     : bulletList(urgent, ctx, { plainDots: true });
@@ -469,10 +469,22 @@ function emergencyCards(o, ctx) {
   return cards;
 }
 
-/** "Call your doctor same day if…", "Call PCP same day for: …": a call to someone other than 911 or the ER. */
-function callsSomeoneElse(text) {
-  const t = text.trim();
-  return /^(call|contact|tell|phone|see)\b/i.test(t) && !/\b(911|ER|emergency|ambulance|ED)\b/i.test(t);
+/**
+ * Does this warning sign send the patient to someone other than 911 or the ER ("Call PCP same day for: …")?
+ * Read from the bullet and the lines it cites, since the rewritten bullet may leave out who to call.
+ * Any mention of 911, the ER or an emergency keeps it in the 911 box, and so does anything unclear.
+ */
+function callsSomeoneElse(b, ctx) {
+  const cited = b.sources.filter((s) => /^p\d+:L\d/.test(s)).flatMap((s) => {
+    const [page, range] = s.split(":L");
+    const [from, to] = range.split("-").map(Number);
+    const out = [];
+    for (let n = from; n <= (to || from); n++) out.push(ctx.lineMap.get(`${page}:L${n}`) ?? "");
+    return out;
+  });
+  const texts = [b.text, ...cited];
+  if (texts.some((t) => /\b(911|ER|ED|emergency|ambulance)\b/i.test(t))) return false;
+  return texts.some((t) => /\b(call|contact|phone|tell|see)\b[^.]*\b(doctor|pcp|surgeon|nurse|clinic|provider|care team|office)\b/i.test(t));
 }
 
 function reminderCard(job, o) {
