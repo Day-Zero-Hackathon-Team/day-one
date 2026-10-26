@@ -56,7 +56,8 @@ export async function extract(ctx: AgentContext, scan: ScanResult): Promise<Disc
   }
   record ??= normalise({});
   // A cut-off answer can run away listing terms (323 once). Keep only terms that are on the paper, and a sane number.
-  record.unknown_terms = record.unknown_terms.filter((t) => t.length <= 30 && input.includes(t)).slice(0, MAX_TERMS);
+  const paper = input.toLowerCase();
+  record.unknown_terms = record.unknown_terms.filter((t) => t.length <= 30 && paper.includes(t.toLowerCase())).slice(0, MAX_TERMS);
   ctx.save("extract", "record", { input, output: record });
   return record;
 }

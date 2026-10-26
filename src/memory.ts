@@ -147,7 +147,7 @@ export function stableOrder(context: string): string {
     if (!lines[i].startsWith("- ")) { out.push(lines[i++]); continue; }
     const block: string[] = [];
     while (i < lines.length && lines[i].startsWith("- ")) block.push(lines[i++]);
-    out.push(...block.sort((a, b) => id(a) - id(b)));
+    out.push(...block.sort((a, b) => id(a) - id(b) || 0)); // two lines without an id: Infinity - Infinity is NaN
   }
   return out.join("\n");
 }

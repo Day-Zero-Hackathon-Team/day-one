@@ -143,6 +143,8 @@ Return JSON only: {"drugs": [{"generic": "...", "plain_purpose": "...", "common_
         const out = parseJsonObject<{ drugs: Omit<DrugLookup, "id" | "table" | "name">[] }>(res.content);
         got = (out.drugs ?? [])
           .filter((d) => d?.generic && d.plain_purpose && rows.some((r) => r.generic_name === d.generic))
+          // One per drug: a repeated entry would count as a drug that came back.
+          .filter((d, i, all) => all.findIndex((x) => x.generic === d.generic) === i)
           .map((d) => ({
             id: `drug:${d.generic.replace(/\s+/g, "_")}`,
             table: "drug_reference" as const,

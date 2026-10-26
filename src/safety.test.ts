@@ -123,3 +123,26 @@ test("a verdict at the end of a checker note clears it, even after a hedge", asy
   assert.ok(selfCleared("The source says NEW: Furosemide 40 mg PO BID, which matches the bullet, but the drug reference warns about careful dose adjustment; no dose change detected."));
   assert.ok(!selfCleared("No dose change detected, but the bullet adds advice to avoid salt that the source doesn't give."));
 });
+
+test("a checker note ending in a negated verdict is kept", async () => {
+  const { selfCleared } = await import("./agents/safety.ts");
+  assert.ok(!selfCleared("Bullet says 20 mg; source says 40 mg. Not accurate."));
+  assert.ok(!selfCleared("The bullet leaves out the fever warning. That isn't correct."));
+});
+
+test("a stopped medicine isn't covered by another medicine that shares its first word", () => {
+  const lines = scanText(["Metoprolol tartrate 25 mg PO BID STOP", "Metoprolol succinate XL 50 mg PO daily NEW", "Chest pain"].join("\n"));
+  const r = record({
+    medications: [
+      { name: "metoprolol tartrate 25 mg", dose: "--", freq: "--", status: "stopped", source: "p1:L1" },
+      { name: "metoprolol succinate XL 50 mg", dose: "50 mg", freq: "daily", status: "new", source: "p1:L2" },
+    ],
+    warning_signs: [{ text: "Chest pain", source: "p1:L3" }],
+    lookups: { drugs: [], terms: [] },
+  });
+  const s = summary("", {
+    sections: [{ title: "Your medicines", bullets: [{ id: "b1", text: "Take metoprolol succinate 50 mg once a day.", sources: ["p1:L2"] }] }],
+    call_911_if: [{ id: "w1", text: "You have chest pain.", sources: ["p1:L3"] }],
+  });
+  assert.deepEqual(types(codeChecks(s, r, lines)), ["missing_medication"]);
+});

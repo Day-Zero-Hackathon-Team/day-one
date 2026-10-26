@@ -444,13 +444,7 @@ function emergencyCards(o, ctx) {
   const fb = o.fallback_sections.find((f) => f.title === "Call 911 if");
   // Never an empty box: without rewritten items, list the warning signs from the papers as written.
   // The source lines, not Extract's text, so a heading like "Call your doctor same day for:" stays with its signs.
-  const asWritten = (src) => {
-    const [page, range] = src.split(":L");
-    const [from, to] = (range ?? "").split("-").map(Number);
-    const ids = [];
-    for (let n = from; n <= (to || from); n++) ids.push(`${page}:L${n}`);
-    return ids.map((i) => ctx.lineMap.get(i)).filter(Boolean).join(" ");
-  };
+  const asWritten = (src) => sourceLines(src, ctx).filter(Boolean).join(" ");
   const items = o.summary.call_911_if.length ? o.summary.call_911_if : (o.record.warning_signs ?? []).map((w, i) => ({ id: `w${i + 1}`, text: asWritten(w.source) || w.text, sources: [w.source] }));
   // Signs the papers send to a doctor or nurse ("Call your doctor same day if…") get their own card,
   // not a "Call 911" heading. Anything unclear stays in the 911 box.
@@ -475,16 +469,18 @@ function emergencyCards(o, ctx) {
  * Any mention of 911, the ER or an emergency keeps it in the 911 box, and so does anything unclear.
  */
 function callsSomeoneElse(b, ctx) {
-  const cited = b.sources.filter((s) => /^p\d+:L\d/.test(s)).flatMap((s) => {
-    const [page, range] = s.split(":L");
-    const [from, to] = range.split("-").map(Number);
-    const out = [];
-    for (let n = from; n <= (to || from); n++) out.push(ctx.lineMap.get(`${page}:L${n}`) ?? "");
-    return out;
-  });
-  const texts = [b.text, ...cited];
+  const texts = [b.text, ...b.sources.flatMap((s) => sourceLines(s, ctx))];
   if (texts.some((t) => /\b(911|ER|ED|emergency|ambulance)\b/i.test(t))) return false;
   return texts.some((t) => /\b(call|contact|phone|tell|see)\b[^.]*\b(doctor|pcp|surgeon|nurse|clinic|provider|care team|office)\b/i.test(t));
+}
+
+/** The text of each line a source cites: "p2:L14", "p2:L14-16" or "p2:L14-L16". Anything else (drug:…, term:…) has none. */
+function sourceLines(src, ctx) {
+  const m = String(src).match(/^(p\d+):L(\d+)(?:-L?(\d+))?$/);
+  if (!m) return [];
+  const out = [];
+  for (let n = Number(m[2]); n <= Number(m[3] ?? m[2]); n++) out.push(ctx.lineMap.get(`${m[1]}:L${n}`) ?? "");
+  return out;
 }
 
 function reminderCard(job, o) {

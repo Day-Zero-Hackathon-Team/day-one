@@ -8,7 +8,8 @@
 
 import type { AgentContext } from "./context.ts";
 import { lineText, numberedLines } from "./scan.ts";
-import { parseJsonObject } from "../text.ts";
+import { NightshiftError } from "../nightshift.ts";
+import { baseDrugName, parseJsonObject } from "../text.ts";
 import type { Bullet, GroundedRecord, Issue, Medication, PlainSummary, ScanResult } from "../types.ts";
 
 export const MEDS_PER_PART = 5;
@@ -152,6 +153,8 @@ function partsFor(issue: Issue, parts: Part[]): Part[] {
     if (owner) return [owner];
   }
   if (issue.section === WARN_TITLE) return parts.filter((p) => p.kind === "warnings");
+  const titled = parts.filter((p) => p.output?.sections.some((s) => s.title === issue.section));
+  if (titled.length && !/medicine|medication/i.test(issue.section ?? "")) return titled;
   if (issue.section && /medicine|medication/i.test(issue.section)) {
     const meds = parts.filter((p) => p.kind === "meds");
     const named = meds.filter((p) => p.meds.some((m) => issue.fix.toLowerCase().includes(m.toLowerCase())));
@@ -176,6 +179,8 @@ async function writePart(ctx: AgentContext, part: Part, input: string, attempt: 
         throw err;
       }
     } catch (err) {
+      // No token, Nightshift down, or no sample recording: asking again can't help, and the job should say why.
+      if (err instanceof NightshiftError && (err.status === 401 || err.status === 403 || /unreachable|SAMPLE_MODE/.test(err.message))) throw err;
       if (i < 2) {
         ctx.say("simplify", "simplify", "info", `My ${describePart(part)} was unusable (${(err as Error).message.slice(0, 100)}); writing it again.`);
         continue;
@@ -244,8 +249,10 @@ function sameDrug(a: string, b: string, record: GroundedRecord): boolean {
   const norm = (s: string) => s.toLowerCase().trim();
   if (norm(a) === norm(b)) return true;
   const generic = (s: string) => record.lookups.drugs.find((d) => norm(d.name) === norm(s))?.generic ?? s;
-  const [x, y] = [norm(generic(a)), norm(generic(b))];
-  return x === y || x.split(/\W+/)[0] === y.split(/\W+/)[0];
+  // "Metoprolol succinate XL 50 mg" ↔ "metoprolol succinate" ↔ "metoprolol", but not potassium chloride ↔ potassium citrate.
+  const key = (s: string) => baseDrugName(s.replace(/\([^)]*\)/g, " ")) || norm(s);
+  const [x, y] = [key(generic(a)), key(generic(b))];
+  return !!x && !!y && (x === y || x.startsWith(`${y} `) || y.startsWith(`${x} `));
 }
 
 const isPlaceholder = (t: string) => /^[.\s…]*$/.test(t);

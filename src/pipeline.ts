@@ -246,6 +246,12 @@ async function run(ns: Nightshift, job: Job, input: JobInput, keep: (ctx: AgentC
         ctx.say("safety_checker", "simplify", "critique", `Check ${attempt} failed: ${describe(report.issues)}. Revise.`);
         step("simplify", "running", `revision ${attempt}`);
         draft = await revise(ctx, grounded, scan, draft, report.issues, attempt);
+        // No part to send the issues to: checking the same summary again would only repeat them.
+        if (draft === previous) {
+          ctx.say("simplify", "orchestrator", "info", `No part of the summary matches the ${report.issues.length} issue(s); keeping the checked draft.`);
+          step("simplify", "done", `revision ${attempt}: nothing to rewrite`);
+          break;
+        }
       }
       summary = draft.summary;
     } catch (err) {

@@ -30,6 +30,17 @@ const QUESTIONS: Record<string, { q: string; answered: boolean }> = {
 
 // --replay: only check the recordings already in samples/ (offline); --keep: record without clearing first.
 const replayOnly = process.argv.includes("--replay");
+if (!replayOnly) {
+  // Check both services before clearing anything: with either one down, every case would fail and the old recordings would be gone.
+  const { Nightshift } = await import("../src/nightshift.ts");
+  const { lookupAll } = await import("../src/zetaris.ts");
+  const ns = await new Nightshift().status();
+  const zetaris = await lookupAll({ drugs: ["furosemide"], terms: [] }).then(() => "online", (err: Error) => `offline (${err.message.slice(0, 120)})`);
+  if (ns !== "online" || zetaris !== "online") {
+    console.error(`Not recording: Nightshift is ${ns}, Zetaris is ${zetaris}. The recordings in samples/ are unchanged.`);
+    process.exit(1);
+  }
+}
 if (!replayOnly && !process.argv.includes("--keep")) {
   for (const dir of ["nightshift", "zetaris"]) rmSync(join(ROOT, "samples", dir), { recursive: true, force: true });
 }

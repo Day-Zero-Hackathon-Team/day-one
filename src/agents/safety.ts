@@ -87,10 +87,12 @@ export function codeChecks(summary: PlainSummary, record: GroundedRecord, scan: 
       issues.push({ bullet: null, section: med.source, type: "extract_mismatch", fix: `Extracted ${med.name} dose "${med.dose}" is not on line ${med.source}: "${original}". Re-read the line.`, by: "code" });
       continue;
     }
-    // The main drug word ("doxycycline" for "doxycycline hyclate 100 mg cap") only when no fuller name matches.
+    // The main drug word ("doxycycline" for "doxycycline hyclate 100 mg cap") only when no fuller name matches,
+    // and never when another medicine on the paper shares it (stopped metoprolol tartrate, new metoprolol succinate).
     const by = (list: string[]) => medBullets.filter((b) => list.some((n) => mentions(b.text, n)));
     const strict = by(names.strict);
-    const about = strict.length ? strict : by(names.loose);
+    const loose = names.loose.filter((h) => !record.medications.some((o) => o !== med && mentions(o.name, h)));
+    const about = strict.length ? strict : by(loose);
     if (!about.length) {
       issues.push({ bullet: null, section: medSection?.title ?? "Your medicines", type: "missing_medication", fix: `Add a bullet for ${med.name} ${med.dose} ${med.freq} (${med.status}), citing ${med.source}.`, by: "code" });
       continue;
@@ -125,7 +127,8 @@ export function selfCleared(fix: string): boolean {
   const t = fix.trim();
   // A verdict at the end wins over any hedge before it: "…but the label warns…; no dose change detected."
   if (/\bno (dose |meaning )?(change|issue|problem|error)s? (detected|found|needed)[.!]?\s*$/i.test(t)) return true;
-  if (/\b(however|but|although|change|remove|add|replace|should|must|missing|instead|wrong|incorrect|not (in|on|stated|mentioned|said))\b/i.test(t)) return false;
+  // Any negation keeps it too: "Not accurate." ends like a verdict but isn't one.
+  if (/\b(however|but|although|change|remove|add|replace|should|must|missing|instead|wrong|incorrect|not|never|omits?|drops?|differs?|lacks?)\b|n't\b/i.test(t)) return false;
   return /(\b(consistent|correct|fine|good|ok|okay|accurate|faithful|matches|match)|no (issue|problem|change)s? (needed|here)?)[.!]?\s*$/i.test(t);
 }
 
