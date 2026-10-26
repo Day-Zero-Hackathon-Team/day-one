@@ -36,7 +36,7 @@ const store = {
 
 let status = null;
 let samples = [];
-let images = [];
+let pages = []; // { url: JPEG data URL, text: the page's own text layer (PDFs only) or null }
 let pollTimer = null;
 let currentJob = null;
 let seenMessages = 0;
@@ -112,7 +112,12 @@ document.querySelectorAll("[data-scroll]").forEach((a) => a.addEventListener("cl
 async function loadStatus() {
   try { status = await (await fetch("/api/status")).json(); } catch { return; }
   $("sample-pill").hidden = !status.sampleMode;
-  $("vision-note").hidden = !!status.vision;
+  updateVisionNote();
+}
+
+/** Only warn about photo reading when something would actually need it: not for PDFs with a text layer. */
+function updateVisionNote() {
+  $("vision-note").hidden = !status || !!status.vision || (pages.length > 0 && pages.every((p) => p.text));
 }
 
 async function loadSamples() {
@@ -188,20 +193,78 @@ const drop = $("drop");
 drop.addEventListener("drop", (e) => addFiles([...e.dataTransfer.files]));
 $("files").onchange = (e) => addFiles([...e.target.files]);
 
+const isPdf = (f) => f.type === "application/pdf" || /\.pdf$/i.test(f.name);
+
 async function addFiles(files) {
-  for (const f of files.filter((f) => f.type.startsWith("image/"))) {
-    if (images.length >= 10) { showError("Up to 10 pages at a time."); break; }
-    try { images.push(await downscale(f)); } catch { showError("That file couldn't be opened as a photo."); }
+  hideError();
+  for (const f of files.filter((f) => f.type.startsWith("image/") || isPdf(f))) {
+    if (pages.length >= 10) { showError("Up to 10 pages at a time."); break; }
+    try {
+      if (isPdf(f)) await addPdf(f);
+      else pages.push({ url: await downscale(f), text: null });
+    } catch {
+      showError(isPdf(f) ? "That PDF couldn't be opened." : "That file couldn't be opened as a photo.");
+    }
+    renderThumbs();
   }
-  renderThumbs();
+}
+
+// pdf.js is only fetched the first time someone picks a PDF. The file itself never leaves the browser here.
+const PDFJS = "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build";
+let pdfjs;
+async function loadPdfjs() {
+  if (!pdfjs) {
+    pdfjs = await import(`${PDFJS}/pdf.min.mjs`);
+    pdfjs.GlobalWorkerOptions.workerSrc = `${PDFJS}/pdf.worker.min.mjs`;
+  }
+  return pdfjs;
+}
+
+/** Each PDF page becomes a thumbnail plus its text layer. A scanned PDF has no text layer, so it goes the photo route. */
+async function addPdf(file) {
+  const lib = await loadPdfjs();
+  const doc = await lib.getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise;
+  for (let n = 1; n <= doc.numPages; n++) {
+    if (pages.length >= 10) { showError("Up to 10 pages at a time."); break; }
+    const page = await doc.getPage(n);
+    const base = page.getViewport({ scale: 1 });
+    const viewport = page.getViewport({ scale: 1800 / Math.max(base.width, base.height) });
+    const c = document.createElement("canvas");
+    c.width = Math.round(viewport.width);
+    c.height = Math.round(viewport.height);
+    await page.render({ canvasContext: c.getContext("2d"), viewport }).promise;
+    const text = pdfPageText(await page.getTextContent());
+    pages.push({ url: c.toDataURL("image/jpeg", 0.85), text: text.replace(/\s/g, "").length >= 40 ? text : null });
+  }
+  await doc.destroy();
+}
+
+/** Rebuild reading-order lines from pdf.js text runs: group runs by baseline, then left to right. */
+function pdfPageText(content) {
+  const rows = [];
+  for (const it of content.items) {
+    if (!it.str?.trim()) continue;
+    const [x, y] = [it.transform[4], it.transform[5]];
+    let row = rows.find((r) => Math.abs(r.y - y) < 2.5);
+    if (!row) rows.push((row = { y, runs: [] }));
+    row.runs.push({ x, end: x + it.width, str: it.str });
+  }
+  return rows
+    .sort((a, b) => b.y - a.y)
+    .map((r) => r.runs.sort((a, b) => a.x - b.x).reduce((line, run, i, all) => {
+      const gap = i ? run.x - all[i - 1].end : 0;
+      return line + (i && gap > 5 ? "  |  " : i && gap > 0.8 ? " " : "") + run.str;
+    }, "").trim())
+    .join("\n");
 }
 
 function renderThumbs() {
   $("thumbs").replaceChildren(
-    ...images.map((url, i) =>
+    ...pages.map(({ url }, i) =>
       el("li", {}, el("img", { src: url, alt: `Page ${i + 1}` }), el("span", { text: `Page ${i + 1}` }),
-        el("button", { type: "button", "aria-label": `Remove page ${i + 1}`, text: "✕", onclick: () => { images.splice(i, 1); renderThumbs(); } }))),
+        el("button", { type: "button", "aria-label": `Remove page ${i + 1}`, text: "✕", onclick: () => { pages.splice(i, 1); renderThumbs(); } }))),
   );
+  updateVisionNote();
 }
 
 /** Phone photos are huge; 1800 px on the long side is plenty to read text. */
@@ -224,9 +287,13 @@ function downscale(file) {
 
 $("go").onclick = async () => {
   const usePhoto = $("tab-photo").getAttribute("aria-selected") === "true";
-  const body = usePhoto ? { images } : { text: $("text").value };
+  // A PDF with a text layer is sent as its exact text: no photo reading needed. Any photo or scanned page means photos.
+  const allText = pages.length && pages.every((p) => p.text);
+  const body = !usePhoto ? { text: $("text").value }
+    : allText ? { text: pages.map((p) => p.text).join("\n\n") }
+    : { images: pages.map((p) => p.url) };
   hideError();
-  if (usePhoto ? !images.length : !body.text.trim()) return showError(usePhoto ? "Add a photo of at least one page." : "Paste the text of your papers, or pick an example.");
+  if (usePhoto ? !pages.length : !body.text.trim()) return showError(usePhoto ? "Add a photo or PDF of at least one page." : "Paste the text of your papers, or pick an example.");
   const go = $("go");
   const label = go.innerHTML;
   go.disabled = true;
@@ -582,7 +649,7 @@ function conversationCard(job) {
 }
 
 $("print").onclick = () => window.print();
-$("again").addEventListener("click", () => { $("text").value = ""; images = []; renderThumbs(); document.querySelectorAll(".sample.picked").forEach((n) => n.classList.remove("picked")); });
+$("again").addEventListener("click", () => { $("text").value = ""; pages = []; renderThumbs(); document.querySelectorAll(".sample.picked").forEach((n) => n.classList.remove("picked")); });
 
 // ── Read aloud ──────────────────────────────────────────────────────────────
 const RATES = [[0.9, "Normal speed"], [0.75, "Slower"], [1.05, "Faster"]];
