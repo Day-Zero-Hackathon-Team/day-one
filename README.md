@@ -206,13 +206,13 @@ On the machine running Nightshift, the token is read from Nightshift's own folde
 npm start
 ```
 
-Open <http://localhost:3100>, pick a sample (or paste your own text, or upload photos), and press **Make it plain**. A run takes 3 to 6 minutes. Every agent's input and output, the agent conversation, and a trace of every model call (with the model that answered and Nightshift's signed receipt) are saved in `runs/<job>/`.
+Open <http://localhost:3100>, pick a sample (or paste your own text, or upload photos or a PDF), and press **Make it plain**. A run takes 3 to 6 minutes. Every agent's input and output, the agent conversation, and a trace of every model call (with the model that answered and Nightshift's signed receipt) are saved in `runs/<job>/`.
 
 **No Nightshift or Zetaris?** `npm run sample` replays recorded responses for the three sample cases (`SAMPLE_MODE=true`); H-MEM still runs for real. Recorded Q&A questions: *"Can I drink alcohol?"* (sample 1), *"When should I see my doctor again?"* (sample 2), *"Can I take a bath?"* (sample 3). Any other question in sample mode gets "ask your care team". To re-record after changing a prompt, set `NIGHTSHIFT_RECORD=true` and `ZETARIS_RECORD=true`, delete `samples/nightshift/` and `samples/zetaris/`, and run the three samples live.
 
 ### Known gaps (prototype)
 
-- **Photos** need a vision model in Nightshift; until one is set up, photo uploads ask the patient to paste the text.
+- **Photos** need a vision model in Nightshift; until one is set up, photo uploads ask the patient to paste the text. A PDF with a text layer skips this: its text is read in the browser (pdf.js, loaded from jsDelivr on first use) and sent as text. A scanned PDF has no text layer, so its pages go the photo route.
 - **Q&A answers** must cite a line of the papers, but they don't go through the full safety checker, so an answer can add a little context the papers don't state.
 - **Nightshift routing:** NVIDIA models your key can't use cost about 2 minutes each before the client retries; switch them off in Nightshift's Compute sources.
 - **Read-aloud** uses the browser's voice, not Nightshift's `meterless/speech`.
