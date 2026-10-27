@@ -4,27 +4,27 @@
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "{\n  \"call_911_if\": [\n    {\n      \"id\": \"b1\",\n      \"text\": \"Call 911 if you gain more than 2 pounds in one day or 5 pounds in one week.\",\n      \"sources\": [\"p1:L26\", \"p1:L27\"]\n    },\n    {\n      \"id\": \"b2\",\n      \"text\": \"Call 911 if you have trouble breathing while resting or lying flat.\",\n      \"sources\": [\"p1:L26\", \"p1:L28\", \"term:SOB\"]\n    },\n    {\n      \"id\": \"b3\",\n      \"text\": \"Call 911 if chest pain does not go away after three nitroglycerin doses.\",\n      \"sources\": [\"p1:L26\", \"p1:L29\"]\n    },\n    {\n      \"id\": \"b4\",\n      \"text\": \"Call 911 if you faint or have a very slow heartbeat.\",\n      \"sources\": [\"p1:L26\", \"p1:L30\"]\n    }\n  ]\n}"
+        "content": "{\"call_911_if\": [{\"id\": \"b1\", \"text\": \"Go to the emergency room or call 911 if you gain more than 2 pounds in one day or 5 pounds in one week.\", \"sources\": [\"p1:L26\", \"p1:L27\"]}, {\"id\": \"b2\", \"text\": \"Go to the emergency room or call 911 if you have trouble breathing while resting or lying flat.\", \"sources\": [\"p1:L26\", \"p1:L28\", \"term:SOB\"]}, {\"id\": \"b3\", \"text\": \"Go to the emergency room or call 911 if you have chest pain that does not go away after taking 3 nitroglycerin doses.\", \"sources\": [\"p1:L26\", \"p1:L29\"]}, {\"id\": \"b4\", \"text\": \"Go to the emergency room or call 911 if you faint or have a very slow heartbeat.\", \"sources\": [\"p1:L26\", \"p1:L30\"]}]}"
       },
       "finish_reason": "stop"
     }
   ],
   "usage": {
     "prompt_tokens": 1099,
-    "completion_tokens": 247,
-    "total_tokens": 1346
+    "completion_tokens": 249,
+    "total_tokens": 1348
   },
   "meterless": {
     "routed_model": "nvidia/nemotron-3-ultra-550b-a55b",
-    "receipt_id": "rcpt_req_fyiaf2r8",
+    "receipt_id": "rcpt_req_bsgnuekz",
     "phases": [
       {
         "phase": "final_synthesis",
         "model": "nvidia/nemotron-3-ultra-550b-a55b",
-        "ms": 2731,
+        "ms": 44755,
         "tokensIn": 1099,
-        "tokensOut": 247,
-        "outputTps": 90.443061149762,
+        "tokensOut": 249,
+        "outputTps": 5.5636241760697125,
         "coherence": null,
         "tier": "B",
         "reflex_decided_in_ms": 0.5

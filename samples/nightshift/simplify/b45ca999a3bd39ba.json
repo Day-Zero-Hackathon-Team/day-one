@@ -1,0 +1,34 @@
+{
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"sections\": [\n    {\n      \"title\": \"Your medicines\",\n      \"bullets\": [\n        {\n          \"id\": \"b1\",\n          \"text\": \"Furosemide 40 mg, take two times a day by mouth. It is a water pill that helps your body get rid of extra fluid and lowers high blood pressure.\",\n          \"sources\": [\"p1:L11\", \"term:BID\", \"term:PO\", \"drug:furosemide\"]\n        },\n        {\n          \"id\": \"b2\",\n          \"text\": \"Lisinopril 20 mg, take once a day by mouth. It is a blood pressure medicine that also helps a weak heart and protects the heart after a heart attack.\",\n          \"sources\": [\"p1:L12\", \"term:PO\", \"drug:lisinopril\"]\n        },\n        {\n          \"id\": \"b3\",\n          \"text\": \"Carvedilol 12.5 mg, take two times a day by mouth with food. It is a heart medicine that lowers blood pressure, helps a weak heart work better, and protects the heart after a heart attack.\",\n          \"sources\": [\"p1:L13\", \"term:BID\", \"term:PO\", \"drug:carvedilol\"]\n        },\n        {\n          \"id\": \"b4\",\n          \"text\": \"Clopidogrel 75 mg, take once a day by mouth. It is a blood thinner that helps prevent heart attacks and strokes.\",\n          \"sources\": [\"p1:L14\", \"term:PO\", \"drug:clopidogrel\"]\n        },\n        {\n          \"id\": \"b5\",\n          \"text\": \"Rosuvastatin 40 mg, take every night at bedtime by mouth. It is a cholesterol-lowering medicine that helps prevent heart attacks and strokes.\",\n          \"sources\": [\"p1:L15\", \"term:QHS\", \"term:PO\", \"drug:rosuvastatin\"]\n        },\n        {\n          \"id\": \"b6\",\n          \"text\": \"Check the dose of Carvedilol with your care team before taking it. The hospital record says 25 mg but your discharge paper says 12.5 mg.\",\n          \"sources\": [\"conflict:conflict-2\", \"p1:L13\", \"record:32\"]\n        }\n      ]\n    }\n  ],\n  \"med_schedule\": [\n    {\n      \"drug\": \"Furosemide\",\n      \"dose\": \"40 mg\",\n      \"morning\": true,\n      \"midday\": false,\n      \"evening\": false,\n      \"night\": true,\n      \"as_needed\": false,\n      \"note\": \"\",\n      \"sources\": [\"p1:L11\"]\n    },\n    {\n      \"drug\": \"Lisinopril\",\n      \"dose\": \"20 mg\",\n      \"morning\": true,\n      \"midday\": false,\n      \"evening\": false,\n      \"night\": false,\n      \"as_needed\": false,\n      \"note\": \"\",\n      \"sources\": [\"p1:L12\"]\n    },\n    {\n      \"drug\": \"Carvedilol\",\n      \"dose\": \"12.5 mg\",\n      \"morning\": true,\n      \"midday\": false,\n      \"evening\": false,\n      \"night\": true,\n      \"as_needed\": false,\n      \"note\": \"Take with food\",\n      \"sources\": [\"p1:L13\"]\n    },\n    {\n      \"drug\": \"Clopidogrel\",\n      \"dose\": \"75 mg\",\n      \"morning\": true,\n      \"midday\": false,\n      \"evening\": false,\n      \"night\": false,\n      \"as_needed\": false,\n      \"note\": \"\",\n      \"sources\": [\"p1:L14\"]\n    },\n    {\n      \"drug\": \"Rosuvastatin\",\n      \"dose\": \"40 mg\",\n      \"morning\": false,\n      \"midday\": false,\n      \"evening\": false,\n      \"night\": true,\n      \"as_needed\": false,\n      \"note\": \"\",\n      \"sources\": [\"p1:L15\"]\n    }\n  ],\n  \"questions_for_your_doctor\": [\n    \"Should I keep taking simvastatin 20 mg? It is in the hospital record but not on my discharge paper.\",\n    \"Should I keep taking metoprolol succinate 100 mg? It is in the hospital record but not on my discharge paper.\",\n    \"Should I keep taking prasugrel 10 mg? It is in the hospital record but not on my discharge paper.\",\n    \"Should I keep taking alendronic acid 10 mg? It is in the hospital record but not on my discharge paper.\"\n  ]\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 2244,
+    "completion_tokens": 1067,
+    "total_tokens": 3311
+  },
+  "meterless": {
+    "routed_model": "nvidia/nemotron-3-ultra-550b-a55b",
+    "receipt_id": "rcpt_req_78iluj15",
+    "phases": [
+      {
+        "phase": "final_synthesis",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "ms": 45008,
+        "tokensIn": 2244,
+        "tokensOut": 1067,
+        "outputTps": 23.706896551724135,
+        "coherence": null,
+        "tier": "B",
+        "reflex_decided_in_ms": 0.5
+      }
+    ]
+  }
+}

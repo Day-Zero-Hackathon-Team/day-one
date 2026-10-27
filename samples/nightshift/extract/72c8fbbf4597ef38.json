@@ -4,27 +4,27 @@
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "{ \"patient\": {\"name\": \"Maria Delgado\", \"birthdate\": \"1958-03-14\", \"source\": \"p1:L3\"}, \"diagnoses\": [{\"text\": \"Total knee arthroplasty (right)\", \"source\": \"p1:L2\"}], \"medications\": [{\"name\": \"Oxycodone\", \"dose\": \"5 mg\", \"freq\": \"PO q4h PRN\", \"status\": \"continued\", \"instructions\": \"Do not drive while taking.\", \"source\": \"p1:L6\"}, {\"name\": \"Tylenol\", \"dose\": \"1,000 mg\", \"freq\": \"PO q8h\", \"status\": \"continued\", \"instructions\": \"scheduled for 2 weeks\", \"source\": \"p1:L7\"}, {\"name\": \"Enoxaparin\", \"dose\": \"40 mg\", \"freq\": \"subQ once daily\", \"status\": \"new\", \"instructions\": \"blood clot prevention\", \"source\": \"p1:L8\"}, {\"name\": \"Docusate\", \"dose\": \"100 mg\", \"freq\": \"PO BID\", \"status\": \"continued\", \"instructions\": \"while taking oxycodone\", \"source\": \"p1:L9\"}, {\"name\": \"Ondansetron\", \"dose\": \"4 mg\", \"freq\": \"PO q8h PRN\", \"status\": \"continued\", \"instructions\": \"nausea\", \"source\": \"p1:L10\"}], \"follow_ups\": [{\"who\": \"Orthopedics\", \"when\": \"2 weeks for staple removal\", \"source\": \"p1:L13\"}], \"warning_signs\": [{\"text\": \"chest pain or sudden shortness of breath\", \"source\": \"p1:L14\"}, {\"text\": \"Calf pain or swelling in either leg\", \"source\": \"p1:L16\"}, {\"text\": \"Fever over 101.5 F\", \"source\": \"p1:L17\"}, {\"text\": \"Redness, warmth or drainage from the incision\", \"source\": \"p1:L18\"}], \"restrictions\": [{\"text\": \"WBAT with walker\", \"source\": \"p1:L11\"}, {\"text\": \"Keep dressing dry. No tub baths or swimming until staples are removed.\", \"source\": \"p1:L12\"}], \"unknown_terms\": [\"PRN\", \"PO\", \"subQ\", \"BID\", \"q4h\", \"q8h\", \"WBAT\", \"PT\", \"ED\", \"TKA\"], \"uncertain\": [] }"
+        "content": "{\n  \"patient\": {\"name\": \"Maria Delgado\", \"birthdate\": \"1958-03-14\", \"source\": \"p1:L3\"},\n  \"diagnoses\": [{\"text\": \"Total knee arthroplasty (right)\", \"source\": \"p1:L4\"}],\n  \"medications\": [\n    {\"name\": \"Oxycodone\", \"dose\": \"5 mg\", \"freq\": \"PO q4h PRN\", \"status\": \"continued\", \"instructions\": \"Do not drive while taking\", \"source\": \"p1:L6\"},\n    {\"name\": \"Tylenol\", \"dose\": \"1,000 mg\", \"freq\": \"PO q8h scheduled for 2 weeks\", \"status\": \"continued\", \"instructions\": \"\", \"source\": \"p1:L7\"},\n    {\"name\": \"Enoxaparin\", \"dose\": \"40 mg\", \"freq\": \"subQ once daily x 14 days\", \"status\": \"new\", \"instructions\": \"blood clot prevention\", \"source\": \"p1:L8\"},\n    {\"name\": \"Docusate\", \"dose\": \"100 mg\", \"freq\": \"PO BID while taking oxycodone\", \"status\": \"continued\", \"instructions\": \"\", \"source\": \"p1:L9\"},\n    {\"name\": \"Ondansetron\", \"dose\": \"4 mg\", \"freq\": \"PO q8h PRN\", \"status\": \"continued\", \"instructions\": \"for nausea\", \"source\": \"p1:L10\"}\n  ],\n  \"follow_ups\": [{\"who\": \"Orthopedics\", \"when\": \"2 weeks for staple removal\", \"source\": \"p1:L13\"}],\n  \"warning_signs\": [\n    {\"text\": \"chest pain or sudden shortness of breath\", \"source\": \"p1:L14\"},\n    {\"text\": \"Calf pain or swelling in either leg\", \"source\": \"p1:L16\"},\n    {\"text\": \"Fever over 101.5 F\", \"source\": \"p1:L17\"},\n    {\"text\": \"Redness, warmth or drainage from the incision\", \"source\": \"p1:L18\"}\n  ],\n  \"restrictions\": [\n    {\"text\": \"Do not drive while taking oxycodone\", \"source\": \"p1:L6\"},\n    {\"text\": \"WBAT with walker\", \"source\": \"p1:L11\"},\n    {\"text\": \"Keep dressing dry\", \"source\": \"p1:L12\"},\n    {\"text\": \"No tub baths or swimming until staples are removed\", \"source\": \"p1:L12\"}\n  ],\n  \"unknown_terms\": [\"PRN\", \"PO\", \"subQ\", \"BID\", \"WBAT\", \"PT\", \"ED\", \"TKA\"],\n  \"uncertain\": []\n}"
       },
       "finish_reason": "stop"
     }
   ],
   "usage": {
     "prompt_tokens": 965,
-    "completion_tokens": 603,
-    "total_tokens": 1568
+    "completion_tokens": 658,
+    "total_tokens": 1623
   },
   "meterless": {
     "routed_model": "nvidia/nemotron-3-ultra-550b-a55b",
-    "receipt_id": "rcpt_req_wkaqz6m2",
+    "receipt_id": "rcpt_req_v0orpaku",
     "phases": [
       {
         "phase": "final_synthesis",
         "model": "nvidia/nemotron-3-ultra-550b-a55b",
-        "ms": 6851,
+        "ms": 7214,
         "tokensIn": 965,
-        "tokensOut": 603,
-        "outputTps": 88.01634797839732,
+        "tokensOut": 658,
+        "outputTps": 91.21153313002495,
         "coherence": null,
         "tier": "B",
         "reflex_decided_in_ms": 0.5

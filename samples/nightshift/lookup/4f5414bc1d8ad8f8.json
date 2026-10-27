@@ -4,27 +4,27 @@
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "{\n  \"drugs\": [\n    {\n      \"generic\": \"oxycodone\",\n      \"plain_purpose\": \"a strong pain medicine used when other pain treatments do not work well enough\",\n      \"common_side_effects\": [\n        \"addiction or misuse\",\n        \"slow or shallow breathing\",\n        \"low blood pressure\",\n        \"adrenal gland problems\"\n      ],\n      \"key_warning\": \"can cause addiction, abuse, overdose, and death even at normal doses\"\n    },\n    {\n      \"generic\": \"acetaminophen\",\n      \"plain_purpose\": \"a medicine that helps relieve minor aches, pains, and fever\",\n      \"common_side_effects\": [\n        \"severe skin reactions\",\n        \"liver damage if too much is taken\"\n      ],\n      \"key_warning\": \"taking more than 4,000 mg in 24 hours or with alcohol can cause serious liver damage\"\n    },\n    {\n      \"generic\": \"enoxaparin\",\n      \"plain_purpose\": \"a blood thinner used to prevent or treat blood clots\",\n      \"common_side_effects\": [\n        \"bleeding\",\n        \"low platelet count\",\n        \"injection site pain\",\n        \"nausea\"\n      ],\n      \"key_warning\": \"can cause spinal or epidural bleeding leading to paralysis if you have a spinal puncture or epidural anesthesia\"\n    },\n    {\n      \"generic\": \"docusate\",\n      \"plain_purpose\": \"a stool softener that helps relieve occasional constipation\",\n      \"common_side_effects\": [],\n      \"key_warning\": \"stop using and see a doctor if you have rectal bleeding or no bowel movement after use\"\n    },\n    {\n      \"generic\": \"ondansetron\",\n      \"plain_purpose\": \"a medicine that prevents nausea and vomiting from chemotherapy, radiation, or surgery\",\n      \"common_side_effects\": [\n        \"headache\",\n        \"tiredness\",\n        \"constipation\",\n        \"diarrhea\"\n      ],\n      \"key_warning\": \"can cause a dangerous heart rhythm problem (QT prolongation) especially with certain other drugs or conditions\"\n    }\n  ]\n}"
+        "content": "{\n  \"drugs\": [\n    {\n      \"generic\": \"oxycodone\",\n      \"plain_purpose\": \"a strong pain medicine used when other pain treatments do not work\",\n      \"common_side_effects\": [\"nausea\", \"constipation\", \"drowsiness\", \"dizziness\"],\n      \"key_warning\": \"can cause addiction, abuse, overdose, and death\"\n    },\n    {\n      \"generic\": \"acetaminophen\",\n      \"plain_purpose\": \"a medicine that reduces fever and relieves minor aches and pains\",\n      \"common_side_effects\": [\"rare skin reactions\", \"liver damage if taken too much\"],\n      \"key_warning\": \"taking more than 4,000 mg in 24 hours can cause severe liver damage\"\n    },\n    {\n      \"generic\": \"enoxaparin\",\n      \"plain_purpose\": \"a blood thinner used to prevent and treat blood clots\",\n      \"common_side_effects\": [\"bleeding\", \"anemia\", \"low platelet count\", \"injection site pain\"],\n      \"key_warning\": \"can cause spinal or epidural blood clots that may lead to paralysis\"\n    },\n    {\n      \"generic\": \"docusate\",\n      \"plain_purpose\": \"a stool softener that helps relieve occasional constipation\",\n      \"common_side_effects\": [\"stomach cramps\", \"diarrhea\", \"nausea\"],\n      \"key_warning\": \"stop use and see a doctor if you have rectal bleeding or no bowel movement after use\"\n    },\n    {\n      \"generic\": \"ondansetron\",\n      \"plain_purpose\": \"a medicine that prevents nausea and vomiting from chemotherapy, radiation, or surgery\",\n      \"common_side_effects\": [\"headache\", \"tiredness\", \"constipation\", \"diarrhea\"],\n      \"key_warning\": \"can cause a dangerous heart rhythm problem called QT prolongation\"\n    }\n  ]\n}"
       },
       "finish_reason": "stop"
     }
   ],
   "usage": {
     "prompt_tokens": 2190,
-    "completion_tokens": 454,
-    "total_tokens": 2644
+    "completion_tokens": 413,
+    "total_tokens": 2603
   },
   "meterless": {
     "routed_model": "nvidia/nemotron-3-ultra-550b-a55b",
-    "receipt_id": "rcpt_req_ht580ljk",
+    "receipt_id": "rcpt_req_m5r9lvpi",
     "phases": [
       {
         "phase": "final_synthesis",
         "model": "nvidia/nemotron-3-ultra-550b-a55b",
-        "ms": 31650,
+        "ms": 12892,
         "tokensIn": 2190,
-        "tokensOut": 454,
-        "outputTps": 14.34439178515008,
+        "tokensOut": 413,
+        "outputTps": 32.035370772572136,
         "coherence": null,
         "tier": "B",
         "reflex_decided_in_ms": 0.5

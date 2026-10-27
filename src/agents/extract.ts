@@ -80,22 +80,41 @@ export async function verify(ctx: AgentContext, scan: ScanResult, record: Discha
   const prompt = `Original lines:\n${lines}\n\nWhat was extracted from them:\n${JSON.stringify(current, null, 1)}\n\nQuestions from other agents:\n${requests
     .map((r) => `- ${r.source}${r.medication ? ` (${r.medication})` : ""}: ${r.question}`)
     .join("\n")}`;
-  const res = await ctx.llm({
-    agent: "extract",
-    route: "meterless/text",
-    json: true,
-    maxTokens: 2000,
-    messages: [
-      {
-        role: "system",
-        content: `You re-check medicines extracted from a discharge summary against the original lines, to answer other agents' questions.
+  // The model can think out loud until the answer is cut off mid-JSON. That is asked once more with
+  // more room; if it still fails, the first extraction stands. A re-check never fails the job.
+  type Answers = { answers: (Partial<Medication> & { source: string; changed?: boolean; note?: string })[] };
+  let out: Answers | null = null;
+  for (let i = 1; i <= 2 && !out; i++) {
+    const nudge = i > 1 ? [{ role: "user" as const, content: "Your last answer was cut off or not JSON. Reply with only the JSON object: no scratchpad, one short note per answer." }] : [];
+    const res = await ctx.llm({
+      agent: "extract",
+      route: "meterless/text",
+      json: true,
+      maxTokens: i === 1 ? 2000 : 4000,
+      attempt: i,
+      messages: [
+        {
+          role: "system",
+          content: `You re-check medicines extracted from a discharge summary against the original lines, to answer other agents' questions.
 For each question, read the line again. Correct the name, dose, frequency or status only if the original line says something different; keep the source id.
 Return JSON only: {"answers": [{"source": "p2:L1", "name": "...", "dose": "...", "freq": "...", "status": "...", "changed": true, "note": "one short sentence"}]}`,
-      },
-      { role: "user", content: prompt },
-    ],
-  });
-  const out = parseJsonObject<{ answers: (Partial<Medication> & { source: string; changed?: boolean; note?: string })[] }>(res.content);
+        },
+        { role: "user", content: prompt },
+        ...nudge,
+      ],
+    });
+    try {
+      out = parseJsonObject<Answers>(res.content);
+    } catch (err) {
+      const error = (err as Error).message;
+      ctx.save("extract", `verify-unusable${i}`, { output: { error, finish: res.finishReason, raw: res.content } });
+      if (i < 2) ctx.say("extract", "extract", "info", `My re-check came back unusable (${error.slice(0, 80)}); checking again.`);
+    }
+  }
+  if (!out) {
+    ctx.save("extract", "verify", { input: { requests, lines }, output: { kept: "original extraction" } });
+    return [`Couldn't re-check ${requests.map((r) => r.source).join(", ")}; keeping what was first read from those lines.`];
+  }
   const notes: string[] = [];
   for (const a of out.answers ?? []) {
     const med = record.medications.find((m) => m.source.split("-")[0] === a.source?.split("-")[0]);

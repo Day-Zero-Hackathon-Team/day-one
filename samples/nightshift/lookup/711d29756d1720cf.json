@@ -4,27 +4,27 @@
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "{ \"drugs\": [ { \"generic\": \"azithromycin\", \"plain_purpose\": \"an antibiotic used to treat certain bacterial infections such as bronchitis, sinusitis, and skin infections\", \"common_side_effects\": [\"diarrhea\", \"nausea\", \"abdominal pain\", \"vomiting\"], \"key_warning\": \"can cause serious allergic reactions, liver damage, and heart rhythm changes; stop and seek help if these occur\" }, { \"generic\": \"acetaminophen\", \"plain_purpose\": \"a pain reliever and fever reducer for minor aches, pains, and fever\", \"common_side_effects\": [], \"key_warning\": \"taking more than 4,000 mg in 24 hours or with alcohol can cause severe liver damage\" }, { \"generic\": \"metformin\", \"plain_purpose\": \"a diabetes medicine that helps control blood sugar along with diet and exercise\", \"common_side_effects\": [\"diarrhea\", \"nausea or vomiting\", \"gas\", \"stomach discomfort\"], \"key_warning\": \"rare but serious lactic acidosis can occur; get medical help for unusual tiredness, trouble breathing, or stomach pain\" }, { \"generic\": \"atorvastatin\", \"plain_purpose\": \"a cholesterol-lowering medicine that helps reduce the risk of heart attack and stroke\", \"common_side_effects\": [\"cold-like symptoms\", \"joint pain\", \"diarrhea\", \"muscle pain\"], \"key_warning\": \"can cause serious muscle problems (myopathy or rhabdomyolysis); tell your doctor about unexplained muscle pain or weakness\" }, { \"generic\": \"aspirin\", \"plain_purpose\": \"a pain reliever for minor aches and pains; also used in low dose for heart protection\", \"common_side_effects\": [], \"key_warning\": \"children and teens with flu or chickenpox should not take aspirin due to risk of Reye's syndrome; can cause stomach bleeding\" } ] }"
+        "content": "{\n  \"drugs\": [\n    {\n      \"generic\": \"azithromycin\",\n      \"plain_purpose\": \"an antibiotic that treats certain bacterial infections\",\n      \"common_side_effects\": [\"diarrhea\", \"nausea\", \"abdominal pain\", \"vomiting\"],\n      \"key_warning\": \"Stop taking it and get medical help right away if you have a severe allergic reaction, liver problems, or severe diarrhea.\"\n    },\n    {\n      \"generic\": \"acetaminophen\",\n      \"plain_purpose\": \"a pain reliever and fever reducer\",\n      \"common_side_effects\": [\"skin rash\", \"blisters\", \"skin reddening\"],\n      \"key_warning\": \"Do not take more than 4,000 mg in 24 hours because it can cause severe liver damage.\"\n    },\n    {\n      \"generic\": \"metformin\",\n      \"plain_purpose\": \"a diabetes medicine that helps lower blood sugar when used with diet and exercise\",\n      \"common_side_effects\": [\"diarrhea\", \"nausea or vomiting\", \"gas\", \"stomach discomfort\"],\n      \"key_warning\": \"It can cause a rare but serious condition called lactic acidosis; get medical help right away if you feel very tired, cold, dizzy, or have trouble breathing.\"\n    },\n    {\n      \"generic\": \"atorvastatin\",\n      \"plain_purpose\": \"a cholesterol medicine that lowers bad cholesterol and reduces the risk of heart attack and stroke\",\n      \"common_side_effects\": [\"cold-like symptoms\", \"joint pain\", \"diarrhea\", \"pain in arms or legs\"],\n      \"key_warning\": \"It can cause serious muscle problems that may lead to kidney damage; tell your doctor right away if you have unexplained muscle pain or weakness.\"\n    },\n    {\n      \"generic\": \"aspirin\",\n      \"plain_purpose\": \"a pain reliever that also helps prevent blood clots\",\n      \"common_side_effects\": [\"stomach upset\", \"heartburn\", \"nausea\", \"bleeding\"],\n      \"key_warning\": \"Children and teenagers with flu or chickenpox should not take it because it can cause Reye's syndrome, a rare but serious illness.\"\n    }\n  ]\n}"
       },
       "finish_reason": "stop"
     }
   ],
   "usage": {
     "prompt_tokens": 2053,
-    "completion_tokens": 423,
-    "total_tokens": 2476
+    "completion_tokens": 475,
+    "total_tokens": 2528
   },
   "meterless": {
     "routed_model": "nvidia/nemotron-3-ultra-550b-a55b",
-    "receipt_id": "rcpt_req_z2yyzbw0",
+    "receipt_id": "rcpt_req_ttdratm6",
     "phases": [
       {
         "phase": "final_synthesis",
         "model": "nvidia/nemotron-3-ultra-550b-a55b",
-        "ms": 40536,
+        "ms": 5875,
         "tokensIn": 2053,
-        "tokensOut": 423,
-        "outputTps": 10.435168738898756,
+        "tokensOut": 475,
+        "outputTps": 80.85106382978724,
         "coherence": null,
         "tier": "B",
         "reflex_decided_in_ms": 0.5

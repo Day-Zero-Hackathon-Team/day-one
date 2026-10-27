@@ -4,27 +4,27 @@
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "{\n  \"generic\": \"furosemide\",\n  \"plain_purpose\": \"a water pill that helps your body get rid of extra fluid and lowers high blood pressure\",\n  \"common_side_effects\": [\"dehydration\", \"low potassium\", \"dizziness\", \"muscle cramps\"],\n  \"key_warning\": \"can cause severe water and electrolyte loss; dose must be carefully adjusted by a doctor\"\n}"
+        "content": "{\n  \"drugs\": [\n    {\n      \"generic\": \"furosemide\",\n      \"plain_purpose\": \"a water pill that helps your body get rid of extra fluid and lowers high blood pressure\",\n      \"common_side_effects\": [\"peeing a lot\", \"low potassium\", \"dizziness\", \"muscle cramps\"],\n      \"key_warning\": \"can cause severe fluid and electrolyte loss if the dose is too high\"\n    },\n    {\n      \"generic\": \"lisinopril\",\n      \"plain_purpose\": \"a blood pressure medicine that also helps a weak heart and protects the heart after a heart attack\",\n      \"common_side_effects\": [\"dry cough\", \"dizziness\", \"headache\", \"low blood pressure\"],\n      \"key_warning\": \"can harm or kill an unborn baby if taken during pregnancy\"\n    },\n    {\n      \"generic\": \"carvedilol\",\n      \"plain_purpose\": \"a heart medicine that lowers blood pressure, helps a weak heart work better, and protects the heart after a heart attack\",\n      \"common_side_effects\": [\"dizziness\", \"feeling tired\", \"low blood pressure\", \"slow heartbeat\"],\n      \"key_warning\": \"do not stop taking it suddenly; doing so can cause chest pain or a heart attack\"\n    },\n    {\n      \"generic\": \"clopidogrel\",\n      \"plain_purpose\": \"a blood thinner that helps prevent heart attacks and strokes\",\n      \"common_side_effects\": [\"bleeding\", \"bruising easily\", \"upset stomach\", \"nosebleeds\"],\n      \"key_warning\": \"can cause serious or life‑threatening bleeding\"\n    },\n    {\n      \"generic\": \"rosuvastatin\",\n      \"plain_purpose\": \"a cholesterol‑lowering medicine that helps prevent heart attacks and strokes\",\n      \"common_side_effects\": [\"headache\", \"muscle aches\", \"stomach pain\", \"feeling tired\"],\n      \"key_warning\": \"can cause severe muscle damage that may lead to kidney failure\"\n    },\n    {\n      \"generic\": \"nitroglycerin\",\n      \"plain_purpose\": \"a medicine that prevents chest pain (angina) from heart disease\",\n      \"common_side_effects\": [\"headache\", \"dizziness\", \"low blood pressure\", \"flushing\"],\n      \"key_warning\": \"can cause a dangerous drop in blood pressure if taken with certain other medicines\"\n    },\n    {\n      \"generic\": \"naproxen\",\n      \"plain_purpose\": \"a pain and inflammation reliever for arthritis, gout, menstrual cramps, and other aches\",\n      \"common_side_effects\": [\"stomach upset\", \"heartburn\", \"dizziness\", \"headache\"],\n      \"key_warning\": \"raises the risk of heart attack, stroke, and serious stomach bleeding\"\n    }\n  ]\n}"
       },
       "finish_reason": "stop"
     }
   ],
   "usage": {
     "prompt_tokens": 3856,
-    "completion_tokens": 88,
-    "total_tokens": 3944
+    "completion_tokens": 612,
+    "total_tokens": 4468
   },
   "meterless": {
     "routed_model": "nvidia/nemotron-3-ultra-550b-a55b",
-    "receipt_id": "rcpt_req_hbw66f1k",
+    "receipt_id": "rcpt_req_4o0lqz6g",
     "phases": [
       {
         "phase": "final_synthesis",
         "model": "nvidia/nemotron-3-ultra-550b-a55b",
-        "ms": 1024,
+        "ms": 13000,
         "tokensIn": 3856,
-        "tokensOut": 88,
-        "outputTps": 85.9375,
+        "tokensOut": 612,
+        "outputTps": 47.07692307692308,
         "coherence": null,
         "tier": "B",
         "reflex_decided_in_ms": 0.5

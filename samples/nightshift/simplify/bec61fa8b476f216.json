@@ -1,0 +1,34 @@
+{
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{ \"scratchpad\": \"DECOMPOSE:\\n1. Identify sections needed: Why you were in the hospital, What to do at home, Your follow-up visits, questions_for_your_doctor.\\n2. Extract info from original lines, diagnoses, instructions, follow-up visits, term lookups.\\n3. Write bullets with short sentences (<15 words), plain language, include sources.\\n4. Ensure doses, numbers, frequencies copied exactly.\\n5. Use term lookups for jargon.\\n6. Create up to 3 questions.\\n\\nREASON:\\n- Why you were in the hospital: Diagnosis: Total knee arthroplasty (right) from p1:L4. Term lookup for TKA: term:TKA.\\n- What to do at home: Instructions list:\\n  * Do not drive while taking oxycodone (p1:L6). Oxycodone dose: 5 mg PO q4h PRN. Need to explain PO, q4h, PRN using lookups.\\n  * WBAT with walker (p1:L11). WBAT term: term:WBAT.\\n  * PT 3x/week (p1:L11). PT term: term:PT.\\n  * Ice 20 min every 2 hours (p1:L11).\\n  * Keep leg elevated (p1:L11).\\n  * Keep dressing dry (p1:L12).\\n  * No tub baths or swimming until staples removed (p1:L12).\\n- Follow-up visits: Orthopedics in 2 weeks for staple removal (p1:L13). Need to write as two or three short sentences: who, when, why.\\n- Questions: up to 3 short questions.\\n\\nNow craft bullets.\\n\\nSection 1: Why you were in the hospital.\\nBullet: \\\"You had right knee replacement surgery.\\\" Sources: p1:L4, term:TKA.\\n\\nSection 2: What to do at home.\\nBullets:\\n1. \\\"Take oxycodone 5 mg by mouth every 4 hours only when you need it for pain.\\\" Sources: p1:L6, term:PO, term:q4h, term:PRN.\\n2. \\\"Do not drive while you are taking oxycodone.\\\" Sources: p1:L6.\\n3. \\\"You can put weight on your leg if it feels okay. Use a walker.\\\" Sources: p1:L11, term:WBAT.\\n4. \\\"Do exercises to help you move better 3 times each week.\\\" Sources: p1:L11, term:PT.\\n5. \\\"Put ice on your knee for 20 minutes every 2 hours.\\\" Sources: p1:L11.\\n6. \\\"Keep your leg raised up.\\\" Sources: p1:L11.\\n7. \\\"Keep your dressing dry.\\\" Sources: p1:L12.\\n8. \\\"Do not take tub baths or swim until staples are taken out.\\\" Sources: p1:L12.\\n\\nSection 3: Your follow-up visits.\\nBullet: \\\"See your orthopedic doctor. Go in 2 weeks. This visit is to take out your staples.\\\" Sources: p1:L13.\\n\\nQuestions:\\n1. \\\"When can I stop using the walker?\\\"\\n2. \\\"How long do I need to ice my knee?\\\"\\n3. \\\"What should I do if my pain gets worse?\\\"\\n\\nCheck word counts: each bullet sentence under 15 words.\\nBullet 1: \\\"You had right knee replacement surgery.\\\" 7 words.\\nBullet 2: \\\"Take oxycodone 5 mg by mouth every 4 hours only when you need it for pain.\\\" Count: Take(1) oxycodone2 53 mg4 by5 mouth6 every7 48 hours9 only10 when11 you12 need13 it14 for15 pain16 -> 16 words, exceeds 15. Need to split into two sentences.\\nWe can split: \\\"Take oxycodone 5 mg by mouth every 4 hours.\\\" (10 words) \\\"Only take it when you need it for pain.\\\" (10 words). Both under 15.\\nBut each bullet can have multiple sentences? The instruction: \\\"Write short sentences (under 15 words).\\\" It doesn't say one sentence per bullet. Bullets can contain multiple short sentences. We'll keep each bullet as one or more short sentences.\\nWe'll adjust.\\n\\nBullet 2: \\\"Take oxycodone 5 mg by mouth every 4 hours. Only take it when you need it for pain.\\\" Sources same.\\nBullet 3: \\\"Do not drive while you are taking oxycodone.\\\" 9 words.\\nBullet 4: \\\"You can put weight on your leg if it feels okay. Use a walker.\\\" Two sentences: first 13 words, second 4 words.\\nBullet 5: \\\"Do exercises to help you move better 3 times each week.\\\" 11 words.\\nBullet 6: \\\"Put ice on your knee for 20 minutes every 2 hours.\\\" 11 words.\\nBullet 7: \\\"Keep your leg raised up.\\\" 6 words.\\nBullet 8: \\\"Keep your dressing dry.\\\" 5 words.\\nBullet 9: \\\"Do not take tub baths or swim until staples are taken out.\\\" 13 words.\\nFollow-up bullet: \\\"See your orthopedic doctor. Go in 2 weeks. This visit is to take out your staples.\\\" Three sentences each under 15 words.\\n\\nNow ensure sources: each bullet lists sources as array of ids.\\nWe'll assign bullet ids b1, b2, etc.\\n\\nNow produce JSON.\\n\\nCheck for any missing info: The original lines also include \\\"Ice 20 min every 2 hours.\\\" That's covered. \\\"Keep leg elevated.\\\" covered.\\n\\nTerm lookups used: term:TKA, term:PO, term:q4h, term:PRN, term:WBAT, term:PT.\\nAll appear in input.\\n\\nNow final JSON.\" }"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 1119,
+    "completion_tokens": 1394,
+    "total_tokens": 2513
+  },
+  "meterless": {
+    "routed_model": "nvidia/nemotron-3-ultra-550b-a55b",
+    "receipt_id": "rcpt_req_ee2xshh0",
+    "phases": [
+      {
+        "phase": "final_synthesis",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "ms": 45015,
+        "tokensIn": 1119,
+        "tokensOut": 1394,
+        "outputTps": 30.967455292680217,
+        "coherence": null,
+        "tier": "B",
+        "reflex_decided_in_ms": 0.5
+      }
+    ]
+  }
+}

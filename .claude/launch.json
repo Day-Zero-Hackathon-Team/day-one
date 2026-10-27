@@ -1,6 +1,7 @@
 {
   "version": "0.0.1",
   "configurations": [
-    { "name": "day-one", "runtimeExecutable": "npm", "runtimeArgs": ["start"], "port": 3100 }
+    { "name": "day-one", "runtimeExecutable": "npm", "runtimeArgs": ["start"], "port": 3100 },
+    { "name": "day-one-sample", "runtimeExecutable": "npm", "runtimeArgs": ["run", "sample"], "port": 3100 }
   ]
 }
