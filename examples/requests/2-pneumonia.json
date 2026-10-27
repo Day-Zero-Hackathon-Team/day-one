@@ -1,0 +1,11 @@
+{
+  "run_id": "example-2-pneumonia",
+  "input": {
+    "text": "RIVERSIDE GENERAL HOSPITAL\nDISCHARGE SUMMARY\nName: Angelyn Harris   DOB: 1965-11-10\nAdmission date: 10/20/2026   Discharge date: 10/24/2026\n\nDiagnosis: Community-acquired pneumonia (CAP), right lower lobe. Type 2 DM.\n\nHospital course: Treated with IV ceftriaxone and azithromycin. Afebrile x 48h, SpO2 96% on RA at discharge.\n\nDischarge medications:\n1. Azithromycin 250 mg PO daily x 3 more days (NEW)\n2. Acetaminophen 650 mg PO q6h PRN fever or pain, max 3,000 mg/day (NEW)\n3. Metformin ER 500 mg PO daily with dinner - continue\n4. Atorvastatin 10 mg PO qHS - continue\n5. Aspirin 81 mg PO daily - continue\n\nActivity: Rest, increase activity as tolerated. Use incentive spirometer 10x/hour while awake.\nDiet: Carb-consistent diabetic diet. Drink plenty of fluids.\n\nFollow up with PCP in 7-10 days. Repeat chest x-ray in 6 weeks.\n\nCall your doctor or 911 for:\n- Trouble breathing or lips turning blue\n- Fever over 101 F after 3 days on antibiotics\n- New confusion\n- Blood sugar over 300 twice in a row\n"
+  },
+  "options": {
+    "questions": [
+      "When should I see my doctor again?"
+    ]
+  }
+}

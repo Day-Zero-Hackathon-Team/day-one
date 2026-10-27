@@ -3,6 +3,7 @@
 
 import { mkdirSync, readdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { log } from "../log.ts";
 import type { ChatRequest, ChatResult, Nightshift } from "../nightshift.ts";
 import type { AgentMessage, AgentName } from "../types.ts";
 
@@ -20,15 +21,30 @@ export class AgentContext {
     this.seq = readdirSync(runDir).filter((f) => /^\d{2}-.*\.json$/.test(f)).length; // reopened jobs keep numbering
   }
 
-  /** Post a message on the shared board (shown in the UI as the agent conversation). */
+  /** Post a message on the shared board (shown in the UI as the agent conversation, and logged). */
   say(from: AgentName, to: AgentMessage["to"], kind: AgentMessage["kind"], text: string): void {
     this.onMessage({ ts: new Date().toISOString(), from, to, kind, text });
+    log(this.jobId, { agent_name: from, target_agent: to, action: kind, output_summary: text });
   }
 
-  /** Call a model through Nightshift and keep the routed model for the evidence panel. */
+  /** Call a model through Nightshift and keep the routed model for the evidence panel and the log. */
   async llm(req: Omit<ChatRequest, "jobId">): Promise<ChatResult> {
-    const res = await this.ns.chat({ ...req, jobId: this.jobId });
+    let res: ChatResult;
+    try {
+      res = await this.ns.chat({ ...req, jobId: this.jobId });
+    } catch (err) {
+      log(this.jobId, { agent_name: req.agent, action: "model_call", status: "error", output_summary: `Nightshift ${req.route} failed: ${(err as Error).message}` });
+      throw err;
+    }
     this.models.push({ agent: req.agent, model: res.routedModel, receipt: res.receiptId });
+    log(this.jobId, {
+      agent_name: req.agent,
+      action: "model_call",
+      model: res.routedModel,
+      receipt_id: res.receiptId,
+      latency_ms: res.latencyMs,
+      output_summary: `Nightshift ${req.route} answered with ${res.routedModel ?? "an unnamed model"}${res.mode === "sample" ? " (recorded response, sample mode)" : ` in ${(res.latencyMs / 1000).toFixed(1)} s`}`,
+    });
     return res;
   }
 

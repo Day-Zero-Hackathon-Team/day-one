@@ -1,0 +1,11 @@
+{
+  "run_id": "example-3-knee-replacement",
+  "input": {
+    "text": "LAKESIDE ORTHOPEDIC SURGERY CENTER\nDISCHARGE INSTRUCTIONS - TOTAL KNEE ARTHROPLASTY\nPatient: Maria Delgado   DOB: 1958-03-14\nProcedure: R TKA on 10/22/2026   Discharged: 10/24/2026\n\nMedications:\n- Oxycodone 5 mg PO q4h PRN moderate to severe pain. Do not drive while taking.\n- Tylenol 1,000 mg PO q8h scheduled for 2 weeks\n- Enoxaparin 40 mg subQ once daily x 14 days (blood clot prevention) - NEW\n- Docusate 100 mg PO BID while taking oxycodone\n- Ondansetron 4 mg PO q8h PRN nausea\n\nActivity: WBAT with walker. PT 3x/week. Ice 20 min every 2 hours. Keep leg elevated.\nWound care: Keep dressing dry. No tub baths or swimming until staples are removed.\n\nFollow-up: Orthopedics in 2 weeks for staple removal.\n\nCall 911 or go to ED for chest pain or sudden shortness of breath.\nCall the surgeon for:\n- Calf pain or swelling in either leg\n- Fever over 101.5 F\n- Redness, warmth or drainage from the incision\n"
+  },
+  "options": {
+    "questions": [
+      "Can I take a bath?"
+    ]
+  }
+}

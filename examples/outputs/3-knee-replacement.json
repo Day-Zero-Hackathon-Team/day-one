@@ -1,0 +1,418 @@
+{
+  "run_id": "example-3-knee-replacement",
+  "trace_id": "example-3-knee-replacement",
+  "log_file": "logs/trace-example-3-knee-replacement.jsonl",
+  "audit_dir": "runs/example-3-knee-replacement",
+  "execution_time_seconds": 0.3,
+  "status": "success",
+  "output": {
+    "patient": {
+      "name": "Maria Delgado",
+      "birthdate": "1958-03-14",
+      "source": "p1:L3"
+    },
+    "matched_hospital_record": null,
+    "safety_check": {
+      "pass": true,
+      "reading_level": 7.4,
+      "issues": []
+    },
+    "summary": {
+      "sections": [
+        {
+          "title": "Why you were in the hospital",
+          "bullets": [
+            {
+              "id": "a1",
+              "text": "You had a right knee replacement surgery.",
+              "sources": [
+                "p1:L4",
+                "term:TKA"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "What to do at home",
+          "bullets": [
+            {
+              "id": "a2",
+              "text": "Take Oxycodone 5 mg by mouth every 4 hours only when you need it for moderate to severe pain.",
+              "sources": [
+                "p1:L6",
+                "term:PO",
+                "term:q4h",
+                "term:PRN"
+              ]
+            },
+            {
+              "id": "a3",
+              "text": "Do not drive while taking Oxycodone.",
+              "sources": [
+                "p1:L6"
+              ]
+            },
+            {
+              "id": "a4",
+              "text": "You can put weight on your leg if it feels okay. Use a walker.",
+              "sources": [
+                "p1:L11",
+                "term:WBAT"
+              ]
+            },
+            {
+              "id": "a5",
+              "text": "Do exercises to help you move better 3 times a week.",
+              "sources": [
+                "p1:L11",
+                "term:PT"
+              ]
+            },
+            {
+              "id": "a6",
+              "text": "Ice your knee for 20 minutes every 2 hours.",
+              "sources": [
+                "p1:L11"
+              ]
+            },
+            {
+              "id": "a7",
+              "text": "Keep your leg raised up.",
+              "sources": [
+                "p1:L11"
+              ]
+            },
+            {
+              "id": "a8",
+              "text": "Keep your dressing dry.",
+              "sources": [
+                "p1:L12"
+              ]
+            },
+            {
+              "id": "a9",
+              "text": "Do not take tub baths or swim until staples are removed.",
+              "sources": [
+                "p1:L12"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Your follow-up visits",
+          "bullets": [
+            {
+              "id": "a10",
+              "text": "See your orthopedics doctor. Go in 2 weeks. This visit is for staple removal.",
+              "sources": [
+                "p1:L13"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Your medicines",
+          "bullets": [
+            {
+              "id": "m1_1",
+              "text": "Oxycodone 5 mg swallow it every 4 hours only when you need it for pain. Do not drive while taking.",
+              "sources": [
+                "p1:L6",
+                "term:q4h",
+                "term:PO",
+                "term:PRN",
+                "drug:oxycodone"
+              ]
+            },
+            {
+              "id": "m1_2",
+              "text": "Tylenol 1,000 mg swallow it every 8 hours scheduled for 2 weeks. It helps with pain and fever.",
+              "sources": [
+                "p1:L7",
+                "term:q8h",
+                "term:PO",
+                "drug:acetaminophen"
+              ]
+            },
+            {
+              "id": "m1_3",
+              "text": "Enoxaparin 40 mg a shot just under the skin once daily for 14 days to prevent blood clots.",
+              "sources": [
+                "p1:L8",
+                "term:subQ",
+                "drug:enoxaparin"
+              ]
+            },
+            {
+              "id": "m1_4",
+              "text": "Docusate 100 mg swallow it two times a day while taking oxycodone. It helps with constipation.",
+              "sources": [
+                "p1:L9",
+                "term:BID",
+                "term:PO",
+                "drug:docusate"
+              ]
+            },
+            {
+              "id": "m1_5",
+              "text": "Ondansetron 4 mg swallow it every 8 hours only when you need it for nausea.",
+              "sources": [
+                "p1:L10",
+                "term:q8h",
+                "term:PO",
+                "term:PRN",
+                "drug:ondansetron"
+              ]
+            }
+          ]
+        }
+      ],
+      "med_schedule": [
+        {
+          "drug": "Oxycodone",
+          "dose": "5 mg",
+          "morning": true,
+          "midday": true,
+          "evening": true,
+          "night": true,
+          "as_needed": true,
+          "note": "Only when you need it. Do not drive while taking.",
+          "sources": [
+            "p1:L6"
+          ]
+        },
+        {
+          "drug": "Tylenol",
+          "dose": "1,000 mg",
+          "morning": true,
+          "midday": true,
+          "evening": true,
+          "night": false,
+          "as_needed": false,
+          "note": "Scheduled for 2 weeks.",
+          "sources": [
+            "p1:L7"
+          ]
+        },
+        {
+          "drug": "Enoxaparin",
+          "dose": "40 mg",
+          "morning": true,
+          "midday": false,
+          "evening": false,
+          "night": false,
+          "as_needed": false,
+          "note": "Once daily for 14 days. Shot under the skin.",
+          "sources": [
+            "p1:L8"
+          ]
+        },
+        {
+          "drug": "Docusate",
+          "dose": "100 mg",
+          "morning": true,
+          "midday": false,
+          "evening": false,
+          "night": true,
+          "as_needed": false,
+          "note": "While taking oxycodone.",
+          "sources": [
+            "p1:L9"
+          ]
+        },
+        {
+          "drug": "Ondansetron",
+          "dose": "4 mg",
+          "morning": true,
+          "midday": true,
+          "evening": true,
+          "night": false,
+          "as_needed": true,
+          "note": "Only when you need it for nausea.",
+          "sources": [
+            "p1:L10"
+          ]
+        }
+      ],
+      "call_911_if": [
+        {
+          "id": "w1",
+          "text": "Call 911 or go to the emergency room if you have chest pain or sudden shortness of breath.",
+          "sources": [
+            "p1:L14",
+            "term:ED"
+          ]
+        },
+        {
+          "id": "w2",
+          "text": "Call the surgeon if you have calf pain or swelling in either leg.",
+          "sources": [
+            "p1:L15",
+            "p1:L16"
+          ]
+        },
+        {
+          "id": "w3",
+          "text": "Call the surgeon if you have a fever over 101.5 F.",
+          "sources": [
+            "p1:L15",
+            "p1:L17"
+          ]
+        },
+        {
+          "id": "w4",
+          "text": "Call the surgeon if you have redness, warmth or drainage from the incision.",
+          "sources": [
+            "p1:L15",
+            "p1:L18"
+          ]
+        }
+      ],
+      "questions_for_your_doctor": [
+        "When can I stop using the walker?",
+        "How long should I keep icing my knee?",
+        "When can I take a regular bath or shower?"
+      ]
+    },
+    "fallback_sections": [],
+    "medicine_changes": [
+      {
+        "drug": "oxycodone",
+        "change": "continued",
+        "paper": "5 mg",
+        "record": null,
+        "source": "p1:L6",
+        "conflict": null
+      },
+      {
+        "drug": "acetaminophen",
+        "change": "continued",
+        "paper": "000 mg",
+        "record": null,
+        "source": "p1:L7",
+        "conflict": null
+      },
+      {
+        "drug": "enoxaparin",
+        "change": "new",
+        "paper": "40 mg",
+        "record": null,
+        "source": "p1:L8",
+        "conflict": null
+      },
+      {
+        "drug": "docusate",
+        "change": "continued",
+        "paper": "100 mg",
+        "record": null,
+        "source": "p1:L9",
+        "conflict": null
+      },
+      {
+        "drug": "ondansetron",
+        "change": "continued",
+        "paper": "4 mg",
+        "record": null,
+        "source": "p1:L10",
+        "conflict": null
+      }
+    ],
+    "dose_conflicts": [],
+    "qa": [
+      {
+        "question": "Can I take a bath?",
+        "answer": "No, do not take a tub bath until your staples are removed. You may shower as long as you keep the dressing dry. Staples are usually removed at your 2‑week follow‑up visit.",
+        "sources": [
+          "p1:L12",
+          "p1:L13"
+        ],
+        "answered": true,
+        "recalled": [
+          "p1:L4",
+          "p1:L13",
+          "p1:L18",
+          "p1:L17",
+          "p1:L14",
+          "p1:L16"
+        ]
+      }
+    ],
+    "models": [
+      {
+        "agent": "extract",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "receipt": "rcpt_req_v0orpaku"
+      },
+      {
+        "agent": "lookup",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "receipt": "rcpt_req_87x8xgtt"
+      },
+      {
+        "agent": "lookup",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "receipt": "rcpt_req_m5r9lvpi"
+      },
+      {
+        "agent": "simplify",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "receipt": "rcpt_req_ee2xshh0"
+      },
+      {
+        "agent": "simplify",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "receipt": "rcpt_req_zxdbxuco"
+      },
+      {
+        "agent": "simplify",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "receipt": "rcpt_req_rdjs2rwo"
+      },
+      {
+        "agent": "simplify",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "receipt": "rcpt_req_s8yd1i4z"
+      },
+      {
+        "agent": "safety_checker",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "receipt": "rcpt_req_nky6mwii"
+      },
+      {
+        "agent": "qa",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "receipt": "rcpt_req_raphaho0"
+      }
+    ]
+  },
+  "agents": [
+    {
+      "name": "Scan",
+      "role": "Turns photos or pasted text into numbered lines, page by page; re-reads lines Extract isn't sure of"
+    },
+    {
+      "name": "Extract",
+      "role": "Pulls medicines, diagnoses, warning signs and follow-ups into structured fields, each citing its source line"
+    },
+    {
+      "name": "Lookup",
+      "role": "Checks every medicine and abbreviation in Zetaris and matches the patient's hospital record"
+    },
+    {
+      "name": "Memory (H-MEM)",
+      "role": "Meterless H-MEM engine: stores the papers and the hospital record, flags dose conflicts, recalls facts for Q&A"
+    },
+    {
+      "name": "Simplify",
+      "role": "Rewrites the papers at a grade-6 reading level; every bullet cites a line of the papers"
+    },
+    {
+      "name": "Safety checker",
+      "role": "Checks each bullet against its source line, doses and warning signs; sends problems back (at most 2 retries)"
+    },
+    {
+      "name": "Q&A",
+      "role": "Answers follow-up questions from this patient's papers only, with sources"
+    }
+  ]
+}

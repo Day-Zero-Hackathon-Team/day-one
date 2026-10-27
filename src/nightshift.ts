@@ -124,7 +124,8 @@ export class Nightshift {
   constructor(opts: NightshiftOptions = {}) {
     const env = process.env;
     this.baseUrl = normalizeBaseUrl(opts.baseUrl ?? env.METERLESS_BASE_URL ?? DEFAULT_BASE_URL);
-    this.token = opts.token ?? env.METERLESS_RUNTIME_TOKEN ?? readLocalToken();
+    // || not ??: a copied .env.example has METERLESS_RUNTIME_TOKEN= (empty), which means "read the local file".
+    this.token = opts.token ?? (env.METERLESS_RUNTIME_TOKEN || readLocalToken());
     this.appId = opts.appId ?? env.METERLESS_APP_ID ?? "day-one";
     this.sampleMode = opts.sampleMode ?? env.SAMPLE_MODE === "true";
     this.record = opts.record ?? env.NIGHTSHIFT_RECORD === "true";

@@ -1,0 +1,510 @@
+{
+  "run_id": "example-1-heart-failure",
+  "trace_id": "example-1-heart-failure",
+  "log_file": "logs/trace-example-1-heart-failure.jsonl",
+  "audit_dir": "runs/example-1-heart-failure",
+  "execution_time_seconds": 0.3,
+  "status": "success",
+  "output": {
+    "patient": {
+      "name": "Franklin Kris",
+      "birthdate": "1952-10-05",
+      "source": "p1:L2"
+    },
+    "matched_hospital_record": {
+      "id": "88deb12c-4d82-d1bc-6298-7cee4e3c3d0d",
+      "label": "franklin kris (born 1952-10-05)",
+      "how": "name + birth date"
+    },
+    "safety_check": {
+      "pass": true,
+      "reading_level": 6.8,
+      "issues": []
+    },
+    "summary": {
+      "sections": [
+        {
+          "title": "Why you were in the hospital",
+          "bullets": [
+            {
+              "id": "a1",
+              "text": "Your heart does not pump as strongly as it should and got worse. Your heart pumps at 30 percent.",
+              "sources": [
+                "p1:L6",
+                "term:CHF",
+                "term:EF"
+              ]
+            },
+            {
+              "id": "a2",
+              "text": "You have narrowed blood vessels in the heart and had a tube put in to open a blocked artery. You also have high blood pressure.",
+              "sources": [
+                "p1:L7",
+                "term:CAD",
+                "term:PCI",
+                "term:HTN"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "What to do at home",
+          "bullets": [
+            {
+              "id": "a3",
+              "text": "Eat a low salt diet. Limit salt to 2 grams each day.",
+              "sources": [
+                "p1:L19"
+              ]
+            },
+            {
+              "id": "a4",
+              "text": "Drink no more than 1.5 liters of fluid each day.",
+              "sources": [
+                "p1:L19"
+              ]
+            },
+            {
+              "id": "a5",
+              "text": "Weigh yourself every morning before breakfast and write it down.",
+              "sources": [
+                "p1:L20"
+              ]
+            },
+            {
+              "id": "a6",
+              "text": "Do not lift anything over 10 pounds for 1 week.",
+              "sources": [
+                "p1:L21"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Your follow-up visits",
+          "bullets": [
+            {
+              "id": "a7",
+              "text": "See Dr. Okafor, your heart doctor. Go in 1 week. This visit checks your heart.",
+              "sources": [
+                "p1:L23"
+              ]
+            },
+            {
+              "id": "a8",
+              "text": "Get a blood test for salts and kidneys. Go in 3 days. This test checks your potassium and kidney function.",
+              "sources": [
+                "p1:L24",
+                "term:BMP"
+              ]
+            },
+            {
+              "id": "a9",
+              "text": "See your family doctor. Go in 2 weeks.",
+              "sources": [
+                "p1:L25",
+                "term:PCP"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Your medicines",
+          "bullets": [
+            {
+              "id": "m1_1",
+              "text": "Furosemide 40 mg, take two times a day by mouth. It is a water pill that helps your body get rid of extra fluid and lowers high blood pressure.",
+              "sources": [
+                "p1:L11",
+                "term:BID",
+                "term:PO",
+                "drug:furosemide"
+              ]
+            },
+            {
+              "id": "m1_2",
+              "text": "Lisinopril 20 mg, take once a day by mouth. It is a blood pressure medicine that also helps a weak heart and protects the heart after a heart attack.",
+              "sources": [
+                "p1:L12",
+                "term:PO",
+                "drug:lisinopril"
+              ]
+            },
+            {
+              "id": "m1_3",
+              "text": "Carvedilol 12.5 mg, take two times a day by mouth with food. It is a heart medicine that lowers blood pressure, helps a weak heart work better, and protects the heart after a heart attack.",
+              "sources": [
+                "p1:L13",
+                "term:BID",
+                "term:PO",
+                "drug:carvedilol"
+              ]
+            },
+            {
+              "id": "m1_4",
+              "text": "Clopidogrel 75 mg, take once a day by mouth. It is a blood thinner that helps prevent heart attacks and strokes.",
+              "sources": [
+                "p1:L14",
+                "term:PO",
+                "drug:clopidogrel"
+              ]
+            },
+            {
+              "id": "m1_5",
+              "text": "Rosuvastatin 40 mg, take every night at bedtime by mouth. It is a cholesterol-lowering medicine that helps prevent heart attacks and strokes.",
+              "sources": [
+                "p1:L15",
+                "term:QHS",
+                "term:PO",
+                "drug:rosuvastatin"
+              ]
+            },
+            {
+              "id": "m1_6",
+              "text": "Check the dose of Carvedilol with your care team before taking it. The hospital record says 25 mg but your discharge paper says 12.5 mg.",
+              "sources": [
+                "conflict:conflict-2",
+                "p1:L13",
+                "record:32"
+              ]
+            },
+            {
+              "id": "m2_1",
+              "text": "Nitroglycerin 0.4 mg, let it melt under your tongue every 5 minutes only when you need it for chest pain, up to 3 doses. It helps prevent chest pain from heart disease.",
+              "sources": [
+                "p1:L16",
+                "drug:nitroglycerin",
+                "term:SL",
+                "term:PRN"
+              ]
+            },
+            {
+              "id": "m2_2",
+              "text": "Naproxen is stopped. Do not take it. It can make heart failure worse.",
+              "sources": [
+                "p1:L17",
+                "drug:naproxen"
+              ]
+            }
+          ]
+        }
+      ],
+      "med_schedule": [
+        {
+          "drug": "Furosemide",
+          "dose": "40 mg",
+          "morning": true,
+          "midday": false,
+          "evening": false,
+          "night": true,
+          "as_needed": false,
+          "sources": [
+            "p1:L11"
+          ]
+        },
+        {
+          "drug": "Lisinopril",
+          "dose": "20 mg",
+          "morning": true,
+          "midday": false,
+          "evening": false,
+          "night": false,
+          "as_needed": false,
+          "sources": [
+            "p1:L12"
+          ]
+        },
+        {
+          "drug": "Carvedilol",
+          "dose": "12.5 mg",
+          "morning": true,
+          "midday": false,
+          "evening": false,
+          "night": true,
+          "as_needed": false,
+          "note": "Take with food",
+          "sources": [
+            "p1:L13"
+          ]
+        },
+        {
+          "drug": "Clopidogrel",
+          "dose": "75 mg",
+          "morning": true,
+          "midday": false,
+          "evening": false,
+          "night": false,
+          "as_needed": false,
+          "sources": [
+            "p1:L14"
+          ]
+        },
+        {
+          "drug": "Rosuvastatin",
+          "dose": "40 mg",
+          "morning": false,
+          "midday": false,
+          "evening": false,
+          "night": true,
+          "as_needed": false,
+          "sources": [
+            "p1:L15"
+          ]
+        },
+        {
+          "drug": "nitroglycerin",
+          "dose": "0.4 mg",
+          "morning": false,
+          "midday": false,
+          "evening": false,
+          "night": false,
+          "as_needed": true,
+          "note": "let it melt under your tongue every 5 minutes for chest pain, up to 3 doses",
+          "sources": [
+            "p1:L16"
+          ]
+        }
+      ],
+      "call_911_if": [
+        {
+          "id": "w1",
+          "text": "Go to the emergency room or call 911 if you gain more than 2 pounds in one day or 5 pounds in one week.",
+          "sources": [
+            "p1:L26",
+            "p1:L27"
+          ]
+        },
+        {
+          "id": "w2",
+          "text": "Go to the emergency room or call 911 if you have trouble breathing while resting or lying flat.",
+          "sources": [
+            "p1:L26",
+            "p1:L28",
+            "term:SOB"
+          ]
+        },
+        {
+          "id": "w3",
+          "text": "Go to the emergency room or call 911 if you have chest pain that does not go away after taking 3 nitroglycerin doses.",
+          "sources": [
+            "p1:L26",
+            "p1:L29"
+          ]
+        },
+        {
+          "id": "w4",
+          "text": "Go to the emergency room or call 911 if you faint or have a very slow heartbeat.",
+          "sources": [
+            "p1:L26",
+            "p1:L30"
+          ]
+        }
+      ],
+      "questions_for_your_doctor": [
+        "What should I do if my weight goes up fast?",
+        "Can I take my usual medicines on the day of the blood test?",
+        "When can I start lifting more than 10 pounds?",
+        "Should I keep taking simvastatin 20 mg? It is in the hospital record but not on my discharge paper.",
+        "Should I keep taking metoprolol succinate 100 mg? It is in the hospital record but not on my discharge paper.",
+        "Should I keep taking prasugrel 10 mg? It is in the hospital record but not on my discharge paper.",
+        "Should I keep taking alendronic acid 10 mg? It is in the hospital record but not on my discharge paper."
+      ]
+    },
+    "fallback_sections": [],
+    "medicine_changes": [
+      {
+        "drug": "furosemide",
+        "change": "new",
+        "paper": "40 mg",
+        "record": null,
+        "source": "p1:L11",
+        "conflict": null
+      },
+      {
+        "drug": "lisinopril",
+        "change": "changed",
+        "paper": "20 mg",
+        "record": "40 mg",
+        "source": "p1:L12",
+        "conflict": null
+      },
+      {
+        "drug": "carvedilol",
+        "change": "changed",
+        "paper": "12.5 mg",
+        "record": "25 mg",
+        "source": "p1:L13",
+        "conflict": "conflict:conflict-2"
+      },
+      {
+        "drug": "clopidogrel",
+        "change": "continued",
+        "paper": "75 mg",
+        "record": "75 mg",
+        "source": "p1:L14",
+        "conflict": null
+      },
+      {
+        "drug": "rosuvastatin",
+        "change": "continued",
+        "paper": "40 mg",
+        "record": "40 mg",
+        "source": "p1:L15",
+        "conflict": null
+      },
+      {
+        "drug": "nitroglycerin",
+        "change": "continued",
+        "paper": "0.4 mg",
+        "record": "0.4 mg",
+        "source": "p1:L16",
+        "conflict": null
+      },
+      {
+        "drug": "naproxen",
+        "change": "stopped",
+        "paper": null,
+        "record": "220 mg",
+        "source": "p1:L17",
+        "conflict": null
+      },
+      {
+        "drug": "simvastatin",
+        "change": "not_on_paper",
+        "paper": null,
+        "record": "20 mg",
+        "source": "record:3",
+        "conflict": null
+      },
+      {
+        "drug": "metoprolol succinate",
+        "change": "not_on_paper",
+        "paper": null,
+        "record": "100 mg",
+        "source": "record:4",
+        "conflict": null
+      },
+      {
+        "drug": "prasugrel",
+        "change": "not_on_paper",
+        "paper": null,
+        "record": "10 mg",
+        "source": "record:35",
+        "conflict": null
+      },
+      {
+        "drug": "alendronic acid",
+        "change": "not_on_paper",
+        "paper": null,
+        "record": "10 mg",
+        "source": "record:36",
+        "conflict": null
+      }
+    ],
+    "dose_conflicts": [
+      {
+        "id": "conflict:conflict-2",
+        "drug": "carvedilol",
+        "detail": "record:32 says \"carvedilol — carvedilol dose 25 mg\"; p1:L13 says \"carvedilol — carvedilol dose 12.5 mg\" (high-similarity conflicting numeric values, confidence 0.84)"
+      }
+    ],
+    "qa": [
+      {
+        "question": "Can I drink alcohol?",
+        "answer": "Your papers don't say. Please ask your care team.",
+        "sources": [],
+        "answered": false,
+        "recalled": [
+          "p1:L14",
+          "record:2",
+          "p1:L21",
+          "p1:L23",
+          "p1:L27",
+          "p1:L30"
+        ]
+      }
+    ],
+    "models": [
+      {
+        "agent": "extract",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "receipt": "rcpt_req_l8voti31"
+      },
+      {
+        "agent": "lookup",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "receipt": "rcpt_req_u5p4n5uw"
+      },
+      {
+        "agent": "lookup",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "receipt": "rcpt_req_m6fvfcrz"
+      },
+      {
+        "agent": "lookup",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "receipt": "rcpt_req_4o0lqz6g"
+      },
+      {
+        "agent": "simplify",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "receipt": "rcpt_req_cbgvhxwp"
+      },
+      {
+        "agent": "simplify",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "receipt": "rcpt_req_bsgnuekz"
+      },
+      {
+        "agent": "simplify",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "receipt": "rcpt_req_78iluj15"
+      },
+      {
+        "agent": "simplify",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "receipt": "rcpt_req_ao57jrl4"
+      },
+      {
+        "agent": "safety_checker",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "receipt": "rcpt_req_wdphukmt"
+      },
+      {
+        "agent": "qa",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "receipt": "rcpt_req_ys2g6cqx"
+      }
+    ]
+  },
+  "agents": [
+    {
+      "name": "Scan",
+      "role": "Turns photos or pasted text into numbered lines, page by page; re-reads lines Extract isn't sure of"
+    },
+    {
+      "name": "Extract",
+      "role": "Pulls medicines, diagnoses, warning signs and follow-ups into structured fields, each citing its source line"
+    },
+    {
+      "name": "Lookup",
+      "role": "Checks every medicine and abbreviation in Zetaris and matches the patient's hospital record"
+    },
+    {
+      "name": "Memory (H-MEM)",
+      "role": "Meterless H-MEM engine: stores the papers and the hospital record, flags dose conflicts, recalls facts for Q&A"
+    },
+    {
+      "name": "Simplify",
+      "role": "Rewrites the papers at a grade-6 reading level; every bullet cites a line of the papers"
+    },
+    {
+      "name": "Safety checker",
+      "role": "Checks each bullet against its source line, doses and warning signs; sends problems back (at most 2 retries)"
+    },
+    {
+      "name": "Q&A",
+      "role": "Answers follow-up questions from this patient's papers only, with sources"
+    }
+  ]
+}
