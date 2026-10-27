@@ -14,8 +14,142 @@ Discharge papers are dense with jargon, abbreviations, and dosing instructions t
 
 ---
 
+## For judges
+
+Everything below works from a clean clone. Steps 1 to 3 need **no Nightshift, Zetaris or API keys**: sample mode replays responses recorded from live runs, while the orchestrator, the agents' checks and loops, and the H-MEM engine all run for real.
+
+### 1. Start it (about a minute)
+
+Needs [Node.js 24+](https://nodejs.org/) and nothing else. There is no `npm install` step: the project has no npm dependencies.
+
+```bash
+git clone https://github.com/Day-Zero-Hackathon-Team/day-one.git
+cd day-one
+npm run sample           # web app at http://localhost:3100
+```
+
+Pick one of the three examples and press **Make it plain**. Then ask its recorded question: *"Can I drink alcohol?"* (example 1), *"When should I see my doctor again?"* (example 2) or *"Can I take a bath?"* (example 3).
+
+### 2. Run the agents without the UI
+
+**From the command line.** It prints each agent step as it happens, then the result as JSON:
+
+```bash
+npm run agent:sample -- samples/inputs/1-heart-failure.txt --ask "Can I drink alcohol?"
+npm run agent:sample -- examples/requests/2-pneumonia.json --quiet --out result.json   # JSON only, saved to a file
+```
+
+**Over HTTP.** With the server running (step 1), `POST /api/run` takes JSON, waits for the run to finish and returns JSON:
+
+```bash
+curl -X POST http://localhost:3100/api/run \
+  -H "Content-Type: application/json" \
+  -d @examples/requests/1-heart-failure.json
+```
+
+| | Shape |
+| --- | --- |
+| Request | `{"run_id": "optional-id", "input": {"text": "..."}` or `{"images": ["data:image/jpeg;base64,..."]}`, `"options": {"questions": ["..."], "timeout_seconds": 900}}` |
+| Success (200) | `{"run_id", "status": "success", "output": {"patient", "safety_check", "summary", "fallback_sections", "medicine_changes", "dose_conflicts", "qa", "models"}, "agents", "trace_id", "log_file", "audit_dir", "execution_time_seconds"}` |
+| Error (400 / 500) | `{"run_id", "status": "error", "error": {"type", "message", "recoverable"}, "log_file", ...}`. Types include `BadRequest`, `NightshiftUnreachable`, `ZetarisError` and `RunTimeout`. |
+| Unreadable photo (422) | `{"status": "needs_rescan", "rescan": [{"page", "problem"}]}` |
+
+The web app uses the same agents through `POST /api/jobs` and polls `GET /api/jobs/:id` ([`src/server.ts`](src/server.ts)).
+
+### 3. Or use Docker
+
+```bash
+docker build -t day-one .
+docker run --rm -p 3100:3100 -e SAMPLE_MODE=true day-one       # web app + API on http://localhost:3100
+
+# The agents with no network at all:
+docker run --rm --network none -e SAMPLE_MODE=true day-one \
+  npm run -s agent -- samples/inputs/2-pneumonia.txt --quiet
+```
+
+The image (Node 24 and a JDK for the Zetaris JDBC driver) installs everything at build time, listens on `0.0.0.0` and runs without a GPU. Secrets are only passed at run time.
+
+### 4. Run it live, with Nightshift and Zetaris
+
+This is the real thing: Nemotron models through Meterless Nightshift, and Zetaris as the data layer. Set both up as described in [Getting started](#getting-started), then:
+
+```bash
+cp .env.example .env
+npm start                                                       # web app + API on http://localhost:3100
+npm run agent -- samples/inputs/1-heart-failure.txt             # or the command line
+```
+
+A live run takes 3 to 6 minutes. To run live in Docker, a container can't read Nightshift's token file or reach `localhost` on your machine, so pass them in:
+
+```bash
+# in .env: METERLESS_RUNTIME_TOKEN=<from Nightshift>
+docker run --rm -p 3100:3100 --env-file .env \
+  -e METERLESS_BASE_URL=http://host.docker.internal:8088/v1 \
+  -e ZETARIS_DIR=/zetaris -e ZETARIS_URL=jdbc:zetaris:lightning@host.docker.internal:10000 \
+  -v /path/to/zetaris-platform:/zetaris:ro \
+  --add-host=host.docker.internal:host-gateway \
+  day-one
+```
+
+If Nightshift only accepts connections from `127.0.0.1`, the container can't reach it. In that case use `npm start` on the machine itself.
+
+### 5. Read the logs
+
+Every run, from the UI, the API or the command line, is logged three ways:
+
+| Where | What |
+| --- | --- |
+| **stdout** | One line per step: `[INFO] run_id=… memory → safety_checker (escalation): Open conflict on carvedilol …` |
+| **`logs/trace-<run_id>.jsonl`** | The same events as JSON (`timestamp`, `run_id`, `agent_name`, `action`, `target_agent`, `output_summary`, `model`, `receipt_id`, `status`). They show every handoff, critique, retry and fallback, what Zetaris returned, what H-MEM holds and flags, and **which model answered each Nightshift call**. |
+| **`runs/<run_id>/`** | The full audit trail: every agent's input and output (`01-extract-record.json`, …), the agent conversation (`messages.jsonl`), every model call with Nightshift's signed receipt, tokens and latency (`trace.jsonl`), and the final `job.json` |
+
+No secret is ever logged.
+
+### 6. Examples
+
+Three synthetic discharge summaries, with their inputs, outputs and logs:
+
+| Example | Input | Output | Log |
+| --- | --- | --- | --- |
+| Heart failure (H-MEM catches a carvedilol dose conflict) | [`samples/inputs/1-heart-failure.txt`](samples/inputs/1-heart-failure.txt) · [request](examples/requests/1-heart-failure.json) | [`examples/outputs/1-heart-failure.json`](examples/outputs/1-heart-failure.json) | [trace](examples/logs/trace-example-1-heart-failure.jsonl) |
+| Pneumonia | [`samples/inputs/2-pneumonia.txt`](samples/inputs/2-pneumonia.txt) · [request](examples/requests/2-pneumonia.json) | [`examples/outputs/2-pneumonia.json`](examples/outputs/2-pneumonia.json) | [trace](examples/logs/trace-example-2-pneumonia.jsonl) |
+| Knee replacement | [`samples/inputs/3-knee-replacement.txt`](samples/inputs/3-knee-replacement.txt) · [request](examples/requests/3-knee-replacement.json) | [`examples/outputs/3-knee-replacement.json`](examples/outputs/3-knee-replacement.json) | [trace](examples/logs/trace-example-3-knee-replacement.jsonl) |
+
+The outputs were made with `npm run agent:sample` from the requests. `npm run samples:record` re-records the responses from live runs.
+
+### 7. Tests
+
+```bash
+npm test                  # 35 unit tests (offline)
+npm run test:hmem         # Meterless H-MEM engine conformance suite: 13 checks
+npm run nightshift:check  # live check against a running Nightshift
+```
+
+### Checklist against the Technical Execution Guide
+
+| Area | How Day One meets it |
+| --- | --- |
+| **Startup** | `npm run sample` (or `npm start` live) from a clean clone. No install step, no manual fixes. |
+| **Interface** | `npm run agent` on the command line, and `POST /api/run` (JSON in, JSON out, structured errors). The web app is optional. |
+| **Reproducibility** | [`Dockerfile`](Dockerfile): everything at build time, nothing installs during a run. Without Docker, Node 24 is the only requirement. |
+| **Hardware** | No GPU. Every model call goes through Meterless Nightshift to NVIDIA's hosted endpoints. |
+| **Runtime** | 3 to 6 minutes live, seconds in sample mode. Timeouts: 180 s per Nightshift call (it allows for a cold model load), at most 3 attempts; 120 s per Zetaris batch; 900 s per run for the command line and API (`RUN_TIMEOUT_SECONDS`). Simplify ⇄ Safety checker is capped at 2 retries, and failures return a structured error or fall back to the original text. |
+| **Secrets** | Environment variables only. [`.env.example`](.env.example) has placeholders, and `.env` is gitignored. The NVIDIA key lives in Nightshift's Providers tab, never in the app. |
+| **Data** | Zetaris is the data layer: three sources plus a Unified Semantic Layer. The data is synthetic or public, and sources and licences are in [`data/README.md`](data/README.md). The large datasets are downloaded by script, not committed. |
+| **Logs** | stdout, `logs/trace-<run_id>.jsonl` and `runs/<run_id>/` ([step 5](#5-read-the-logs)) |
+| **Examples** | Three inputs, outputs and traces ([step 6](#6-examples)) |
+| **Zetaris** | The Lookup agent's data layer. See [Where Zetaris fits](#where-zetaris-fits), [`src/zetaris.ts`](src/zetaris.ts) and the USL in [`zetaris/`](zetaris/README.md). |
+| **Meterless Engine** | **H-MEM** stores each patient's papers and hospital record, flags dose conflicts for the Safety checker, and recalls facts for Q&A ([`src/memory.ts`](src/memory.ts), [`engines/hmem/`](engines/hmem/)). Its test is `npm run test:hmem`. |
+| **Meterless Nightshift** | The only AI provider ([`src/nightshift.ts`](src/nightshift.ts), [`docs/meterless-integration.md`](docs/meterless-integration.md)) |
+| **NVIDIA** | Nemotron through Nightshift. Every `model_call` line in [`examples/logs/`](examples/logs/) names the model, `nvidia/nemotron-3-ultra-550b-a55b`. |
+
+Known limits are listed under [Known gaps](#known-gaps-prototype).
+
+---
+
 ## Table of contents
 
+- [For judges](#for-judges)
 - [How it works](#how-it-works)
 - [The agents](#the-agents)
 - [Where Zetaris fits](#where-zetaris-fits)
@@ -214,7 +348,7 @@ On the machine running Nightshift, the token is read from Nightshift's own folde
 npm start
 ```
 
-Open <http://localhost:3100>, pick a sample (or paste your own text, or upload photos or a PDF), and press **Make it plain**. A run takes 3 to 6 minutes. Every agent's input and output, the agent conversation, and a trace of every model call (with the model that answered and Nightshift's signed receipt) are saved in `runs/<job>/`.
+Open <http://localhost:3100>, pick a sample (or paste your own text, or upload photos or a PDF), and press **Make it plain**. A run takes 3 to 6 minutes. Each agent step is printed to the terminal and written to `logs/trace-<job>.jsonl`. Every agent's input and output, the agent conversation, and a trace of every model call (with the model that answered and Nightshift's signed receipt) are saved in `runs/<job>/`. To run the agents without the UI, use `npm run agent -- <file>` or `POST /api/run` ([For judges](#for-judges)).
 
 **No Nightshift or Zetaris?** `npm run sample` replays recorded responses for the three sample cases (`SAMPLE_MODE=true`); H-MEM still runs for real. Recorded Q&A questions: *"Can I drink alcohol?"* (sample 1), *"When should I see my doctor again?"* (sample 2), *"Can I take a bath?"* (sample 3). Any other question in sample mode gets "ask your care team". To re-record after changing a prompt, run `npm run samples:record` with Nightshift and Zetaris up: it clears `samples/nightshift/` and `samples/zetaris/`, runs the three samples and their Q&A questions live with recording on, and fails if a sample doesn't pass the safety check.
 
@@ -238,6 +372,8 @@ npm run nightshift:check  # live check against a running Nightshift
 | Path | What |
 | --- | --- |
 | `src/server.ts` | Web server and job API |
+| `src/run.ts`, `scripts/run.ts` | Programmatic entry point: one run start to finish as JSON (`POST /api/run`, `npm run agent`) |
+| `src/log.ts` | Run logs: stdout and `logs/trace-<run_id>.jsonl` |
 | `src/pipeline.ts` | Orchestrator: routes work between agents, including the feedback loops |
 | `src/agents/` | Scan, Extract, Lookup, Simplify, Safety checker |
 | `src/memory.ts` | Patient medicine memory on the Meterless **H-MEM** engine (`engines/hmem/`, Apache 2.0) |
@@ -247,6 +383,8 @@ npm run nightshift:check  # live check against a running Nightshift
 | `src/nightshift.ts` | Meterless Nightshift client (the only AI provider) |
 | `public/` | The web app: landing page, add your papers, live progress, your summary (no framework, no build step; design in `docs/design.md`) |
 | `samples/inputs/` | Three sample discharge summaries for real synthetic patients |
+| `examples/` | The three samples as API requests, with their outputs and logs |
+| `Dockerfile` | Reproducible image: Node 24 + a JDK for the Zetaris driver |
 | `docs/meterless-integration.md` | How Meterless, Nightshift and NVIDIA are used |
 | `docs/HANDOFF.md` | Setup from scratch, status, what's left, Figma workflow |
 | `docs/design.md`, `design/` | Design decisions, colour and type rules, links to the canvas and Figma file |

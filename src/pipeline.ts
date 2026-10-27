@@ -30,6 +30,7 @@ import { check } from "./agents/safety.ts";
 import { lineText, rereadLines, scanImages, scanText } from "./agents/scan.ts";
 import { revise, simplify, unwritten, verbatimWarnings, type Draft } from "./agents/simplify.ts";
 import { ROOT, sampleMode } from "./config.ts";
+import { log } from "./log.ts";
 import { PatientMemory } from "./memory.ts";
 import { Nightshift, NightshiftError } from "./nightshift.ts";
 import type { AgentMessage, AgentName, CheckReport, FinalOutput, Issue, Job, PlainSummary, ScanLine, StepState } from "./types.ts";
@@ -92,8 +93,10 @@ export class JobRunner {
     return a;
   }
 
-  start(input: JobInput): Job {
-    const id = `${new Date().toISOString().slice(0, 19).replace(/[-:T]/g, "")}-${randomUUID().slice(0, 6)}`;
+  /** Start a run in the background. `runId` is the caller's own id (letters, digits, - and _), if it's free. */
+  start(input: JobInput, runId?: string): Job {
+    const free = !!runId && /^[\w-]{1,64}$/.test(runId) && !this.jobs.has(runId) && !existsSync(join(RUNS, runId));
+    const id = free && runId ? runId : `${new Date().toISOString().slice(0, 19).replace(/[-:T]/g, "")}-${randomUUID().slice(0, 6)}`;
     const job: Job = {
       id,
       createdAt: new Date().toISOString(),
@@ -103,12 +106,20 @@ export class JobRunner {
       qa: [],
     };
     this.jobs.set(id, job);
-    run(this.ns, job, input, (ctx, memory) => this.live.set(id, { ctx, memory })).catch((err) => {
-      job.status = "failed";
-      job.error = friendlyError(err);
-      for (const s of job.steps) if (s.status === "running") s.status = "failed";
-      persist(job);
-    });
+    const started = Date.now();
+    const pages = input.images?.length ?? 0;
+    log(id, { agent_name: "orchestrator", action: "run_start", output_summary: `Starting run on ${pages ? `${pages} photo page(s)` : `${(input.text ?? "").length} characters of text`}${sampleMode() ? " (SAMPLE_MODE: recorded Nightshift and Zetaris responses)" : ""}` });
+    run(this.ns, job, input, (ctx, memory) => this.live.set(id, { ctx, memory }))
+      .catch((err) => {
+        job.status = "failed";
+        job.error = friendlyError(err);
+        for (const s of job.steps) if (s.status === "running") s.status = "failed";
+        persist(job);
+      })
+      .finally(() => {
+        const secs = ((Date.now() - started) / 1000).toFixed(1);
+        log(id, { agent_name: "orchestrator", action: "run_end", status: job.status === "failed" ? "error" : "success", output_summary: `Finished with status "${job.status}" in ${secs} s${job.error ? `: ${job.error}` : ""}` });
+      });
     return job;
   }
 }
@@ -190,7 +201,7 @@ async function run(ns: Nightshift, job: Job, input: JobInput, keep: (ctx: AgentC
   for (const c of grounded.conflicts) ctx.say("memory", "safety_checker", "escalation", `Open conflict on ${c.drug}: ${c.detail}. The summary must tell the patient to check this dose.`);
   const changes = grounded.hospital_record_diff.filter((d) => d.change !== "continued").map((d) => `${d.drug}: ${d.change}`);
   step("memory", "done", `${memory.size} memories, ${grounded.conflicts.length} open conflict(s)`);
-  ctx.say("memory", "simplify", "handoff", `GroundedRecord: ${changes.length ? changes.join(", ") : "no differences from the hospital record"}.`);
+  ctx.say("memory", "simplify", "handoff", `H-MEM holds ${memory.size} memories for this patient, ${grounded.conflicts.length} open conflict(s). GroundedRecord: ${changes.length ? changes.join(", ") : "no differences from the hospital record"}.`);
 
   // 5 · Simplify ⇄ Safety checker
   step("simplify", "running");

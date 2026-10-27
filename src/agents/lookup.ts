@@ -77,6 +77,7 @@ Last time these names were not found in the drug reference, and the discharge pa
   // 2. Zetaris: labels, terms and candidate patients in one round trip.
   const z = await lookupAll({ drugs: [...Object.values(generics), ...Object.keys(generics)], terms, birthdate: record.patient.birthdate });
   ctx.save("lookup", "zetaris", { input: { generics, terms, birthdate: record.patient.birthdate }, output: { drugs: z.drugs.map((d) => d.generic_name), terms: z.terms, patients: z.patients } });
+  ctx.say("lookup", "lookup", "info", `Zetaris returned ${z.drugs.length} drug label(s) from drug_reference, ${z.terms.length} term(s) from medical_terms and ${z.patients.length} candidate patient(s) from hospital_records_patients.`);
 
   // 3. Match the patient: same birth date and the same name once Synthea's digits are removed.
   let patient: LookupResult["patient"] = null;

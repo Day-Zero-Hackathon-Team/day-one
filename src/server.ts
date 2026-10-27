@@ -2,6 +2,8 @@
 //
 //   npm start            then open http://localhost:3100
 //
+//   POST /api/run        {input: {text} or {images}, options?: {questions}} → the whole result as JSON
+//                        (waits for the run to finish; see src/run.ts)
 //   POST /api/jobs       {text} or {images: [dataURL, ...]}  → {id}
 //   GET  /api/jobs/:id   progress, the agent conversation, and the result
 //   POST /api/jobs/:id/ask  {question} → an answer from this patient's data only, with sources
@@ -18,6 +20,8 @@ loadDotEnv();
 const { JobRunner } = await import("./pipeline.ts");
 const { Nightshift } = await import("./nightshift.ts");
 const { ping } = await import("./zetaris.ts");
+const { checkRequest, runToCompletion } = await import("./run.ts");
+type RunRequest = import("./run.ts").RunRequest;
 
 const PORT = Number(process.env.PORT ?? 3100);
 const HOST = process.env.HOST ?? "127.0.0.1";
@@ -39,6 +43,18 @@ const server = createServer(async (req, res) => {
 });
 
 async function api(req: IncomingMessage, res: ServerResponse, url: URL): Promise<void> {
+  if (req.method === "POST" && url.pathname === "/api/run") {
+    let body: unknown;
+    try {
+      body = JSON.parse(await readBody(req));
+    } catch (err) {
+      return send(res, 400, { status: "error", error: { type: "BadRequest", message: `Body isn't JSON: ${(err as Error).message}`, recoverable: false } });
+    }
+    const problem = checkRequest(body);
+    if (problem) return send(res, 400, { status: "error", error: { type: "BadRequest", message: problem, recoverable: false } });
+    const result = await runToCompletion(runner, body as RunRequest);
+    return send(res, result.status === "success" ? 200 : result.status === "needs_rescan" ? 422 : 500, result);
+  }
   if (req.method === "POST" && url.pathname === "/api/jobs") {
     const body = JSON.parse(await readBody(req));
     const text = typeof body.text === "string" ? body.text : "";

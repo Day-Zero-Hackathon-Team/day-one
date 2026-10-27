@@ -2,11 +2,13 @@
 
 The Lookup agent queries three datasets in Zetaris. Every teammate prepares them on their own laptop and loads them into their own Zetaris instance.
 
-| Dataset | Source | Notes |
-| --- | --- | --- |
-| `drug_reference` | [openFDA](https://open.fda.gov/apis/drug/label/) drug labels | Generic and brand names, purpose, side effects, and warnings. Filtered to the ~200 common discharge drugs in [`common_drugs.txt`](common_drugs.txt). |
-| `medical_terms` | Hand-made [`medical_terms.csv`](medical_terms.csv) (~200 terms: BID, PRN, CHF, …) | No good free dataset exists. Columns: `term, category, meaning, plain_language`. Add terms as you find them. |
-| `hospital_records` | [Synthea](https://synthetichealth.github.io/synthea/) sample CSVs (`patients`, `encounters`, `medications`) | Synthetic patients with medication start and stop dates, which is what new / stopped / changed / continued needs. |
+| Dataset | Source | Licence | Notes |
+| --- | --- | --- | --- |
+| `drug_reference` | [openFDA](https://open.fda.gov/apis/drug/label/) drug labels | Public domain ([CC0 1.0](https://open.fda.gov/license/)) | Generic and brand names, purpose, side effects, and warnings. Filtered to the ~200 common discharge drugs in [`common_drugs.txt`](common_drugs.txt). |
+| `medical_terms` | Hand-made [`medical_terms.csv`](medical_terms.csv) (~200 terms: BID, PRN, CHF, …) | Written by the team for this project | No good free dataset exists. Columns: `term, category, meaning, plain_language`. Add terms as you find them. |
+| `hospital_records` | [Synthea](https://synthetichealth.github.io/synthea/) sample CSVs (`patients`, `encounters`, `medications`) | [Apache 2.0](https://github.com/synthetichealth/synthea/blob/master/LICENSE); fully synthetic, no real patients | Synthetic patients with medication start and stop dates, which is what new / stopped / changed / continued needs. |
+
+All of it is downloaded or built automatically by [`download_datasets.py`](download_datasets.py), with no login (see below). The three sample discharge summaries in [`samples/inputs/`](../samples/inputs/) and the PDF in [`samples/pdf/`](../samples/pdf/) are synthetic, written by the team for Synthea patients. No real patient data is used anywhere.
 
 ---
 

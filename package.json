@@ -9,6 +9,8 @@
   "scripts": {
     "start": "node --experimental-transform-types --no-warnings src/server.ts",
     "sample": "node --experimental-transform-types --no-warnings --env-file-if-exists=.env.sample src/server.ts",
+    "agent": "node --experimental-transform-types --no-warnings scripts/run.ts",
+    "agent:sample": "node --experimental-transform-types --no-warnings --env-file-if-exists=.env.sample scripts/run.ts",
     "test": "node --experimental-transform-types --no-warnings --test \"src/**/*.test.ts\"",
     "test:hmem": "node --experimental-transform-types --no-warnings engines/hmem/conformance/runner.ts",
     "nightshift:check": "node --experimental-transform-types --no-warnings scripts/nightshift_check.ts",

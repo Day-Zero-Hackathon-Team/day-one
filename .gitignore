@@ -12,3 +12,6 @@ data/memory/
 # Zetaris platform folder and inventory output (scripts/zetaris_inventory.py)
 zetaris-platform/
 zetaris_inventory.json
+
+# Run logs (logs/trace-<run_id>.jsonl)
+/logs/

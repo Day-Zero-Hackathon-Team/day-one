@@ -1,0 +1,465 @@
+{
+  "run_id": "example-2-pneumonia",
+  "trace_id": "example-2-pneumonia",
+  "log_file": "logs/trace-example-2-pneumonia.jsonl",
+  "audit_dir": "runs/example-2-pneumonia",
+  "execution_time_seconds": 0.3,
+  "status": "success",
+  "output": {
+    "patient": {
+      "name": "Angelyn Harris",
+      "birthdate": "1965-11-10",
+      "source": "p1:L3"
+    },
+    "matched_hospital_record": {
+      "id": "abbe7ce8-820b-cb76-8d0c-02fe9d9decb0",
+      "label": "angelyn harris (born 1965-11-10)",
+      "how": "name + birth date"
+    },
+    "safety_check": {
+      "pass": true,
+      "reading_level": 6.2,
+      "issues": []
+    },
+    "summary": {
+      "sections": [
+        {
+          "title": "Why you were in the hospital",
+          "bullets": [
+            {
+              "id": "a1",
+              "text": "You had a lung infection called CAP in the lower right part of your lung.",
+              "sources": [
+                "p1:L5",
+                "term:CAP"
+              ]
+            },
+            {
+              "id": "a2",
+              "text": "You also have Type 2 diabetes, which means high blood sugar.",
+              "sources": [
+                "p1:L5",
+                "term:DM"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "What to do at home",
+          "bullets": [
+            {
+              "id": "a3",
+              "text": "Rest and slowly do more activity as you feel able.",
+              "sources": [
+                "p1:L13"
+              ]
+            },
+            {
+              "id": "a4",
+              "text": "Use your incentive spirometer 10 times each hour while you are awake.",
+              "sources": [
+                "p1:L13"
+              ]
+            },
+            {
+              "id": "a5",
+              "text": "Eat a carb‑consistent diabetic diet.",
+              "sources": [
+                "p1:L14"
+              ]
+            },
+            {
+              "id": "a6",
+              "text": "Drink plenty of fluids.",
+              "sources": [
+                "p1:L14"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Your follow-up visits",
+          "bullets": [
+            {
+              "id": "a7",
+              "text": "See your primary care doctor. Go in 7 to 10 days. This visit checks your recovery.",
+              "sources": [
+                "p1:L15"
+              ]
+            },
+            {
+              "id": "a8",
+              "text": "Get a chest x‑ray. Go in 6 weeks. This test checks your lungs.",
+              "sources": [
+                "p1:L15"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Your medicines",
+          "bullets": [
+            {
+              "id": "m1_1",
+              "text": "Azithromycin 250 mg swallow it daily for 3 more days. This is an antibiotic that treats certain bacterial infections.",
+              "sources": [
+                "p1:L8",
+                "drug:azithromycin",
+                "term:PO"
+              ]
+            },
+            {
+              "id": "m1_2",
+              "text": "Acetaminophen 650 mg swallow it every 6 hours only when you need it for fever or pain. Do not take more than 3,000 mg in a day. This is a pain reliever and fever reducer.",
+              "sources": [
+                "p1:L9",
+                "drug:acetaminophen",
+                "term:PO",
+                "term:q6h",
+                "term:PRN"
+              ]
+            },
+            {
+              "id": "m1_3",
+              "text": "Metformin ER 500 mg swallow it daily with dinner. This is a diabetes medicine that helps lower blood sugar when used with diet and exercise.",
+              "sources": [
+                "p1:L10",
+                "drug:metformin",
+                "term:PO"
+              ]
+            },
+            {
+              "id": "m1_4",
+              "text": "Atorvastatin 10 mg swallow it every night at bedtime. This is a cholesterol medicine that lowers bad cholesterol and reduces the risk of heart attack and stroke.",
+              "sources": [
+                "p1:L11",
+                "drug:atorvastatin",
+                "term:PO",
+                "term:QHS"
+              ]
+            },
+            {
+              "id": "m1_5",
+              "text": "Aspirin 81 mg swallow it daily. This is a pain reliever that also helps prevent blood clots.",
+              "sources": [
+                "p1:L12",
+                "drug:aspirin",
+                "term:PO"
+              ]
+            }
+          ]
+        }
+      ],
+      "med_schedule": [
+        {
+          "drug": "Azithromycin",
+          "dose": "250 mg",
+          "morning": true,
+          "midday": false,
+          "evening": false,
+          "night": false,
+          "as_needed": false,
+          "note": "take for 3 more days",
+          "sources": [
+            "p1:L8"
+          ]
+        },
+        {
+          "drug": "Acetaminophen",
+          "dose": "650 mg",
+          "morning": false,
+          "midday": false,
+          "evening": false,
+          "night": false,
+          "as_needed": true,
+          "note": "every 6 hours for fever or pain, max 3,000 mg per day",
+          "sources": [
+            "p1:L9"
+          ]
+        },
+        {
+          "drug": "Metformin ER",
+          "dose": "500 mg",
+          "morning": false,
+          "midday": false,
+          "evening": true,
+          "night": false,
+          "as_needed": false,
+          "note": "take with dinner",
+          "sources": [
+            "p1:L10"
+          ]
+        },
+        {
+          "drug": "Atorvastatin",
+          "dose": "10 mg",
+          "morning": false,
+          "midday": false,
+          "evening": false,
+          "night": true,
+          "as_needed": false,
+          "sources": [
+            "p1:L11"
+          ]
+        },
+        {
+          "drug": "Aspirin",
+          "dose": "81 mg",
+          "morning": true,
+          "midday": false,
+          "evening": false,
+          "night": false,
+          "as_needed": false,
+          "sources": [
+            "p1:L12"
+          ]
+        }
+      ],
+      "call_911_if": [
+        {
+          "id": "w1",
+          "text": "Call your doctor or 911 if you have trouble breathing or your lips turn blue.",
+          "sources": [
+            "p1:L16",
+            "p1:L17"
+          ]
+        },
+        {
+          "id": "w2",
+          "text": "Call your doctor or 911 if you have a fever over 101 F after 3 days on antibiotics.",
+          "sources": [
+            "p1:L16",
+            "p1:L18"
+          ]
+        },
+        {
+          "id": "w3",
+          "text": "Call your doctor or 911 if you have new confusion.",
+          "sources": [
+            "p1:L16",
+            "p1:L19"
+          ]
+        },
+        {
+          "id": "w4",
+          "text": "Call your doctor or 911 if your blood sugar is over 300 twice in a row.",
+          "sources": [
+            "p1:L16",
+            "p1:L20"
+          ]
+        }
+      ],
+      "questions_for_your_doctor": [
+        "How will I know if my lung infection is fully gone?",
+        "What should my blood sugar targets be at home?",
+        "When can I return to my normal exercise routine?",
+        "Should I keep taking diphenhydramine 25 mg?",
+        "Should I keep taking naproxen 500 mg?",
+        "Should I keep taking carbamazepine 20 mg?",
+        "Should I keep taking metoprolol succinate 200 mg?",
+        "Should I keep taking lisinopril 40 mg?",
+        "Should I keep taking prasugrel 10 mg?",
+        "Should I keep taking simvastatin 10 mg?",
+        "Should I keep taking amlodipine 2.5 mg?"
+      ]
+    },
+    "fallback_sections": [],
+    "medicine_changes": [
+      {
+        "drug": "azithromycin",
+        "change": "new",
+        "paper": "250 mg",
+        "record": null,
+        "source": "p1:L8",
+        "conflict": null
+      },
+      {
+        "drug": "acetaminophen",
+        "change": "new",
+        "paper": "650 mg",
+        "record": null,
+        "source": "p1:L9",
+        "conflict": null
+      },
+      {
+        "drug": "metformin",
+        "change": "continued",
+        "paper": "500 mg",
+        "record": "500 mg",
+        "source": "p1:L10",
+        "conflict": null
+      },
+      {
+        "drug": "atorvastatin",
+        "change": "continued",
+        "paper": "10 mg",
+        "record": "10 mg",
+        "source": "p1:L11",
+        "conflict": null
+      },
+      {
+        "drug": "aspirin",
+        "change": "continued",
+        "paper": "81 mg",
+        "record": "81 mg",
+        "source": "p1:L12",
+        "conflict": null
+      },
+      {
+        "drug": "diphenhydramine",
+        "change": "not_on_paper",
+        "paper": null,
+        "record": "25 mg",
+        "source": "record:1",
+        "conflict": null
+      },
+      {
+        "drug": "naproxen",
+        "change": "not_on_paper",
+        "paper": null,
+        "record": "500 mg",
+        "source": "record:2",
+        "conflict": null
+      },
+      {
+        "drug": "carbamazepine",
+        "change": "not_on_paper",
+        "paper": null,
+        "record": "20 mg",
+        "source": "record:3",
+        "conflict": null
+      },
+      {
+        "drug": "metoprolol succinate",
+        "change": "not_on_paper",
+        "paper": null,
+        "record": "200 mg",
+        "source": "record:8",
+        "conflict": null
+      },
+      {
+        "drug": "lisinopril",
+        "change": "not_on_paper",
+        "paper": null,
+        "record": "40 mg",
+        "source": "record:10",
+        "conflict": null
+      },
+      {
+        "drug": "prasugrel",
+        "change": "not_on_paper",
+        "paper": null,
+        "record": "10 mg",
+        "source": "record:11",
+        "conflict": null
+      },
+      {
+        "drug": "simvastatin",
+        "change": "not_on_paper",
+        "paper": null,
+        "record": "10 mg",
+        "source": "record:110",
+        "conflict": null
+      },
+      {
+        "drug": "amlodipine",
+        "change": "not_on_paper",
+        "paper": null,
+        "record": "2.5 mg",
+        "source": "record:148",
+        "conflict": null
+      }
+    ],
+    "dose_conflicts": [],
+    "qa": [
+      {
+        "question": "When should I see my doctor again?",
+        "answer": "You should see your primary care doctor in 7 to 10 days, and get a repeat chest x‑ray in 6 weeks.",
+        "sources": [
+          "p1:L15"
+        ],
+        "answered": true,
+        "recalled": [
+          "p1:L12",
+          "p1:L11",
+          "p1:L9",
+          "p1:L8",
+          "p1:L15",
+          "record:7"
+        ]
+      }
+    ],
+    "models": [
+      {
+        "agent": "extract",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "receipt": "rcpt_req_evz6sw2r"
+      },
+      {
+        "agent": "lookup",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "receipt": "rcpt_req_vhkekfyn"
+      },
+      {
+        "agent": "lookup",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "receipt": "rcpt_req_ttdratm6"
+      },
+      {
+        "agent": "simplify",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "receipt": "rcpt_req_8umt7nhq"
+      },
+      {
+        "agent": "simplify",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "receipt": "rcpt_req_nbsltxme"
+      },
+      {
+        "agent": "simplify",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "receipt": "rcpt_req_gzab41sd"
+      },
+      {
+        "agent": "safety_checker",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "receipt": "rcpt_req_0ueybc7l"
+      },
+      {
+        "agent": "qa",
+        "model": "nvidia/nemotron-3-ultra-550b-a55b",
+        "receipt": "rcpt_req_hrsq3yjv"
+      }
+    ]
+  },
+  "agents": [
+    {
+      "name": "Scan",
+      "role": "Turns photos or pasted text into numbered lines, page by page; re-reads lines Extract isn't sure of"
+    },
+    {
+      "name": "Extract",
+      "role": "Pulls medicines, diagnoses, warning signs and follow-ups into structured fields, each citing its source line"
+    },
+    {
+      "name": "Lookup",
+      "role": "Checks every medicine and abbreviation in Zetaris and matches the patient's hospital record"
+    },
+    {
+      "name": "Memory (H-MEM)",
+      "role": "Meterless H-MEM engine: stores the papers and the hospital record, flags dose conflicts, recalls facts for Q&A"
+    },
+    {
+      "name": "Simplify",
+      "role": "Rewrites the papers at a grade-6 reading level; every bullet cites a line of the papers"
+    },
+    {
+      "name": "Safety checker",
+      "role": "Checks each bullet against its source line, doses and warning signs; sends problems back (at most 2 retries)"
+    },
+    {
+      "name": "Q&A",
+      "role": "Answers follow-up questions from this patient's papers only, with sources"
+    }
+  ]
+}

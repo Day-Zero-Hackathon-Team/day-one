@@ -1,0 +1,11 @@
+.git
+.env
+runs/
+logs/
+node_modules/
+data/out/
+data/downloads/
+data/memory/
+zetaris-platform/
+demo/
+design/

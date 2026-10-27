@@ -1,0 +1,11 @@
+{
+  "run_id": "example-1-heart-failure",
+  "input": {
+    "text": "HAMPDEN VALLEY MEDICAL CENTER - DISCHARGE SUMMARY\nPatient: Franklin Kris    DOB: 10/05/1952    MRN: 4471-209\nAdmitted: 10/18/2026    Discharged: 10/23/2026\nAttending: Dr. R. Okafor, Cardiology\n\nDISCHARGE DIAGNOSES\n1. Acute on chronic systolic CHF exacerbation (EF 30%)\n2. CAD s/p PCI, HTN\n\nHOSPITAL COURSE\nPt admitted with SOB and 4+ LE edema. Diuresed with IV furosemide, net -4.2 L. Wt 92 kg on discharge.\n\nDISCHARGE MEDICATIONS\nNEW: Furosemide 40 mg PO BID\nCHANGED: Lisinopril decreased to 20 mg PO daily (was 40 mg)\nContinue Carvedilol 12.5 mg PO BID with food\nContinue Clopidogrel 75 mg PO daily\nContinue Rosuvastatin 40 mg PO qHS\nContinue Nitroglycerin 0.4 mg SL q5min PRN chest pain, max 3 doses\nSTOP Naproxen - NSAIDs worsen heart failure\n\nINSTRUCTIONS\nLow sodium diet, 2 g Na per day. Fluid restriction 1.5 L/day.\nWeigh yourself every morning before breakfast and write it down.\nNo lifting over 10 lb for 1 week.\n\nFOLLOW-UP\nCardiology clinic (Dr. Okafor) in 1 week.\nBMP lab draw in 3 days to check potassium and kidney function.\nPCP in 2 weeks.\n\nRETURN TO ED / CALL 911 IF:\nWeight gain of more than 2 lb in a day or 5 lb in a week\nSOB at rest or when lying flat\nChest pain not relieved by 3 nitroglycerin doses\nFainting or a very slow heartbeat\n"
+  },
+  "options": {
+    "questions": [
+      "Can I drink alcohol?"
+    ]
+  }
+}
