@@ -6,6 +6,12 @@ A web app (it works on a phone too) where a patient **uploads a photo or the tex
 
 Discharge papers are dense with jargon, abbreviations, and dosing instructions that are easy to misread at exactly the moment a patient is tired, stressed, and going home. This project turns those papers into a short, sourced, grade-6 summary with a daily medicine schedule, a clear "call 911 if" list, and read-aloud audio, and it checks itself for safety before anything reaches the patient.
 
+### 🎬 Demo video
+
+[![Day One demo video (1:25)](demo/day-one-thumbnail.png)](demo/day-one-demo.mp4)
+
+**[Watch the 1:25 demo](demo/day-one-demo.mp4)**: the agent pipeline, Zetaris lookups, H-MEM catching a carvedilol dose mismatch, and the safety checker. Script: [`docs/demo-video-script.md`](docs/demo-video-script.md).
+
 ---
 
 ## Table of contents
