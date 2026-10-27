@@ -92,6 +92,8 @@ The hackathon asks for agents that work on **live enterprise data**, so [Zetaris
 
 > 🔒 The synthetic hospital records are our enterprise-data angle, and they mean the demo **never touches real patient data**.
 
+On top of these tables sits a **Unified Semantic Layer**, `discharge_care`: one business model (patient, encounter, medication order, drug, medical term) with data quality rules that run on the live sources. It found two real defects in our own data. **[`zetaris/`](zetaris/README.md)** maps every Build with Zetaris criterion to its SQL, live results and write-ups (`npm run zetaris:usl` rebuilds it all).
+
 ---
 
 ## Data contracts
@@ -235,6 +237,7 @@ npm run nightshift:check  # live check against a running Nightshift
 | `src/memory.ts` | Patient medicine memory on the Meterless **H-MEM** engine (`engines/hmem/`, Apache 2.0) |
 | `src/zetaris.ts`, `scripts/ZetarisJson.java` | Fixed Zetaris lookups over JDBC |
 | `scripts/load_to_zetaris.sh`, `scripts/zetaris_inventory.py` | Load the datasets into Zetaris; list what a Zetaris instance holds and flag medical-looking tables |
+| `zetaris/`, `scripts/zetaris_usl.ts` | The Unified Semantic Layer (DDL, activation, queries, data quality), live results, and the Build with Zetaris write-ups |
 | `src/nightshift.ts` | Meterless Nightshift client (the only AI provider) |
 | `public/` | The web app: landing page, add your papers, live progress, your summary (no framework, no build step; design in `docs/design.md`) |
 | `samples/inputs/` | Three sample discharge summaries for real synthetic patients |

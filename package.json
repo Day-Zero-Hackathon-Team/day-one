@@ -12,6 +12,7 @@
     "test": "node --experimental-transform-types --no-warnings --test \"src/**/*.test.ts\"",
     "test:hmem": "node --experimental-transform-types --no-warnings engines/hmem/conformance/runner.ts",
     "nightshift:check": "node --experimental-transform-types --no-warnings scripts/nightshift_check.ts",
-    "samples:record": "node --experimental-transform-types --no-warnings scripts/record_samples.ts"
+    "samples:record": "node --experimental-transform-types --no-warnings scripts/record_samples.ts",
+    "zetaris:usl": "node --experimental-transform-types --no-warnings scripts/zetaris_usl.ts"
   }
 }
