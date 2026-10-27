@@ -12,6 +12,12 @@ Discharge papers are dense with jargon, abbreviations, and dosing instructions t
 
 **[Watch the 1:25 demo](demo/day-one-demo.mp4)**: the agent pipeline, Zetaris lookups, H-MEM catching a carvedilol dose mismatch, and the safety checker. Script: [`docs/demo-video-script.md`](docs/demo-video-script.md).
 
+### 🎬 Demo video
+
+[![Day One demo video (1:25)](demo/day-one-thumbnail.png)](https://drive.google.com/file/d/1IAq3sDdOzEovv0nM05ztE75TxEXevYIE/view?usp=drive_link)
+
+**[Watch the 1:25 demo on Google Drive](https://drive.google.com/file/d/1IAq3sDdOzEovv0nM05ztE75TxEXevYIE/view?usp=drive_link)**: the agent pipeline, Zetaris lookups, H-MEM catching a carvedilol dose mismatch, and the safety checker. Script: [`docs/demo-video-script.md`](docs/demo-video-script.md).
+
 ---
 
 ## Table of contents
