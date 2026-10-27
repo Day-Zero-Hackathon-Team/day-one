@@ -4,27 +4,27 @@
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "{\n  \"answered\": true,\n  \"answer\": \"No, do not take tub baths until your staples are removed at the follow-up visit in 2 weeks.\",\n  \"sources\": [\"p1:L12\"]\n}"
+        "content": "{\n  \"answered\": false,\n  \"answer\": \"\",\n  \"sources\": []\n}"
       },
       "finish_reason": "stop"
     }
   ],
   "usage": {
-    "prompt_tokens": 1746,
-    "completion_tokens": 51,
-    "total_tokens": 1797
+    "prompt_tokens": 2255,
+    "completion_tokens": 20,
+    "total_tokens": 2275
   },
   "meterless": {
     "routed_model": "nvidia/nemotron-3-ultra-550b-a55b",
-    "receipt_id": "rcpt_req_62v3038h",
+    "receipt_id": "rcpt_req_ys2g6cqx",
     "phases": [
       {
         "phase": "final_synthesis",
         "model": "nvidia/nemotron-3-ultra-550b-a55b",
-        "ms": 15191,
-        "tokensIn": 1746,
-        "tokensOut": 51,
-        "outputTps": 3.3572510038838783,
+        "ms": 1105,
+        "tokensIn": 2255,
+        "tokensOut": 20,
+        "outputTps": 18.099547511312217,
         "coherence": null,
         "tier": "B",
         "reflex_decided_in_ms": 0.5

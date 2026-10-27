@@ -38,7 +38,6 @@ mcg,unit,microgram,micrograms (a very small amount by weight)
 g,unit,gram,grams
 mL,unit,milliliter,milliliters (a small amount of liquid)
 tab,unit,tablet,pill
-cap,unit,capsule,capsule
 puff,unit,one spray from an inhaler,one spray from your inhaler
 units,unit,units (insulin or heparin dose),units
 mEq,unit,milliequivalent,a dose amount used for things like potassium
@@ -84,7 +83,7 @@ TIA,diagnosis,transient ischemic attack,a mini-stroke
 PVD,diagnosis,peripheral vascular disease,poor blood flow to the legs or arms
 PAD,diagnosis,peripheral artery disease,poor blood flow to the legs or arms
 COPD,diagnosis,chronic obstructive pulmonary disease,a long-term lung disease that makes it hard to breathe
-CAP,diagnosis,community-acquired pneumonia,a lung infection you caught outside the hospital
+CAP,diagnosis,community-acquired pneumonia (in a medicine dose such as 1 cap it means capsule),a lung infection you caught outside the hospital (in a medicine dose such as 1 cap it means one capsule)
 PNA,diagnosis,pneumonia,a lung infection
 URI,diagnosis,upper respiratory infection,a cold or infection in the nose and throat
 OSA,diagnosis,obstructive sleep apnea,breathing stops and starts during sleep

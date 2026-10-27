@@ -4,27 +4,27 @@
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "{ \"generic\": \"furosemide\", \"purpose\": \"INDICATIONS AND USAGE Edema Furosemide tablets are indicated in adults and pediatric patients for the treatment of edema associated with congestive heart failure, cirrhosis of the liver, and renal disease, including the nephrotic syndrome. Furosemide tablets are particularly useful when an agent with greater diuretic potential is desired. Hypertension Oral furosemide may be used in adults for the treatment of hypertension alone or in combination with other antihypertensive agents. Hypertensive patients who cannot be adequately controlled with thiazides will probably also not be adequately controlled with furosemide alone. Edema Furosemide tablets are indicated in adults and pediatric patient\", \"side_effects\": \"ADVERSE REACTIONS Adverse reactions are categorized below by organ system and listed by decreasing severity. Gastrointestinal System Reactions 1. hepatic encephalopathy in patients with hepatocellular insufficiency 2. pancreatitis 3. jaundice (intrahepatic cholestatic jaundice) 4. increased liver enzymes 5. anorexia 6. oral and gastric irritation 7. cramping 8. diarrhea 9. constipation 10. nausea 11. vomiting Systemic Hypersensitivity Reactions 1. severe anaphylactic or anaphylactoid reactions (e.g., with shock) 2. systemic vasculitis 3. interstitial nephritis 4. necrotizing angiitis Central N\", \"warnings\": \"WARNING Furosemide is a potent diuretic which, if given in excessive amounts, can lead to a profound diuresis with water and electrolyte depletion. Therefore, careful medical supervision is required and dose and dose schedule must be adjusted to the individual patient's needs (see DOSAGE AND ADMINISTRATION ). WARNINGS In patients with hepatic cirrhosis and ascites, furosemide therapy is best initiated in the hospital. In hepatic coma and in states of electrolyte depletion, therapy should not be \", \"boxed_warning\": \"\" }"
+        "content": "{\n  \"task\": \"Convert FDA drug label text into plain language for patients (grade 5 reading level). For each drug, output: generic name, plain_purpose (one short sentence), common_side_effects (up to 4, few words each), key_warning (single most important warning in one short sentence, or null). Return JSON only with key \\\"drugs\\\" array.\",\n  \"input\": \"Array of 7 drug objects with fields: generic, purpose, side_effects, warnings, boxed_warning.\",\n  \"constraints\": \"Use only what the label text says. Plain language, grade 5. JSON only.\",\n  \"approach\": \"Process each drug sequentially. Extract purpose from purpose field, simplify. Extract common side effects from side_effects field (most common, up to 4). Determine key_warning: choose the most important warning from warnings and boxed_warning. If boxed_warning exists and is non-empty, that's likely the most important. If not, pick from warnings. Summarize in one short sentence. If none, null.\",\n  \"output_format\": \"{\\\"drugs\\\": [{\\\"generic\\\": \\\"...\\\", \\\"plain_purpose\\\": \\\"...\\\", \\\"common_side_effects\\\": [\\\"...\\\"], \\\"key_warning\\\": \\\"...\\\"}]}\"\n}"
       },
       "finish_reason": "stop"
     }
   ],
   "usage": {
     "prompt_tokens": 3790,
-    "completion_tokens": 425,
-    "total_tokens": 4215
+    "completion_tokens": 277,
+    "total_tokens": 4067
   },
   "meterless": {
     "routed_model": "nvidia/nemotron-3-ultra-550b-a55b",
-    "receipt_id": "rcpt_req_hwwq0ex3",
+    "receipt_id": "rcpt_req_m6fvfcrz",
     "phases": [
       {
         "phase": "final_synthesis",
         "model": "nvidia/nemotron-3-ultra-550b-a55b",
-        "ms": 4264,
+        "ms": 34776,
         "tokensIn": 3790,
-        "tokensOut": 425,
-        "outputTps": 99.671669793621,
+        "tokensOut": 277,
+        "outputTps": 7.965263400046008,
         "coherence": null,
         "tier": "B",
         "reflex_decided_in_ms": 0.5

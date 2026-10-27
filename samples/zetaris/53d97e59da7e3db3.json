@@ -1,5 +1,5 @@
 {
- "sql": "SELECT term, category, meaning, plain_language FROM DAY_ONE.medical_terms WHERE upper(term) IN ('CHF', 'CAD', 'PCI', 'HTN', 'SOB', 'LE', 'PO', 'BID', 'QHS', 'SL', 'PRN', 'BMP', 'PCP', 'ED', 'EF')",
+ "sql": "SELECT term, category, meaning, plain_language FROM DAY_ONE.medical_terms WHERE upper(term) IN ('CHF', 'CAD', 'PCI', 'HTN', 'SOB', 'LE', 'BID', 'PO', 'PRN', 'SL', 'QHS', 'BMP', 'PCP', 'ED', 'EF', 'Q5MIN')",
  "rows": [
   {
    "term": "BID",

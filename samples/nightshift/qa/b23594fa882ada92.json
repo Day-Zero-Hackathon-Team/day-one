@@ -4,27 +4,27 @@
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "{\"answered\": false, \"answer\": \"\", \"sources\": []}"
+        "content": "{\n  \"answered\": true,\n  \"answer\": \"You should see your primary care doctor in 7 to 10 days, and get a repeat chest x‑ray in 6 weeks.\",\n  \"sources\": [\"p1:L15\"]\n}"
       },
       "finish_reason": "stop"
     }
   ],
   "usage": {
-    "prompt_tokens": 2104,
-    "completion_tokens": 16,
-    "total_tokens": 2120
+    "prompt_tokens": 1688,
+    "completion_tokens": 55,
+    "total_tokens": 1743
   },
   "meterless": {
     "routed_model": "nvidia/nemotron-3-ultra-550b-a55b",
-    "receipt_id": "rcpt_req_pfpiaoa3",
+    "receipt_id": "rcpt_req_hrsq3yjv",
     "phases": [
       {
         "phase": "final_synthesis",
         "model": "nvidia/nemotron-3-ultra-550b-a55b",
-        "ms": 18230,
-        "tokensIn": 2104,
-        "tokensOut": 16,
-        "outputTps": 0.8776741634668129,
+        "ms": 1071,
+        "tokensIn": 1688,
+        "tokensOut": 55,
+        "outputTps": 51.35387488328665,
         "coherence": null,
         "tier": "B",
         "reflex_decided_in_ms": 0.5

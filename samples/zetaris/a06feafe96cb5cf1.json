@@ -1,5 +1,5 @@
 {
- "sql": "SELECT term, category, meaning, plain_language FROM DAY_ONE.medical_terms WHERE upper(term) IN ('CAP', 'DM', 'IV', 'PO', 'Q6H', 'PRN', 'ER', 'QHS', 'SPO2', 'RA')",
+ "sql": "SELECT term, category, meaning, plain_language FROM DAY_ONE.medical_terms WHERE upper(term) IN ('CAP', 'DM', 'IV', 'PO', 'PRN', 'Q6H', 'QHS', 'ER', 'SPO2', 'RA')",
  "rows": [
   {
    "term": "QHS",
@@ -32,12 +32,6 @@
    "plain_language": "through a needle into a vein"
   },
   {
-   "term": "cap",
-   "category": "unit",
-   "meaning": "capsule",
-   "plain_language": "capsule"
-  },
-  {
    "term": "ER",
    "category": "instruction",
    "meaning": "emergency room",
@@ -46,8 +40,8 @@
   {
    "term": "CAP",
    "category": "diagnosis",
-   "meaning": "community-acquired pneumonia",
-   "plain_language": "a lung infection you caught outside the hospital"
+   "meaning": "community-acquired pneumonia (in a medicine dose such as 1 cap it means capsule)",
+   "plain_language": "a lung infection you caught outside the hospital (in a medicine dose such as 1 cap it means one capsule)"
   },
   {
    "term": "DM",

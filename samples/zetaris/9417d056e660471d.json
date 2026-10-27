@@ -1,5 +1,5 @@
 {
- "sql": "SELECT id, generic_name, brand_names, purpose, side_effects, warnings, boxed_warning, route FROM DAY_ONE.drug_reference WHERE generic_name IN ('oxycodone', 'acetaminophen', 'enoxaparin', 'docusate sodium', 'ondansetron', 'tylenol', 'docusate') OR lower(brand_names) LIKE '%oxycodone%' OR lower(brand_names) LIKE '%acetaminophen%' OR lower(brand_names) LIKE '%enoxaparin%' OR lower(brand_names) LIKE '%docusate sodium%' OR lower(brand_names) LIKE '%ondansetron%' OR lower(brand_names) LIKE '%tylenol%' OR lower(brand_names) LIKE '%docusate%'",
+ "sql": "SELECT id, generic_name, brand_names, purpose, side_effects, warnings, boxed_warning, route FROM DAY_ONE.drug_reference WHERE generic_name IN ('oxycodone', 'acetaminophen', 'enoxaparin', 'docusate', 'ondansetron', 'tylenol') OR lower(brand_names) LIKE '%oxycodone%' OR lower(brand_names) LIKE '%acetaminophen%' OR lower(brand_names) LIKE '%enoxaparin%' OR lower(brand_names) LIKE '%docusate%' OR lower(brand_names) LIKE '%ondansetron%' OR lower(brand_names) LIKE '%tylenol%'",
  "rows": [
   {
    "id": "drug:enoxaparin",

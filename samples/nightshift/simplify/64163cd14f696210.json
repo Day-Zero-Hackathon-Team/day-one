@@ -4,27 +4,27 @@
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "{\n  \"sections\": [\n    {\n      \"title\": \"Why you were in the hospital\",\n      \"bullets\": [\n        {\n          \"id\": \"b1\",\n          \"text\": \"Your heart does not pump as strongly as it should. The pumping power is 30%.\",\n          \"sources\": [\"p1:L6\", \"term:CHF\", \"term:EF\"]\n        },\n        {\n          \"id\": \"b2\",\n          \"text\": \"You have narrowed blood vessels in the heart. You had a procedure to open a blocked heart artery.\",\n          \"sources\": [\"p1:L7\", \"term:CAD\", \"term:PCI\"]\n        },\n        {\n          \"id\": \"b3\",\n          \"text\": \"You also have high blood pressure.\",\n          \"sources\": [\"p1:L7\", \"term:HTN\"]\n        }\n      ]\n    },\n    {\n      \"title\": \"What to do at home\",\n      \"bullets\": [\n        {\n          \"id\": \"b4\",\n          \"text\": \"Eat a low salt diet. Limit salt to 2 grams each day.\",\n          \"sources\": [\"p1:L19\"]\n        },\n        {\n          \"id\": \"b5\",\n          \"text\": \"Drink no more than 1.5 liters of fluid each day.\",\n          \"sources\": [\"p1:L19\"]\n        },\n        {\n          \"id\": \"b6\",\n          \"text\": \"Weigh yourself every morning before breakfast. Write the number down.\",\n          \"sources\": [\"p1:L20\"]\n        },\n        {\n          \"id\": \"b7\",\n          \"text\": \"Do not lift anything heavier than 10 pounds for one week.\",\n          \"sources\": [\"p1:L21\"]\n        }\n      ]\n    },\n    {\n      \"title\": \"Your follow-up visits\",\n      \"bullets\": [\n        {\n          \"id\": \"b8\",\n          \"text\": \"See Dr. Okafor, your heart doctor. Go in one week. This visit checks your heart.\",\n          \"sources\": [\"p1:L23\"]\n        },\n        {\n          \"id\": \"b9\",\n          \"text\": \"Get a blood test for salts and kidneys. Go in three days. This checks your potassium and kidney function.\",\n          \"sources\": [\"p1:L24\", \"term:BMP\"]\n        },\n        {\n          \"id\": \"b10\",\n          \"text\": \"See your family doctor. Go in two weeks. This visit checks your overall health.\",\n          \"sources\": [\"p1:L25\", \"term:PCP\"]\n        }\n      ]\n    }\n  ],\n  \"questions_for_your_doctor\": [\n    \"What should I do if my weight goes up quickly?\",\n    \"Can I change my salt or fluid limits?\",\n    \"When will I know the results of my blood test?\"\n  ]\n}"
+        "content": "{\n  \"sections\": [\n    {\n      \"title\": \"Why you were in the hospital\",\n      \"bullets\": [\n        {\n          \"id\": \"b1\",\n          \"text\": \"Your heart does not pump as strongly as it should and got worse. Your heart pumps at 30 percent.\",\n          \"sources\": [\"p1:L6\", \"term:CHF\", \"term:EF\"]\n        },\n        {\n          \"id\": \"b2\",\n          \"text\": \"You have narrowed blood vessels in the heart and had a tube put in to open a blocked artery. You also have high blood pressure.\",\n          \"sources\": [\"p1:L7\", \"term:CAD\", \"term:PCI\", \"term:HTN\"]\n        }\n      ]\n    },\n    {\n      \"title\": \"What to do at home\",\n      \"bullets\": [\n        {\n          \"id\": \"b3\",\n          \"text\": \"Eat a low salt diet. Limit salt to 2 grams each day.\",\n          \"sources\": [\"p1:L19\"]\n        },\n        {\n          \"id\": \"b4\",\n          \"text\": \"Drink no more than 1.5 liters of fluid each day.\",\n          \"sources\": [\"p1:L19\"]\n        },\n        {\n          \"id\": \"b5\",\n          \"text\": \"Weigh yourself every morning before breakfast and write it down.\",\n          \"sources\": [\"p1:L20\"]\n        },\n        {\n          \"id\": \"b6\",\n          \"text\": \"Do not lift anything over 10 pounds for 1 week.\",\n          \"sources\": [\"p1:L21\"]\n        }\n      ]\n    },\n    {\n      \"title\": \"Your follow-up visits\",\n      \"bullets\": [\n        {\n          \"id\": \"b7\",\n          \"text\": \"See Dr. Okafor, your heart doctor. Go in 1 week. This visit checks your heart.\",\n          \"sources\": [\"p1:L23\"]\n        },\n        {\n          \"id\": \"b8\",\n          \"text\": \"Get a blood test for salts and kidneys. Go in 3 days. This test checks your potassium and kidney function.\",\n          \"sources\": [\"p1:L24\", \"term:BMP\"]\n        },\n        {\n          \"id\": \"b9\",\n          \"text\": \"See your family doctor. Go in 2 weeks.\",\n          \"sources\": [\"p1:L25\", \"term:PCP\"]\n        }\n      ]\n    }\n  ],\n  \"questions_for_your_doctor\": [\n    \"What should I do if my weight goes up fast?\",\n    \"Can I take my usual medicines on the day of the blood test?\",\n    \"When can I start lifting more than 10 pounds?\"\n  ]\n}"
       },
       "finish_reason": "stop"
     }
   ],
   "usage": {
     "prompt_tokens": 1304,
-    "completion_tokens": 632,
-    "total_tokens": 1936
+    "completion_tokens": 607,
+    "total_tokens": 1911
   },
   "meterless": {
     "routed_model": "nvidia/nemotron-3-ultra-550b-a55b",
-    "receipt_id": "rcpt_req_hpfpfxcn",
+    "receipt_id": "rcpt_req_cbgvhxwp",
     "phases": [
       {
         "phase": "final_synthesis",
         "model": "nvidia/nemotron-3-ultra-550b-a55b",
-        "ms": 5155,
+        "ms": 9540,
         "tokensIn": 1304,
-        "tokensOut": 632,
-        "outputTps": 122.59941804073715,
+        "tokensOut": 607,
+        "outputTps": 63.62683438155137,
         "coherence": null,
         "tier": "B",
         "reflex_decided_in_ms": 0.5
